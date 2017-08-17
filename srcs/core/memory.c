@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:45 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/14 21:20:47 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 17:48:41 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ** Attention toutes les fonctions switch bigEdianes<->littelEndiannes
+** sauf mem_write
 **
 ** Pareille que plus bas
 */

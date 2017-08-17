@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/15 01:36:10 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 18:28:05 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ static void     play_load_champs(t_vm *vm)
 {
     t_int32         i;
     t_vptr          offset;
+    t_process       *pc;
 
     i = -1;
     while (++i < vm->champ_count)
     {
         offset = i * (MEM_SIZE / vm->champ_count);
         vm_load_champ(vm, &vm->champs[i], offset);
-        vm_fork(vm, &vm->champs[i], offset);
+        pc = vm_fork(vm, &vm->champs[i], offset);
+        pc->reg[0] = -vm->champs[i].number;
         vm->champs[i].flags = PC_ALIVE | PC_LOADED;
     }
 }
@@ -58,6 +60,8 @@ t_byte     play_check_champs(t_core *core)
     {
         core->vm.lives = NBR_LIVE;
         core->vm.cycles_to_die -= CYCLE_DELTA;
+        if (core->vm.cycles_to_die < 1)
+            core->vm.cycles_to_die = 0;
     }
     core->vm.cycles = core->vm.cycles_to_die;
     while (++ci < core->vm.champ_count)

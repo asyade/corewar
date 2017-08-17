@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/15 00:36:29 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 17:46:44 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	npc = pc_new(champ->number);
 	npc->pc = offset;
 	pc_push(&champ->process, npc);
+	champ->nbr_process++;
 	if (vm->processLoaded)
 		vm->processLoaded(champ);
 	return (npc);
@@ -53,5 +54,6 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 void		vm_kill(t_vm *vm, t_byte cid, t_process *pc)
 {
+	vm->champs[cid].nbr_process--;
 	pc_remove(&vm->champs[cid].process, pc);
 }

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 23:59:18 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/15 00:43:59 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 17:31:30 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,22 @@ void		pc_push(t_process **root, t_process *pc)
 
 void		pc_remove(t_process **root, t_process *pc)
 {
-	t_process	*fptr;
+	t_process *ptr;
 
-	fptr = pc;
+	ptr = *root;
 	if (*root == pc)
 	{
-		*root = pc->next;
-		free(fptr);
+		*root = (*root)->next;
+		free(ptr);
 		return ;
 	}
-	while (fptr->next)
+	while (ptr->next)
 	{
-		if (fptr->next == pc)
+		if (ptr->next == pc)
 		{
-			fptr->next = pc->next;
-			free(fptr);
+			ptr->next = pc->next;
+			free(pc);
 			return ;
 		}
-		fptr = fptr->next;
 	}
 }

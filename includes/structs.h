@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/15 01:31:09 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 00:26:28 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define PC_ALIVE	0x80
 # define PC_LOADED	0x40
 # define PC_DEAD	0x20
-# define PC_NONE	0x10
+# define PC_NONE	0x00
 
 typedef	struct			s_process
 {

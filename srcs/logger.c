@@ -7,19 +7,13 @@
 static void	pflush(char *buff)
 {
 	int	fd;
-	int	file;
 
-	file = 0;
 	fd = LOGGER_FD;
-	if (fd <= 0 &&
-(fd = open(LOGGER_FILE, O_RDWR | O_CREAT | O_APPEND, S_IRWXU)) <= 0)
+	if (fd <= 0)
 	{
-		file = 1;
-		fd = 2;
+		return ;
 	}
 	ft_putstr_fd(buff, fd);
-	if (file)
-		close(fd);
 }
 
 char		*ptstr(t_byte type)
@@ -37,6 +31,8 @@ void		pwarn(char *format, ...)
 {
 	char	buffer[4096];
 
+	if (LOGGER_FD < 0)
+		return ;
 	va_list	args;
 	sprintf(buffer, "\e[31mwarning\e[0m: ");
 	va_start (args, format);
@@ -50,6 +46,8 @@ void		pcri(char *format, ...)
 	char	buffer[4096];
 	va_list	args;
 
+	if (LOGGER_FD < 0)
+		return ;
 	sprintf(buffer, "\e[31;1;4;5;7mcritical\e[0m: ");
 	va_start (args, format);
 	vsprintf (buffer + 25, format, args);
@@ -63,6 +61,8 @@ void		plog(char *format, ...)
 	char	buffer[4096];
 	va_list	args;
 
+	if (LOGGER_FD < 0)
+		return ;
 	sprintf(buffer, "\e[32minfo\e[0m: ");
 	va_start (args, format);
 	vsprintf (buffer + 15, format, args);
@@ -77,6 +77,8 @@ char     	*dump_parametters(t_int32 inst[6], int c)
 
     bptr = buff;
     *bptr = '\0';
+	if (LOGGER_FD < 0)
+		return (buff);
 	if (c == 0)
 		sprintf(buff, "%d", inst[1]);
     if (c >= 1)

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/15 01:52:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/08/17 18:44:36 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,26 @@ t_int32     inst_live(t_vm *vm, t_byte ci, t_process *pc)
     if (!params_chk(NULL, NULL, NULL, NULL, pc->inst))
         return (0);
     pc->flags |= PF_LIVEUP;
-    vm->lives--;//a voire si on décrémente lives seulement si reg[0] == champ->id
-    if (pc->inst[1] == vm->champs[ci].number)
+    if (vm->lives >= 1)
+        vm->lives--;//a voire si on décrémente lives seulement si reg[0] == champ->id
+    if ((-pc->inst[1]) == vm->champs[ci].number)
     {
         vm->champs[ci].flags |= PC_ALIVE;
-        plog("live(%d) %d success !\n", pc->inst[1], pc->cc);
-        if (vm->playerLive)
-            (vm->playerLive)(&vm->champs[ci], pc->inst[1]);
+        plog("live(%d) success !\n", pc->inst[1]);
     }
     else
     {
-        plog("live(%d) %d with no effect\n", pc->inst[1], pc->cc);
-        if (vm->playerLive)
-            (vm->playerLive)(&vm->champs[ci], pc->inst[1]);
+        plog("live(%d) %d with no effect\n", pc->inst[1], vm->champs[ci].number);
     }
+    if (vm->playerLive)
+        (vm->playerLive)(&vm->champs[ci], pc->inst[1]);
     return (1);
 }
 
 t_int32     inst_ld(t_vm *vm, t_byte ci, t_process *pc)
 {
     (void)ci;
-    plog("ld(%s)\n", dump_parametters(pc->inst, 2));
+        plog("ld(%s)\n", dump_parametters(pc->inst, 2));
     if (!params_chk(PM_DI, PM_R, NULL, NULL, pc->inst))
         return (0);
     if (!(pc->reg[pc->inst[3] - 1] = param_val(vm, pc, 1)))
@@ -51,12 +50,12 @@ t_int32     inst_st(t_vm *vm, t_byte ci, t_process *pc)
 {
     (void)ci;
     plog("st(%s)\n", dump_parametters(pc->inst, 2));
-    if (!params_chk(PM_R, PM_RI, NULL, NULL, pc->inst))
+    if (!params_chk(PM_RID, PM_RI, NULL, NULL, pc->inst))
         return (0);
     if (IP2(pc->inst[1]) == T_REG)
-        pc->reg[pc->inst[3] - 1] = param_dirval(pc, 2);
-    else
-        mem_writeint(vm, param_dirval(pc, 1), IDXPTR(pc->cc, param_dirval(pc, 2)), ci + 1);
+        pc->reg[pc->inst[3] - 1] = param_dirval(pc, 1);
+    else//je crois qu'on doit pas read les T_IND
+        mem_writeint(vm, param_val(vm, pc, 1), IDXPTR(pc->cc, param_dirval(pc, 2)), ci + 1);
     return (1);
 }
 
@@ -136,7 +135,7 @@ t_int32     inst_zjmp(t_vm *vm, t_byte ci, t_process *pc)
 {
     (void)vm;
     (void)ci;
-    plog("zjmp(%d) %d = %d\n", pc->inst[1], pc->cc,IDXPTR(pc->cc, pc->inst[1]));
+    plog("zjmp(%d) %d = %d\n", pc->inst[1], pc->cc, IDXPTR(pc->cc, pc->inst[1]));
     if (pc->flags & PF_CARRY)
         pc->pc = IDXPTR(pc->cc, pc->inst[1]);
     return (1);
@@ -198,16 +197,11 @@ t_int32     inst_lldi(t_vm *vm, t_byte ci, t_process *pc)
 t_int32     inst_fork(t_vm *vm, t_byte ci, t_process *pc)
 {
     t_process     *new;
+
     plog("fork(%d)\n", pc->inst[1]);
-    if (!(vm->champs[ci].nbr_process < MAX_PROCESS))
-    {
-        pwarn("%s: too many process, cant fork !", vm->champs[ci].header.name);
-        return (0);
-    }
-    if (!(new = vm_fork(vm, &vm->champs[ci], IDXPTR(pc->cc, pc->inst[1]))))
-        return (0);
+    new = vm_fork(vm, &vm->champs[ci], IDXPTR(pc->cc, pc->inst[1]));
     ft_memcpy(new->reg, pc->reg, sizeof(t_reg) * REG_NUMBER);
-    new->flags = pc->flags;
+    new->flags = PF_LIVEUP;
     return (1);
 }
 
