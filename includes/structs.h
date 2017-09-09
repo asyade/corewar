@@ -6,22 +6,43 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/17 00:26:28 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/09 22:09:35 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# define PF_NONE	0x00
-# define PF_LIVEUP	0x08
-# define PF_WAIT	0x04
-# define PF_CARRY	0x02
+# define PF_NONE	(0)
+# define PF_LIVEUP	(1 << 1)
+# define PF_WAIT	(1 << 2)
+# define PF_CARRY	(1 << 3)
 
-# define PC_ALIVE	0x80
-# define PC_LOADED	0x40
-# define PC_DEAD	0x20
-# define PC_NONE	0x00
+# define PC_ALIVE	(1 << 4)
+# define PC_LOADED	(1 << 5)
+# define PC_DEAD	(1 << 6)
+# define PC_NONE	(1 << 7)
+# define PC_DIE		(1 << 8)
+
+typedef struct			s_champDescrib
+{
+	char				*path;
+	int					number;
+}						t_champDescrib;
+
+# define	P_VERBOSE	(1 << 1)
+# define	P_NCURSE	(1 << 2)
+# define	P_SH		(1 << 3)
+# define	P_DUMP		(1 << 4)
+# define	P_DUMPCOL	(1 << 5)
+
+typedef struct			s_param
+{
+	t_int32				flag;
+	t_int32				dump;
+	t_int32				count;
+	t_champDescrib		champs[4];
+}						t_param;
 
 typedef	struct			s_process
 {
@@ -60,10 +81,12 @@ typedef	struct			s_memory
 
 typedef struct			s_vm
 {
+	t_param				*params;
 	void				(*cycleUpdated)(void);
 	void				(*memUpdated)(t_memory *, int , int);
 	void				(*processLoaded)(t_champ *c);
 	void				(*playerLive)(t_champ *c, int);
+	void				(*playerDie)(t_champ *c);
 	t_memory			memory;
 	t_champ				champs[MAX_PLAYERS];
 	t_byte				champ_count;
@@ -102,6 +125,7 @@ typedef void			(*t_processLoaded)(t_champ *);
 typedef void			(*t_memUpdated)(t_memory *, int , int);
 typedef int				(*t_loadChamps)(void);
 typedef	void			(*t_cycleUpdated)(void);
+typedef void			(*t_envDone)(t_vm *vm);
 
 /*
 ** Public
@@ -117,6 +141,7 @@ typedef struct			s_render
 	t_playerLive		playerLive;
 	t_processLoaded		processLoaded;
 	t_memUpdated		memUpdated;
+	t_envDone			envDone;
 }						t_render;
 
 typedef struct			s_core

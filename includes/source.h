@@ -1,6 +1,6 @@
 #ifndef SOURCE_H
 # define SOURCE_H
 
-void		loadChampsDefault(int ac, char **av, t_core *core);
+int					loadChampsDefault(t_param *p, t_core *core);
 
 #endif

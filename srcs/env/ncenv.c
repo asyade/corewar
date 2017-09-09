@@ -130,7 +130,7 @@ static void     cb_cycleUpdated()
 {
     static int  cols = 0;
     static int  lines = 0;
-    static int  dellay = 250;
+    static int  dellay = 1;
     char        ch;
 
     cycle++;

@@ -1,7 +1,7 @@
 #ifndef MEMORY_H
 # define MEMORY_H
 
-# define BSWAP16 __builtin_bswap16//TODO: replace
+# define BSWAP16 __builtin_bswap16
 # define BSWAP32 __builtin_bswap32
 
 # define MEMPTR(ptr) (((ptr) % MEM_SIZE))

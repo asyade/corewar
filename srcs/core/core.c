@@ -16,4 +16,5 @@ void		core_load_callback(t_core *core)
 	core->vm.processLoaded = core->render.processLoaded;
 	core->vm.cycleUpdated = core->render.cycleUpdated;
 	core->vm.playerLive = core->render.playerLive;
+	core->vm.playerDie = core->render.playerDie;
 }

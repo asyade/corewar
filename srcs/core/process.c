@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 23:59:18 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/08/17 17:31:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/09 21:49:02 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,18 @@ void		pc_remove(t_process **root, t_process *pc)
 			free(pc);
 			return ;
 		}
+		ptr = ptr->next;
+	}
+}
+
+void		pc_clear(t_process *root)
+{
+	t_process	*tmp;
+
+	while (root)
+	{
+		tmp = root;
+		root = root->next;
+		free(tmp);
 	}
 }

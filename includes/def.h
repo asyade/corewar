@@ -26,7 +26,6 @@ typedef unsigned int	t_flags;
 # define MEM_SIZE		(MAX_PLAYERS * 1024)
 # define IDX_MOD		(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
-# define MAX_PROCESS	2048
 
 # define REG_NUMBER		16
 # define PROG_NAME_LEN  128

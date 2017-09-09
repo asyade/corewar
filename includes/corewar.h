@@ -17,14 +17,15 @@
 # define LOGGER_FD  ((getenv("silent") ? -1 : 1))
 # define LOGGER_FILE "cw.trace"
 # define DELLAY ((getenv("dellay")) ? atoi(getenv("dellay")) : 5000)
-# define VERBOSE 1
+
+void		usage(void);
 
 /*
 ** logger.c
 */
 
 char		*ptstr(t_byte type);
-char     	*dump_parametters(t_int32 inst[6], int c);
+char		*dump_parametters(t_int32 inst[6], int c);
 void		pwarn(char *format, ...);
 void		pcri(char *format, ...);
 void		plog(char *format, ...);
@@ -41,5 +42,7 @@ t_core		*core_init();
 */
 
 t_byte		play(t_core *core);
+
+t_param		*read_params(int ac, char **av);
 
 #endif
