@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 22:09:35 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/09 22:49:14 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_champDescrib
 # define	P_SH		(1 << 3)
 # define	P_DUMP		(1 << 4)
 # define	P_DUMPCOL	(1 << 5)
+# define	P_SOUND		(1 << 6)
 
 typedef struct			s_param
 {

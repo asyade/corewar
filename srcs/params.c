@@ -59,6 +59,8 @@ t_param		*read_params(int ac, char **av)
 			p->flag = P_VERBOSE | (p->flag & ~P_NCURSE);
 		else if (ft_strequ(av[i], "-nc"))
 			p->flag = P_NCURSE | (p->flag & ~P_VERBOSE);
+		else if (ft_strequ(av[i], "-sound"))
+			p->flag |= P_SOUND;
 		else if (ft_strequ(av[i], "-dump") || ft_strequ(av[i], "-dumpCol"))
 		{
 			if (ac - i <= 1)

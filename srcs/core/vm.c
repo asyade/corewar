@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 20:09:27 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/09 22:50:30 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,16 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	return (npc);
 }
 
+#include <stdlib.h>
+void		vm_kill_sound()
+{
+	system("mpg123 -q mouse.mp3 &");
+}
+
 void		vm_kill(t_vm *vm, t_byte cid, t_process *pc)
 {
 	vm->champs[cid].nbr_process--;
 	pc_remove(&vm->champs[cid].process, pc);
+	if (vm->params->flag & P_SOUND)
+		vm_kill_sound();
 }

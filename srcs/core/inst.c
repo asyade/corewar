@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 21:42:25 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/09 22:31:01 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ t_int32     inst_live(t_vm *vm, t_byte ci, t_process *pc)
 	if (!params_chk(NULL, NULL, NULL, NULL, pc->inst))
 		return (0);
 	pc->flags |= PF_LIVEUP;
-	if (vm->lives >= 1)
-		vm->lives--;
+	vm->lives--;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
 	{
 		vm->champs[ci].flags |= PC_ALIVE;

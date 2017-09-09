@@ -6,20 +6,20 @@ static void    cb_live_delta(int del)
     (void)del;
 }
 
-static void    cb_pc_die(t_champ *champ)
+static void		cb_pc_die(t_champ *champ)
 {
     pwarn("%s: sub process killed (%d)\n", champ->header.name, champ->nbr_process);
 }
 
-static void    cb_pc_loaded(t_champ *champ)
+static void		cb_pc_loaded(t_champ *champ)
 {
     (void)champ;
     plog("%s: proces loaded\n", champ->header.name);
 }
 
-static void    cb_player_die(t_champ *champ)
+static void		cb_player_die(t_champ *champ)
 {
-    pwarn("%s: Die\n", champ->header.name);
+	pwarn("%s: Die\n", champ->header.name);
 }
 
 static void    cb_memUpdated(t_memory *mem, int a, int b)
