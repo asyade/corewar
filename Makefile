@@ -15,6 +15,7 @@ SRC = srcs/core/core.c \
 		srcs/core/params.c \
 		srcs/core/play.c \
 		srcs/core/process.c \
+		srcs/core/vm_sound.c \
 		srcs/core/vm.c \
 		srcs/core/dump.c \
 		srcs/env/ncenv.c \

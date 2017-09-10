@@ -10,7 +10,8 @@ static void	fill_line(char *buff, t_byte *ptr, int n)
 	{	
 		*buff++ = DUMP_BASE[*ptr / 16];
 		*buff++ = DUMP_BASE[*ptr++ % 16];
-		*buff++ = ' ';
+		if (n > 0)
+			*buff++ = ' ';
 	}
 	*buff = '\0';
 }
@@ -26,6 +27,7 @@ static void	dump_line(t_byte *ptr, t_vptr v, int n)
 void		dump(t_vm *vm)
 {
 	t_vptr	curr;
+	char	buff[3];
 
 	curr = 0;
 	while (curr < MEM_SIZE)
@@ -33,5 +35,11 @@ void		dump(t_vm *vm)
 		dump_line(vm->memory.mem + curr, curr, DUMP_OPL);
 		curr += DUMP_OPL;
 	}
-	exit(0);
+	if (vm->params->flag &P_DUMPREP)
+	{
+		vm->params->dump = vm->params->basedump;
+		read(0, buff, 1);
+	}
+	else
+		exit(0);
 }

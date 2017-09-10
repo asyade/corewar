@@ -4,7 +4,20 @@
 
 void		usage(void)
 {
-	ft_putendl("./corewar [-dump cycle] [prog_name]...");
+	ft_putendl("Usage    : ./corw [-d N -s N | -v [0-31] | -nc] [-n] <champ.cor>");
+	ft_putendl("#### TEXT OUTPUT MODE");
+	ft_putendl("    -d N : Dumps memory after N cycles then exits");
+	ft_putendl("    -s N : Runs N cycles, dumps memory, read char, then repeats");
+	ft_putendl("    -v N : Verbosity levels, can be added together to enable several");
+	ft_putendl("            - 0 : Show only essentials");
+	ft_putendl("            - 1 : Show lives");
+	ft_putendl("            - 2 : Show cycles");
+	ft_putendl("            - 4 : Show operations (Params are NOT litteral ...)");
+	ft_putendl("            - 8 : Show deaths");
+	ft_putendl("            - 16 : Show PC movements (Except for jumps)");
+	ft_putendl("#### NCURSES OUTPUT MODE");
+	ft_putendl("    -nc  : Ncurses output mode");
+	ft_putendl("#### --bonus Noise Bonus");
 	exit(1);
 }
 
@@ -53,20 +66,27 @@ t_param		*read_params(int ac, char **av)
 	i = -1;
 	p = params();
 	p->count = 0;
+	p->verbose = 0;
 	while (++i < ac)
 	{
 		if (ft_strequ(av[i], "-v"))
+		{
 			p->flag = P_VERBOSE | (p->flag & ~P_NCURSE);
+			if (i + 1 >= ac)
+				usage();
+			p->verbose = atoi(av[++i]);
+		}
 		else if (ft_strequ(av[i], "-nc"))
 			p->flag = P_NCURSE | (p->flag & ~P_VERBOSE);
-		else if (ft_strequ(av[i], "-sound"))
+		else if (ft_strequ(av[i], "--bonus"))
 			p->flag |= P_SOUND;
-		else if (ft_strequ(av[i], "-dump") || ft_strequ(av[i], "-dumpCol"))
+		else if (ft_strequ(av[i], "-d") || ft_strequ(av[i], "-s"))
 		{
 			if (ac - i <= 1)
 				usage();
-			p->flag |= ft_strequ(av[i], "-dumpCol") ? P_DUMP | P_DUMPCOL : P_DUMP;
+			p->flag |= ft_strequ(av[i], "-s") ? P_DUMP | P_DUMPREP : P_DUMP;
 			p->dump = ft_atoi(av[++i]);
+			p->basedump = p->dump;
 		}
 		else if (!read_param_champ(p, av, ac, &i))
 			usage();

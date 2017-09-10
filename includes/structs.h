@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 22:49:14 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/10 02:09:33 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,22 @@ typedef struct			s_champDescrib
 # define	P_NCURSE	(1 << 2)
 # define	P_SH		(1 << 3)
 # define	P_DUMP		(1 << 4)
-# define	P_DUMPCOL	(1 << 5)
+# define	P_DUMPREP	(1 << 5)
 # define	P_SOUND		(1 << 6)
+
+# define	PV_ESSENTAL	(0)
+# define	PV_LIVES	(1 << 0)
+# define	PV_CYCLES	(1 << 1)
+# define	PV_OPS		(1 << 2)
+# define	PV_DEATH	(1 << 3)
+# define	PV_MOVES	(1 << 4)
 
 typedef struct			s_param
 {
 	t_int32				flag;
+	t_int32				verbose;
 	t_int32				dump;
+	t_int32				basedump;
 	t_int32				count;
 	t_champDescrib		champs[4];
 }						t_param;
@@ -88,6 +97,7 @@ typedef struct			s_vm
 	void				(*processLoaded)(t_champ *c);
 	void				(*playerLive)(t_champ *c, int);
 	void				(*playerDie)(t_champ *c);
+	void				(*liveDelta)(int);
 	t_memory			memory;
 	t_champ				champs[MAX_PLAYERS];
 	t_byte				champ_count;

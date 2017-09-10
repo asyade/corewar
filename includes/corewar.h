@@ -43,6 +43,7 @@ t_core		*core_init();
 
 t_byte		play(t_core *core);
 
+t_param		*params(void);
 t_param		*read_params(int ac, char **av);
 
 #endif
