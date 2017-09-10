@@ -44,7 +44,7 @@ static int		readChampDef(char *src, int i, t_champ *ch)
 	return (1);
 }
 
-int					loadChampsDefault(t_param *p, t_core *core)
+int				loadChampsDefault(t_param *p, t_core *core)
 {
 	int				i;
 
@@ -57,22 +57,3 @@ int					loadChampsDefault(t_param *p, t_core *core)
 	core->vm.champ_count = p->count;
 	return (1);
 }
-
-
-/*int				loadChampsDefault(int c, char **av, t_core *core)
-{
-	int	ac;
-
-	ac = -1;
-	while (++ac < c)
-	{
-		if (core->vm.champ_count++ < MAX_PLAYERS)
-		{
-			if (!readChampDef(av[ac], core->vm.champ_count, &core->vm.champs[core->vm.champ_count - 1]))
-				return (0);
-		}
-		else
-			ft_putendl("4 player max");
-	}
-	return (1);
-}*/

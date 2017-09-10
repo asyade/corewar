@@ -3,10 +3,16 @@
 
 # include "def.h"
 
+/*
+**	TODO: Et la lumière fut
+*/
+
 # define INS_OCTALCODE	0xB6FE
 # define INS_LABEL2		0x6F04
 # define INS_LABEL4		0x10E3
 # define INS_LABELNO	0x801E
+
+# define INS_GETCARRY	(INS_ZJMP)
 
 # define INS_LIVE		0x0001
 # define INS_LD			0x0002
@@ -53,6 +59,8 @@
 
 # define IDXPTR(pc, ptr) (pc + (ptr % IDX_MOD))
 
+
+int				inst_get_code(t_byte code);
 t_byte			params_chk(t_byte a[3], t_byte b[3], t_byte c[3], t_byte d[3], t_int32 inst[6]);
 
 /*

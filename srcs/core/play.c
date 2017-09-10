@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 22:31:20 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/11 00:31:11 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,14 @@ void            play_recursive(t_core *core)
 
 t_byte          play(t_core *core)
 {
+	if (core->vm.cycleUpdated)
+		(core->vm.cycleUpdated)();
 	core->vm.lives = NBR_LIVE;
 	core->vm.cycles_to_die = CYCLE_TO_DIE;
 	core->vm.cycles = CYCLE_TO_DIE;
 	play_load_champs(&core->vm);
 	play_recursive(core);
+	if (core->vm.cycleUpdated)
+		(core->vm.cycleUpdated)();
 	return (1);//TODO:winer id
 }

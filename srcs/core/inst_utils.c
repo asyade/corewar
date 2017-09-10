@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:30:01 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 21:42:05 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/10 19:16:21 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,14 @@ static t_byte	pchk(t_byte p[3], t_byte code, t_int32 val)
 	if (!p && !code)
 		return (1);
 	if (!p && code)
-	{
-		//pwarn("too many parametters !\n");
 		return (0);
-	}
 	if (p && !code)
-	{
-		//pwarn("undefined parametters !\n");
 		return (0);
-	}
 	if (code == T_REG && (val <= 0 || val >= 17))
-	{
-		//pwarn("invalide register !\n");
 		return (0);
-	}
 	while (++x < 3)
-	{
 		if (p[x] == code)
 			return (1);
-	}
-	//pwarn("invalide parametters !\n");
 	return (0);
 }
 
@@ -67,7 +55,7 @@ t_int32			param_val(t_vm *vm, t_process *pc, t_byte pid)
 	if (t == T_DIR)
 		return (pc->inst[pid + 1]);
 	else if (t == T_IND)
-		return (mem_readint(&vm->memory, pc->pc));//on pars de pc ou cc?
+		return (mem_readint(&vm->memory, pc->cc));//on pars de pc ou cc?
 	else if (t == T_REG)
 		return (pc->reg[pc->inst[pid + 1] - 1]);
 	return (-1);
@@ -81,7 +69,7 @@ t_int32			param_idxval(t_vm *vm, t_process *pc, t_byte pid)
 	if (t == T_DIR)
 		return (pc->inst[pid + 1]);
 	else if (t == T_IND)
-		return (mem_readint(&vm->memory, IDXPTR(pc->pc, pc->inst[pid + 1])));//on pars de pc ou cc?
+		return (mem_readint(&vm->memory, IDXPTR(pc->cc, pc->inst[pid + 1])));//on pars de pc ou cc?
 	else if (t == T_REG)
 		return (pc->reg[pc->inst[pid + 1] - 1]);
 	return (-1);

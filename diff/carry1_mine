@@ -1,0 +1,224 @@
+Introducing contestants...
+* Player 0, weighing 15 bytes, "test" ("carry") !
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+P    1 | ldi  0 0 0 
+P    1 | ld  0 0 
+P    1 | st  0 2 
+Contestant 1, "test", has won !

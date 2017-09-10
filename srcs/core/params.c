@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-static int	inst_get_code(t_byte code)
+int		inst_get_code(t_byte code)
 {
 	static t_int32	ins_table[] = {
 		INS_LIVE,

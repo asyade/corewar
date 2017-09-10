@@ -1,6 +1,8 @@
 #include "envSh.h"
 #include "corewar.h"
 
+# define BASE_HEX_MIN	"0123456789abcdef"
+
 t_core			*sh_env(t_core *c)
 {
 	static	t_core	*core;
@@ -72,7 +74,7 @@ void			cb_cycle_updated(void)
 
 	if (!(sh_env(NULL)->vm.params->verbose & PV_CYCLES))
 		return ;
-	printf("Is now the cycle %lld\n", ++total);
+	printf("It is now cycle %lld\n", ++total);
 }
 
 void			show_consts(t_core *c)
@@ -83,14 +85,101 @@ void			show_consts(t_core *c)
 	i = -1;
 	while (++i < c->vm.champ_count)
 	{
-		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i, c->vm.champs[i].header.size, c->vm.champs[i].header.name, c->vm.champs[i].header.comment);
+		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1, c->vm.champs[i].header.size, c->vm.champs[i].header.name, c->vm.champs[i].header.comment);
 	}
+}
+
+int			inst_count(int opcode)
+{
+	static int	pcount[16] = {
+		0,
+		2,
+		2,
+		3,
+		3,
+		3,
+		3,
+		3,
+		0,
+		3,
+		3,
+		0,
+		2,
+		3,
+		0,
+		0
+	};
+	return (OPVALIDE(opcode)) ? (pcount[opcode - 1]) : -1;
+}
+
+char		*inst_names(int opcode)
+{
+	static char *names[16] = {
+		"live",
+		"ld",
+		"st",
+		"add",
+		"sub",
+		"and",
+		"or",
+		"xor",
+		"zjmp",
+		"ldi",
+		"sti",
+		"fork",
+		"lld",
+		"lldi",
+		"lfork",
+		"aff"
+	};
+	return (OPVALIDE(opcode)) ? (names[opcode - 1]) : NULL;
+}
+
+char		*carry_label(t_process *pc)
+{
+	if (pc->inst[0] & INS_ZJMP)//zjmp todo ?
+		return (pc->flags | PF_CARRY) ? "OK" : "KO";
+	return ("");
+}
+
+void			cb_inst_loaded(t_champ *c, t_process *p)
+{
+	(void)c;
+	(void)p;
+	printf("P%5d | %s%s %s\n",  p->id,
+		inst_names(p->inst[0]),
+		dump_parametters(p->inst, inst_count(p->inst[0])),
+		carry_label(p)
+	);
+}
+
+void			cb_pc_updated(t_process *pc)
+{
+	char 			buffer[1024];
+	t_byte			*ptr;
+	int				n;
+	int				i;
+
+	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES))
+		return ;
+	ptr = sh_env(NULL)->vm.memory.mem + pc->cc;
+	n = pc->pc - pc->cc;
+	i = 0;
+	while (n--)
+	{
+		buffer[i++] = BASE_HEX_MIN[*ptr / 16];
+		buffer[i++] = BASE_HEX_MIN[*ptr++ % 16];
+		buffer[i++] = ' ';
+	}
+	buffer[i - 1] = '\0';
+	printf("ADV %ld (0x%4.4lx -> 0x%4.4lx) %s\n", pc->pc - pc->cc, pc->cc, pc->pc, buffer);
 }
 
 void			she_init(t_core *core)
 {
 	sh_env(core);
 	show_consts(core);
+	core->render.instLoaded = (t_instLoaded)&cb_inst_loaded;
 	core->render.cycleUpdated = (t_cycleUpdated)&cb_cycle_updated;
 	core->render.envDone = (t_envDone)&cb_envdone;
 	core->render.playerLive = (t_playerLive)&cb_player_live;
@@ -99,4 +188,5 @@ void			she_init(t_core *core)
 	core->render.playerDie = (t_playerDie)&cb_player_die;
 	core->render.processLoaded = (t_processLoaded)&cb_pc_loaded;
 	core->render.memUpdated = (t_memUpdated)&cb_memUpdated;
+	core->render.pcUpdated = (t_pcUpdated)&cb_pc_updated;
 }

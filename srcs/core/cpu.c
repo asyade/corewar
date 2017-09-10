@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 19:33:13 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/11 00:25:45 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@ void		exec(t_vm *vm, t_byte ci, t_process *pc)
 	if (!OPVALIDE(pc->inst[0]))
 		return ;
 	params_load(vm, pc);
+
+	if (vm->params->verbose & PV_OPS && vm->instLoaded)
+		(vm->instLoaded)(&vm->champs[ci], pc);
+	if (vm->pcUpdated)
+		(vm->pcUpdated)(pc);
 	(inst_table[pc->inst[0] - 1])(vm, ci, pc);
 }
 
 t_int32		exec_dellay(t_byte  opcode)
 {
-	static t_int32	dellay_table[] =
-		{
+	static t_int32	dellay_table[] = {
 		10,
 		5,
 		5,
@@ -81,7 +85,7 @@ void		cpu_do_ops(t_vm *vm, int ci, t_champ *ch)
 			pc->flags |= PF_WAIT;
 			pc->cycles_to_do = exec_dellay(pc->inst[0]);
 		}
-		else if (pc->cycles_to_do-- <= 0)
+		if (--pc->cycles_to_do <= 0)
 		{
 			exec(vm, ci, pc);
 			pc->flags &= ~PF_WAIT;
