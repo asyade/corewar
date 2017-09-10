@@ -4,7 +4,7 @@
 
 void		usage(void)
 {
-	ft_putendl("Usage    : ./corw [-d N -s N | -v [0-31] | -nc] [-n] <champ.cor>");
+	ft_putendl("Usage    : ./corw [-d N -s N | -v [0-31] | -nc] [--bonus] [-n] <champ.cor>");
 	ft_putendl("#### TEXT OUTPUT MODE");
 	ft_putendl("    -d N : Dumps memory after N cycles then exits");
 	ft_putendl("    -s N : Runs N cycles, dumps memory, read char, then repeats");
@@ -17,7 +17,8 @@ void		usage(void)
 	ft_putendl("            - 16 : Show PC movements (Except for jumps)");
 	ft_putendl("#### NCURSES OUTPUT MODE");
 	ft_putendl("    -nc  : Ncurses output mode");
-	ft_putendl("#### --bonus Noise Bonus");
+	ft_putendl("#### NOISE BONUS");
+	ft_putendl("    --bonus");
 	exit(1);
 }
 
