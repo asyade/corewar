@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/11 00:31:11 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/11 00:51:18 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void            play_recursive(t_core *core)
 	if (core->vm.lives <= 0)
 	{
 		core->vm.cycles_to_die -= CYCLE_DELTA;
+		core->vm.cycles_to_die = (core->vm.cycles_to_die) <= 0 ? 1 : core->vm.cycles_to_die;
 		core->vm.lives = NBR_LIVE;
 	}
 	core->vm.cycles = core->vm.cycles_to_die;

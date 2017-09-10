@@ -171,6 +171,7 @@ void            cb_playerlive(t_champ *ch, int call)
     static int  lindex = CTRL_WIN_HEIGHT;
     char        buff[2048];
 
+	return ;
     if (lindex >= MAX_LIVE)
     {
         clear();
