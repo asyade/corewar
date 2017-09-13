@@ -1,9 +1,9 @@
 .name "plop"
 .comment "poop"
 
-    ld  %666, r14
+    ld  %255, r14
 def:
-    st r14, r2
+    st r14, %2
     st r14, 156
     st r2, 256
     live %1
