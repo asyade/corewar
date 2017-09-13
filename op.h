@@ -6,15 +6,15 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/11 00:14:39 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 00:12:02 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-t_op    op_tab[17] =
+t_op    op_tab[17] = 
 {
-	//name		?	params					ID	Cycles	describ		PC IND_2/4
+	//name	pcount	params					ID	Cycles	describ		PC IND_2/4
 	{"live",	1, {T_DIR}, 				1,	10,		"alive",	0, 0},
 	{"ld",		2, {T_DIR | T_IND, T_REG}, 	2,	5,		"load",		1, 0},
 	{"st",		2, {T_REG, T_IND | T_REG}, 	3,	5,		"store",	1, 0},

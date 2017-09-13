@@ -137,8 +137,8 @@ char		*inst_names(int opcode)
 
 char		*carry_label(t_process *pc)
 {
-	if (pc->inst[0] & INS_ZJMP)//zjmp todo ?
-		return (pc->flags | PF_CARRY) ? "OK" : "KO";
+	if (pc->inst[0] == 9)
+		return (pc->flags | PF_CARRY) ? "FAILED" : "OK";
 	return ("");
 }
 
@@ -151,7 +151,6 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 		dump_parametters(p->inst, inst_count(p->inst[0])),
 		carry_label(p)
 	);
-	//printf("%d\n", p->inst[0]);
 	if (p->inst[0] == 11)
 	{
 		printf("       | -> store to %d + %d = %d (with pc and mod 100)\n",

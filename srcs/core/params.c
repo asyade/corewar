@@ -28,11 +28,8 @@ t_int32		param_get_val(t_memory *mem, t_process *pc, t_byte pcode, t_int32 op)
 	t_int32	val;
 
 	val = 0;
-	if (op & INS_LABELNO)
-	{
-		if (pcode == T_IND)
+	if (op & INS_LABELNO && pcode == T_IND)
 			op = INS_LABEL2;
-	}
 	if (pcode == T_REG)
 		val = mem_readbyte(mem, pc->pc++);
 	else if (op & INS_LABEL4)

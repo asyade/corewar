@@ -7,6 +7,7 @@ PATH_SRC = srcs/ srcs/parsing/
 DIRS =	obj/core/ obj/env/ obj/source/
 
 SRC = srcs/core/core.c \
+		srcs/core/cpu_error.c \
 		srcs/core/cpu.c \
 		srcs/core/free.c \
 		srcs/core/inst_utils.c \
