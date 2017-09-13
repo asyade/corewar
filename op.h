@@ -6,27 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/12 02:12:56 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/11 00:14:39 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-typedef struct	s_op
-{
-	char		*name;
-	uint8_t		nbr_arg;
-	t_arg_type	arg_type;
-	uint16_t	opcode;
-	uint64_t	nbr_cycles;
-	char		*describ;
-	uint32_t	pc_modifier;
-	uint32_t	dafuq;
-}				t_op;
-
-# define OP_NBR 17
-
-extern t_op    op_tab[OP_NBR] =
+t_op    op_tab[17] =
 {
 	//name		?	params					ID	Cycles	describ		PC IND_2/4
 	{"live",	1, {T_DIR}, 				1,	10,		"alive",	0, 0},

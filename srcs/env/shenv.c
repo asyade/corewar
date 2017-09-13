@@ -151,6 +151,15 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 		dump_parametters(p->inst, inst_count(p->inst[0])),
 		carry_label(p)
 	);
+	//printf("%d\n", p->inst[0]);
+	if (p->inst[0] == 11)
+	{
+		printf("       | -> store to %d + %d = %d (with pc and mod 100)\n",
+			p->inst[3],
+			p->inst[4],
+			p->inst[3] + p->inst[4]
+		);
+	}
 }
 
 void			cb_pc_updated(t_process *pc)
