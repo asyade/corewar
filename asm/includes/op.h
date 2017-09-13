@@ -6,18 +6,36 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/12 02:12:56 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/12 07:20:20 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#ifndef OP_H
+# define OP_H
+
+# include <stdint.h>
+
+/*
+** Arg_types
+*/
+
+typedef char	t_arg_type;
+
+#define T_REG					1
+#define T_DIR					2
+#define T_IND					4
+#define T_LAB					8
+
+/*
+** Opcodes
+*/
 
 typedef struct	s_op
 {
 	char		*name;
-	uint8_t		nbr_arg;
-	t_arg_type	arg_type;
-	uint16_t	opcode;
+	uint64_t	nbr_arg;
+	t_arg_type	*arg_type;
+	uint64_t	opcode;
 	uint64_t	nbr_cycles;
 	char		*describ;
 	uint32_t	pc_modifier;
@@ -25,28 +43,7 @@ typedef struct	s_op
 }				t_op;
 
 # define OP_NBR 17
-
-extern t_op    op_tab[OP_NBR] =
-{
-	//name		?	params					ID	Cycles	describ		PC IND_2/4
-	{"live",	1, {T_DIR}, 				1,	10,		"alive",	0, 0},
-	{"ld",		2, {T_DIR | T_IND, T_REG}, 	2,	5,		"load",		1, 0},
-	{"st",		2, {T_REG, T_IND | T_REG}, 	3,	5,		"store",	1, 0},
-	{"add",		3, {T_REG, T_REG, T_REG}, 	4,	10,		"add",		1, 0},
-	{"sub",		3, {T_REG, T_REG, T_REG}, 	5,	10,		"sub", 		1, 0},
-	{"and",		3, {T_RID, T_RID, T_REG}, 	6,	6,		"and",		1, 0},
-	{"or",		3, {T_RID, T_RID, T_REG},	7,	6,		"or",		1, 0},
-	{"xor",		3, {T_RID, T_RID, T_REG},	8,	6,		"xor",		1, 0},
-	{"zjmp",	1, {T_DIR},					9,	20,		"jump", 	0, 1},
-	{"ldi", 	3, {T_RID, T_DR, T_REG},	10,	25,		"load i",	1, 1},
-	{"sti", 	3, {T_RID, T_DIR | T_REG},	11,	25,		"store i",	1, 1},
-	{"fork", 	1, {T_DIR},					12,	800,	"fork",		0, 1},
-	{"lld", 	2, {T_DIR | T_IR},			13,	10, 	"l load",	1, 0},
-	{"lldi", 	3, {T_RID, T_DR, T_REG},	14,	50,		"ll index", 1, 1},
-	{"lfork", 	1, {T_DIR},					15,	1000,	"long fork",0, 1},
-	{"aff", 	1, {T_REG},					16,	2,		"aff",		1, 0},
-	{0, 0, {0}, 0, 0, 0, 0, 0}
-};
+extern t_op    op_tab[OP_NBR];
 
 #define IND_SIZE				2
 #define REG_SIZE				4
@@ -60,7 +57,7 @@ extern t_op    op_tab[OP_NBR] =
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4
-#define MEM_SIZE				(4*1024)
+#define MEM_SIZE				(4 * 1024)
 #define IDX_MOD					(MEM_SIZE / 8)
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
@@ -85,17 +82,6 @@ extern t_op    op_tab[OP_NBR] =
 **
 */
 
-typedef char	t_arg_type;
-
-#define T_REG					1
-#define T_DIR					2
-#define T_IND					4
-#define T_LAB					8
-
-/*
-**
-*/
-
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
@@ -107,3 +93,5 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+#endif
