@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/12 07:14:46 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 07:47:52 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,90 @@ uint32_t	ft_get_instruction_params(char *line, char **params);
 int32_t		ft_check_params_integrity(int32_t instruction_index
 										, char *line);
 
-
 uint64_t	*ft_get_instruction_count(void);
 t_list		**ft_get_label_lst(void);
 void		ft_discard_comments(char *line);
+
+/*
+** Tokenization
+*/
+
+# define CHARSET_SEPARATORS " \t,"
+
+# define MAX_PARAMS_NBR MAX_NBR_PARAMS //
+# define MAX_LABEL_NBR 1
+# define MAX_NBR_TOKEN MAX_LABEL_NBR + 1 + MAX_PARAMS_NBR
+
+typedef enum	e_token_type
+{
+	ERR = 0,
+	INSTRUCTION,
+	NAME,
+	COMMENT,
+	CONTENT,
+	PARAM,
+	LABEL,
+}				t_token_type;
+
+typedef struct	u_param_content
+{
+	uint8_t	reg_value[T_REG_CODE_SIZE];
+	uint8_t	indirect_value[T_IND_CODE_SIZE];
+	uint8_t	direct_value[T_DIR_CODE_SIZE];
+	uint8_t	raw_value[sizeof(uint64_t)];
+}				t_param_content;
+
+typedef struct	s_param
+{
+	t_param_content	content;
+	t_arg_type		param_type;
+}				t_param;
+
+typedef union	u_token_content
+{
+	t_param	param;
+	uint8_t	opcode;
+	char	*label;
+	char	*content;
+}				t_token_content;
+
+typedef struct	s_token
+{
+	char			*token;
+	t_token_content	token_content;
+	t_token_type	token_type;
+	char			pad[4];
+}				t_token;
+
+typedef struct	s_semantic_unit
+{
+	char		*line;
+	uint64_t	line_nbr;
+	t_token		tokens[MAX_NBR_TOKEN];
+	uint64_t	tokens_nbr;
+}				t_semantic_unit;
+
+char					**ft_split(char *str, char *separators);
+t_semantic_unit			*ft_tokenize(char *line);
+
+/*
+** **Lexing**
+*/
+
+int32_t					ft_lex_is_label(char *token);
+int32_t					ft_lex_is_instruction(char *token);
+int32_t					ft_lex_is_param(char *token);
+int32_t					ft_lex_is_content(char *token);
+int32_t					ft_lex_is_comment(char *token);
+int32_t					ft_lex_is_name(char *token);
+
+/*
+** Parsing actions
+*/
+
+typedef int32_t	(*t_parsing_action)(char *buffer);
+
+char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
 
 /*
 ** Error handling

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/12 07:18:34 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 06:43:22 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ t_op    op_tab[OP_NBR] =
 	{"lfork", 	1, (t_arg_type[]){T_DIR},					15,	1000,	"long fork",0, 1},
 	{"aff", 	1, (t_arg_type[]){T_REG},					16,	2,		"aff",		1, 0},
 };
+
+/* static const t_parsing_action	parsing_actions[] = { */
+/* 	&ft_parse_live, */
+/* 	&ft_parse_ld, */
+/* 	&ft_parse_st, */
+/* 	&ft_parse_add, */
+/* 	&ft_parse_sub, */
+/* 	&ft_parse_and, */
+/* 	&ft_parse_or, */
+/* 	&ft_parse_xor, */
+/* 	&ft_parse_zmp, */
+/* 	&ft_parse_ldi, */
+/* 	&ft_parse_sti, */
+/* 	&ft_parse_fork, */
+/* 	&ft_parse_lld, */
+/* 	&ft_parse_lldi, */
+/* 	&ft_parse_lfork, */
+/* 	&ft_parse_aff, */
+/* 	&ft_parse_name, */
+/* 	&ft_parse_comment */
+/* }; */
 
 static inline size_t	ft_get_instruction_len(const char *line)
 {
@@ -119,6 +140,7 @@ char					*ft_parse(int fd)
 	char		*tmp;
 
 	current_case = -1;
+	(void)ft_get_case;
 	if (!(buffer = (char*)ft_memalloc(sizeof(char) * (CHAMP_MAX_SIZE + 1))))
 		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
 	while ((get_next_line(fd, &line)) > 0)
@@ -128,9 +150,11 @@ char					*ft_parse(int fd)
 		if (!(line = ft_strtrim(line)))
 			ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
 		free(tmp);
-		if (-1 == (current_case = ft_get_case(line))
-			/* || -1 == parsing_actions[current_case](buffer) */)
-			ft_error_exit(1, (char*[]){PARSING_ERROR, line}, EXIT_FAILURE);
+/* 		if (-1 == (current_case = ft_get_case(line)) */
+/* 			/\* || -1 == parsing_actions[current_case](buffer) *\/) */
+/* 			ft_error_exit(1, (char*[]){PARSING_ERROR, line}, EXIT_FAILURE); */
+		ft_tokenize(line);
+		free(line);
 		(*ft_get_instruction_count())++;
 	}
 	return (buffer);

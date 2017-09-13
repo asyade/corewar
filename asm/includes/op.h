@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/12 07:20:20 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 06:40:31 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,28 @@
 
 typedef char	t_arg_type;
 
-#define T_REG					1
-#define T_DIR					2
-#define T_IND					4
-#define T_LAB					8
+# define T_REG					1
+# define T_DIR					2
+# define T_IND					4
+# define T_LAB					8
+
+# define T_REG_CODE_SIZE 1
+# define T_IND_CODE_SIZE 2
+# define T_DIR_CODE_SIZE 4
+
+/*
+** Parameter encoding
+*/
+
+typedef struct	s_encoding_byte
+{
+	t_arg_type			arg_type;
+	uint8_t				code;
+}				t_encoding_byte;
+
+# define REG_CODE			1 //0b01
+# define DIR_CODE			1 //0b10
+# define IND_CODE			3 //0b11
 
 /*
 ** Opcodes
@@ -48,11 +66,6 @@ extern t_op    op_tab[OP_NBR];
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
-
-
-# define REG_CODE				1
-# define DIR_CODE				2
-# define IND_CODE				3
 
 
 #define MAX_ARGS_NUMBER			4
