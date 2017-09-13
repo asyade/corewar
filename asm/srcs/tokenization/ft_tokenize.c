@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 07:54:55 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 09:42:00 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 	uint64_t	i;
 
 	i = 0;
-	while (tokens[i])
+	while (tokens[i] && i < MAX_PARAMS_NBR)
 	{
 		unit->tokens[i].token = tokens[i];
 		i++;
@@ -64,6 +64,33 @@ static inline void		ft_assign_tokens_type(t_semantic_unit *unit)
 	}
 }
 
+typedef int32_t (*t_f_interpret_token)(t_semantic_unit *, uint64_t, t_token *);
+
+static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit)
+{
+	static const	t_f_interpret_token	interpretations[] =
+	{
+		&ft_interpret_err,
+		&ft_interpret_instruction,
+		&ft_interpret_name,
+		&ft_interpret_comment,
+		&ft_interpret_content,
+		&ft_interpret_param,
+		&ft_interpret_label,
+	}
+	uint64_t		i;
+
+	i = 0;
+	while (i < unit->tokens_nbr)
+	{
+		if (!(interpretations[unit->tokens[i].token_type](unit, i
+												, &unit->tokens[i])))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 t_semantic_unit			*ft_tokenize(char *line)
 {
 	t_semantic_unit	*semantic_unit;
@@ -77,5 +104,6 @@ t_semantic_unit			*ft_tokenize(char *line)
 	tokens = ft_split(line, CHARSET_SEPARATORS);
 	ft_assign_tokens_data(semantic_unit, tokens);
 	ft_assign_tokens_type(semantic_unit);
+	ft_interpret_tokens(semantic_unit);
 	return (semantic_unit);
 }

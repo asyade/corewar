@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 07:47:52 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 09:53:33 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
 # define PARSING_ERROR "Parsing error near: "
 # define INVALID_PARAMS_NBR "Invalid number of parameters provided to instruction: "
 # define INVALID_PARAM_TYPE "Invalid parameter type, parameter number: "
+# define INVALID_INSTRUCTION "Invalid instruction: "
+# define AT_LINE " at line: "
+# define ILLEGAL_USE_INSTRUCTION "Illegal use of instruction: "
 
 NORETURN	ft_put_asm_usage(char *str);
 
