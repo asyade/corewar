@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/12 06:55:36 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/12 07:18:34 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,38 @@ static inline int32_t	ft_get_special_case(char *line)
 	return (-1);
 }
 
+static inline size_t	ft_parse_label(char *line)
+{
+	size_t	i;
+	t_list	**label_lst;
+	t_list	*tmp;
+	char	*label_name;
+
+	i = 0;
+	while (line[i] && ft_strchr(LABEL_CHARS, line[i]))
+		i++;
+	if (line[i] == LABEL_CHAR)
+	{
+		label_lst = ft_get_label_lst();
+		if (!(label_name = ft_strndup(line, i++))
+			|| !(tmp = ft_lstnew(&(t_label){label_name
+			, *ft_get_instruction_count()}, sizeof(t_label))))
+			ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
+		ft_lstadd(label_lst, tmp);
+		while (ft_strchr(CHARSET_WHITESPACES, line[i]))
+			i++;
+		return (i);
+	}
+	return (0);
+}
+
 static inline int32_t	ft_get_case(char *line)
 {
 	size_t	instruction_len;
 	int32_t	i;
 
 	i = 0;
-//	line += ft_parse_label(line);
+	line += ft_parse_label(line);
 	if (*line == '.')
 		return (ft_get_special_case(line));
 	instruction_len = ft_get_instruction_len(line);

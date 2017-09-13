@@ -6,7 +6,8 @@ SRC= srcs/main.c \
 	srcs/ft_get_instruction_count.c \
 	srcs/ft_discard_comments.c \
 	srcs/ft_get_instruction_param_type.c \
-	srcs/ft_check_params_integrity.c
+	srcs/ft_check_params_integrity.c \
+	srcs/ft_get_label_lst.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)

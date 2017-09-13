@@ -6,13 +6,14 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/12 06:42:47 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/12 07:20:20 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_H
 # define OP_H
 
+# include <stdint.h>
 
 /*
 ** Arg_types

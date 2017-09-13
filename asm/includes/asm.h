@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/12 06:40:57 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/12 07:14:46 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define CHARSET_WHITESPACES " \n\t\r\b"
 # define MAX_NBR_PARAMS 3
 
+typedef struct	s_label
+{
+	char		*name;
+	uint64_t	instruction_index;
+}				t_label;
+
 void		ft_check_file_extansion(char *filename);
 char		*ft_parse(int fd);
 t_arg_type	ft_get_instruction_param_type(char *param);
@@ -40,6 +46,7 @@ int32_t		ft_check_params_integrity(int32_t instruction_index
 
 
 uint64_t	*ft_get_instruction_count(void);
+t_list		**ft_get_label_lst(void);
 void		ft_discard_comments(char *line);
 
 /*
