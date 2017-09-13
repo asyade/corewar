@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 09:53:33 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 10:12:33 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,18 @@ int32_t					ft_lex_is_comment(char *token);
 int32_t					ft_lex_is_name(char *token);
 
 /*
+** **Interpretation**
+*/
+
+int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+
+/*
 ** Parsing actions
 */
 
@@ -142,6 +154,7 @@ char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
 # define INVALID_INSTRUCTION "Invalid instruction: "
 # define AT_LINE " at line: "
 # define ILLEGAL_USE_INSTRUCTION "Illegal use of instruction: "
+# define ILLEGAL_PARAM_INVOCATION "Illegal invocation of parameter: "
 
 NORETURN	ft_put_asm_usage(char *str);
 

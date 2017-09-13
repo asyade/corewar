@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 09:42:16 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 09:54:29 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/13 10:12:42 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token 
 {
 	if (token_index <= 1)
 		return (ft_error(4, (char*[]){ILLEGAL_PARAM_INVOCATION, token->token
-				, AT_LINE, ft_itoa(unit->line_nbr)}, 0));
+					, AT_LINE, ft_itoa(unit->line_nbr)}, 0));
+	token->token_content.param.param_type = ft_get_instruction_param_type(token);
+}
 
+int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+{
+	return (1); // ??
 }
