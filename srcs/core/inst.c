@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/14 05:42:22 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 06:43:22 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_int32		inst_ld(t_vm *vm, t_byte ci, t_process *pc)
 t_int32		inst_st(t_vm *vm, t_byte ci, t_process *pc)
 {
 	(void)ci;
-	if (!params_chk(PM_RD, PM_RI, NULL, NULL, pc->inst))
+	if (!params_chk(PM_R, PM_RI, NULL, NULL, pc->inst))
 		return (0);
 	if (IP2(pc->inst[1]) == T_REG)
 		pc->reg[pc->inst[3] - 1] = param_dirval(pc, 1);
@@ -144,7 +144,7 @@ t_int32     inst_sti(t_vm *vm, t_byte ci, t_process *pc)
 
 	(void)ci;
 	dump_parametters(pc->inst, 3);
-	if (!params_chk(PM_R, PM_RID, PM_RID, NULL, pc->inst))
+	if (!params_chk(PM_R, PM_RID, PM_DI, NULL, pc->inst))//todo a voire si on read la valeur du param 2 ou pas
 		return (0);
 	ptr = IDXPTR(pc->cc, (param_dirval(pc, 2) + param_dirval(pc, 3)));
 	mem_writeint(vm, pc->reg[pc->inst[2] - 1], ptr, ci + 1);
