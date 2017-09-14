@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/13 06:40:31 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/14 11:35:22 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct	s_op
 	char		*name;
 	uint64_t	nbr_arg;
 	t_arg_type	*arg_type;
-	uint64_t	opcode;
+	uint8_t		opcode;
+	char		pad[7];
 	uint64_t	nbr_cycles;
 	char		*describ;
 	uint32_t	pc_modifier;

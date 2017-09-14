@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 10:12:57 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/14 12:04:06 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline void		ft_assign_token_type(t_semantic_unit *unit
 		if (lexing_checks[i](unit->tokens[token_index].token))
 		{
 			unit->tokens[token_index].token_type = token_types[i];
-			printf("token: %s is of type: %d\n", unit->tokens[token_index].token, i);
+//			printf("token: %s is of type: %d\n", unit->tokens[token_index].token, i);
 			return ;
 		}
 		i++;
@@ -83,7 +83,10 @@ static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit)
 	{
 		if (!(interpretations[unit->tokens[i].token_type](unit, i
 												, &unit->tokens[i])))
-			return (0);
+		{
+//			return (0);
+			;
+		}
 		i++;
 	}
 	return (1);
@@ -103,5 +106,6 @@ t_semantic_unit			*ft_tokenize(char *line)
 	ft_assign_tokens_data(semantic_unit, tokens);
 	ft_assign_tokens_type(semantic_unit);
 	ft_interpret_tokens(semantic_unit);
+	free(tokens);
 	return (semantic_unit);
 }

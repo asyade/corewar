@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 10:12:33 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/14 13:12:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ typedef struct	s_label
 {
 	char		*name;
 	uint64_t	instruction_index;
+	uint64_t	relative_address;
 }				t_label;
 
 void		ft_check_file_extansion(char *filename);
 char		*ft_parse(int fd);
 t_arg_type	ft_get_instruction_param_type(char *param);
 uint32_t	ft_get_instruction_params(char *line, char **params);
-int32_t		ft_check_params_integrity(int32_t instruction_index
-										, char *line);
 
 uint64_t	*ft_get_instruction_count(void);
 t_list		**ft_get_label_lst(void);
@@ -131,6 +130,8 @@ int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_toke
 int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token);
 int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token);
 int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+
+t_list	*ft_find_label(char *name, t_list *label_lst);
 int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token);
 
 /*
@@ -139,7 +140,9 @@ int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token 
 
 typedef int32_t	(*t_parsing_action)(char *buffer);
 
+int32_t		ft_parse_semantic_unit(t_semantic_unit *unit);
 char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
+int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
 
 /*
 ** Error handling
@@ -150,11 +153,14 @@ char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
 # define INVALID_FILE_EXTENSION "Invalid file extension: "
 # define PARSING_ERROR "Parsing error near: "
 # define INVALID_PARAMS_NBR "Invalid number of parameters provided to instruction: "
-# define INVALID_PARAM_TYPE "Invalid parameter type, parameter number: "
+# define INVALID_PARAM_TYPE "Invalid parameter type: "
 # define INVALID_INSTRUCTION "Invalid instruction: "
 # define AT_LINE " at line: "
 # define ILLEGAL_USE_INSTRUCTION "Illegal use of instruction: "
 # define ILLEGAL_PARAM_INVOCATION "Illegal invocation of parameter: "
+# define LABEL_REDEFINITION "Label redefinition: "
+# define EXPECTED_EXPRESSION "Expected expression after: "
+# define INVALID_EXPRESSION "Invalid expression: "
 
 NORETURN	ft_put_asm_usage(char *str);
 

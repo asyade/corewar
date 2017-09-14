@@ -12,7 +12,8 @@ SRC= srcs/main.c \
 	srcs/tokenization/ft_split.c \
 	srcs/tokenization/ft_tokenize.c \
 	srcs/tokenization/ft_lexing.c \
-	srcs/tokenization/ft_interpretations.c
+	srcs/tokenization/ft_interpretations.c \
+	srcs/ft_parse_semantic_unit.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)

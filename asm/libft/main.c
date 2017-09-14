@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_label_lst.c                                 :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/12 07:13:56 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/14 12:07:13 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/14 11:16:33 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/14 11:27:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
 
-inline t_list	*ft_find_label(char *name, t_list *label_lst)
+int	main(void)
 {
-	while (label_lst)
+	char		*str;
+	uint64_t	i;
+
+	i = 0;
+	while (i + 1)
 	{
-		if (ft_strequ(name, (char*)((t_label*)label_lst->content)->name))
-			return (label_lst);
-		label_lst = label_lst->next;
+		str = ft_static_ulltoa(i);
+		printf("%llu: %s\n", i, str);
+		i++;
 	}
-	return (NULL);
-}
-
-t_list	**ft_get_label_lst(void)
-{
-	static t_list	*label_lst = NULL;
-
-	return (&label_lst);
+	return (0);
 }
