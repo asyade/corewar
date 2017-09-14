@@ -8,9 +8,9 @@
 */
 
 # define INS_OCTALCODE	0xB6FE
-# define INS_LABEL2		0x6F04
-# define INS_LABEL4		0x10E3
-# define INS_LABELNO	0x801E
+# define INS_LABEL2		0x6F04//0x6F24//0x6F04
+# define INS_LABEL4		0x10E3//0x10C3//0x10E3
+# define INS_LABELNO	0x80FE//0x803E//0x801E
 
 # define INS_GETCARRY	(INS_ZJMP)
 

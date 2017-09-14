@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/11 00:51:18 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 04:22:39 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void     play_load_champs(t_vm *vm)
 		vm_load_champ(vm, &vm->champs[i], offset);
 		pc = vm_fork(vm, &vm->champs[i], offset);
 		pc->reg[0] = -vm->champs[i].number;
-		vm->champs[i].flags = PC_ALIVE | PC_LOADED;
+		vm->champs[i].flags = PC_LOADED;
 	}
 }
 
@@ -55,7 +55,7 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (vm->playerDie)
 			(vm->playerDie)(champ);
 	}
-	if (champ->flags & PC_ALIVE)
+	if (champ->flags & PC_ALIVE || count)
 	{
 		champ->flags &= ~PC_ALIVE;
 		return (1);
@@ -63,7 +63,7 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 	return (0);
 }
 
-t_byte     play_check_champs(t_core *core)
+t_byte			play_check_champs(t_core *core)
 {
 	int    ci;
 	int    ret;
@@ -78,6 +78,8 @@ t_byte     play_check_champs(t_core *core)
 		core->vm.cycles_to_die -= CYCLE_DELTA;
 		if (core->vm.cycles_to_die < 1)
 			core->vm.cycles_to_die = 0;
+		if (core->render.cycleToDieDelta)
+			(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
 	}
 	core->vm.cycles = core->vm.cycles_to_die;
 	while (++ci < core->vm.champ_count)
@@ -100,7 +102,7 @@ t_byte     play_check_champs(t_core *core)
 ** Au pire deux petite while
 */
 
-void            play_recursive(t_core *core)
+void			play_recursive(t_core *core)
 {
 	while (--core->vm.cycles)
 		cpu_process_cycle(&core->vm);
@@ -115,7 +117,7 @@ void            play_recursive(t_core *core)
 		play_recursive(core);
 }
 
-t_byte          play(t_core *core)
+t_byte			play(t_core *core)
 {
 	if (core->vm.cycleUpdated)
 		(core->vm.cycleUpdated)();
@@ -124,7 +126,5 @@ t_byte          play(t_core *core)
 	core->vm.cycles = CYCLE_TO_DIE;
 	play_load_champs(&core->vm);
 	play_recursive(core);
-	if (core->vm.cycleUpdated)
-		(core->vm.cycleUpdated)();
 	return (1);//TODO:winer id
 }

@@ -138,7 +138,7 @@ char		*inst_names(int opcode)
 char		*carry_label(t_process *pc)
 {
 	if (pc->inst[0] == 9)
-		return (pc->flags | PF_CARRY) ? "FAILED" : "OK";
+		return (pc->flags | PF_CARRY) ? "OK" : "FAILED";
 	return ("");
 }
 
@@ -172,7 +172,11 @@ void			cb_pc_updated(t_process *pc)
 		return ;
 	ptr = sh_env(NULL)->vm.memory.mem + pc->cc;
 	n = pc->pc - pc->cc;
+	if (pc->inst[0] == 9)
+		n -= pc->inst[1];
 	i = 0;
+	if (n <= 0 || n >= 100)
+		return ;
 	while (n--)
 	{
 		buffer[i++] = BASE_HEX_MIN[*ptr / 16];
@@ -183,10 +187,16 @@ void			cb_pc_updated(t_process *pc)
 	printf("ADV %ld (0x%4.4lx -> 0x%4.4lx) %s\n", pc->pc - pc->cc, pc->cc, pc->pc, buffer);
 }
 
+void			cb_cycle_to_die_delta(int ctd)
+{
+	printf("Cycle to die is now %d\n", ctd);
+}
+
 void			she_init(t_core *core)
 {
 	sh_env(core);
 	show_consts(core);
+	core->render.cycleToDieDelta = &cb_cycle_to_die_delta;
 	core->render.instLoaded = (t_instLoaded)&cb_inst_loaded;
 	core->render.cycleUpdated = (t_cycleUpdated)&cb_cycle_updated;
 	core->render.envDone = (t_envDone)&cb_envdone;

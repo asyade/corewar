@@ -6,16 +6,16 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/10 21:19:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 05:42:22 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-t_int32     inst_live(t_vm *vm, t_byte ci, t_process *pc)
+t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 {
-	pc->flags |= PF_LIVEUP;
 	vm->lives--;
+	pc->flags |= PF_LIVEUP;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
 	{
 		vm->champs[ci].flags |= PC_ALIVE;
@@ -81,7 +81,7 @@ t_int32     inst_and(t_vm *vm, t_byte ci, t_process *pc)
 	(void)vm;
 	if (!params_chk(PM_RID, PM_RID, PM_R, NULL, pc->inst))
 		return (0);
-	if (!(pc->reg[pc->inst[4] - 1] = param_dirval(pc, 1) & param_dirval(pc, 2)))
+	if (!(pc->reg[pc->inst[4] - 1] = param_idxval(vm, pc, 1) & param_idxval(vm, pc, 2)))
 		pc->flags |= PF_CARRY;
 	else
 		pc->flags &= ~PF_CARRY;
@@ -95,7 +95,7 @@ t_int32     inst_or(t_vm *vm, t_byte ci, t_process *pc)
 	(void)vm;
 	if (!params_chk(PM_RID, PM_RID, PM_R, NULL, pc->inst))
 		return (0);
-	if (!(pc->reg[pc->inst[4] - 1] = param_dirval(pc, 1) | param_dirval(pc, 2)))
+	if (!(pc->reg[pc->inst[4] - 1] = param_idxval(vm, pc, 1) | param_idxval(vm, pc, 2)))
 		pc->flags |= PF_CARRY;
 	else
 		pc->flags &= ~PF_CARRY;
@@ -108,7 +108,7 @@ t_int32     inst_xor(t_vm *vm, t_byte ci, t_process *pc)
 	(void)vm;
 	if (!params_chk(PM_RID, PM_RID, PM_R, NULL, pc->inst))
 		return (0);
-	if (!(pc->reg[pc->inst[4] - 1] = param_dirval(pc, 1) ^ param_dirval(pc, 2)))
+	if (!(pc->reg[pc->inst[4] - 1] = param_idxval(vm, pc, 1) ^ param_idxval(vm, pc, 2)))
 		pc->flags |= PF_CARRY;
 	else
 		pc->flags &= ~PF_CARRY;
@@ -171,7 +171,7 @@ t_int32			inst_lldi(t_vm *vm, t_byte ci, t_process *pc)
 	if (!(pc->reg[pc->inst[4] - 1] = mem_readint(&vm->memory, param_val(vm, pc, 1) + param_dirval(pc, 2))))
 		pc->flags |= PF_CARRY;
 	else
-		pc->flags &= ~PF_CARRY;    
+		pc->flags &= ~PF_CARRY;
 	return (1);
 
 }
@@ -199,6 +199,8 @@ t_int32			inst_lfork(t_vm *vm, t_byte ci, t_process *pc)
 
 t_int32     inst_aff(t_vm *vm, t_byte ci, t_process *pc)
 {
+	if (!params_chk(PM_R, NULL, NULL, NULL, pc->inst))
+		return (0);
 	(void)vm;
 	(void)ci;
 	(void)pc;

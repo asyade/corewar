@@ -11,3 +11,4 @@ add r2, r2, r2
 add r2, r2, r2
 add r2, r2, r2
 sti r3, r3, r1
+sti r3, 10, r1

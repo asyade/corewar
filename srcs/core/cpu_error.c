@@ -5,6 +5,8 @@ static t_int16	param_size(t_byte op, t_byte code)
 	int		m;
 
 	m = inst_get_code(op);
+	if (!code)
+		return (0);
 	if (code == T_REG)
 		return (1);
 	if (m & INS_LABELNO && code == T_IND)
@@ -47,6 +49,8 @@ t_int32			update_invalide_pc(t_process *pc)
 	t_int16	delta;
 
 	delta = 0;
+	if (pc->inst[1] == 0x00)
+		return (0);
 	count = params_count(pc->inst[0]);
 	if (count >= 1)
 		delta += param_size(pc->inst[0], IP1(pc->inst[1]));
@@ -56,8 +60,7 @@ t_int32			update_invalide_pc(t_process *pc)
 		delta += param_size(pc->inst[0], IP3(pc->inst[1]));
 	if (count >= 4)
 		delta += param_size(pc->inst[0], IP4(pc->inst[1]));
-	delta = (delta - (pc->pc - pc->cc)) / 2;
-	if (delta > 0)
-		pc->pc += delta;
+	pc->pc = pc->cc;
+	pc->pc += delta + 2;
 	return (delta);
 }
