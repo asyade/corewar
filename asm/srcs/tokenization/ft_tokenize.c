@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 12:18:56 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:21:39 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ static inline void		ft_assign_tokens_type(t_semantic_unit *unit)
 	}
 }
 
-typedef int32_t (*t_f_interpret_token)(t_semantic_unit *, uint64_t, t_token *);
-
-static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit)
+static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit, t_bin_buffer *bin)
 {
 	static const	t_f_interpret_token	interpretations[] =
 	{	&ft_interpret_err,
@@ -82,7 +80,7 @@ static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit)
 	while (i < unit->tokens_nbr)
 	{
 		if (!(interpretations[unit->tokens[i].token_type](unit, i
-												, &unit->tokens[i])))
+														, &unit->tokens[i], bin)))
 		{
 //			return (0);
 			;
@@ -92,7 +90,7 @@ static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit)
 	return (1);
 }
 
-t_semantic_unit			*ft_tokenize(char *line)
+t_semantic_unit			*ft_tokenize(char *line, t_bin_buffer *bin)
 {
 	t_semantic_unit	*semantic_unit;
 	char			**tokens;
@@ -105,7 +103,8 @@ t_semantic_unit			*ft_tokenize(char *line)
 	tokens = ft_split(line, CHARSET_SEPARATORS);
 	ft_assign_tokens_data(semantic_unit, tokens);
 	ft_assign_tokens_type(semantic_unit);
-	ft_interpret_tokens(semantic_unit);
+	ft_interpret_tokens(semantic_unit, bin);
+	semantic_unit->relative_address = bin->offset;
 	free(tokens);
 	return (semantic_unit);
 }

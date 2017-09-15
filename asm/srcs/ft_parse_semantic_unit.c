@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:51:56 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 14:08:46 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:45:25 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static inline int32_t	ft_handler_verbose_structure(t_semantic_unit *unit
 		if (unit->tokens[0].token_type == NAME)
 			return (ft_fill_header_name(unit, bin));
 		else
-			bin->comment_flag = 1;
-
-		return (0);
+			return (ft_fill_header_comment(unit, bin));
 	}
 	else if (unit->tokens_nbr == 1)
 		return (ft_error(4, (char*[]){EXPECTED_EXPRESSION, unit->tokens[0].token,

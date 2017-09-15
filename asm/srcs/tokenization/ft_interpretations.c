@@ -6,15 +6,16 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 09:42:16 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/14 12:07:20 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:19:49 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin)
 {
 	(void)token_index;
+	(void)bin;
 	if (token) //gcc trick
 		ft_error_exit(4, (char*[]){"Invalid token: ", token->token, " at line: "
 				, ft_static_ulltoa(unit->line_nbr)}, EXIT_FAILURE);
@@ -22,7 +23,7 @@ int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *t
 	return (0);
 }
 
-int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin)
 {
 	static const char	*opcodes[] =
 		{"live", "ld", "st", "add", "sub",
@@ -32,6 +33,7 @@ int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_
 	uint32_t	i;
 
 	i = 0;
+	(void)bin;
 	if (token_index != 0 && token_index != 1)
 		return (ft_error(4, (char*[]){ILLEGAL_USE_INSTRUCTION, token->token
 					, AT_LINE, ft_static_ulltoa(unit->line_nbr)}, 0));
@@ -48,32 +50,39 @@ int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_
 					, AT_LINE, ft_static_ulltoa(unit->line_nbr)}, 0));
 }
 
-int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin)
 {
 	(void)unit;
 	(void)token_index;
 	(void)token;
+	(void)bin;
 	return (1); // ??
 }
 
-int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index
+							, t_token *token, t_bin_buffer *bin)
 {
 	(void)unit;
 	(void)token_index;
 	(void)token;
+	(void)bin;
 	return (1); // ??
 }
 
-int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index
+							, t_token *token, t_bin_buffer *bin)
 {
 	(void)unit;
 	(void)token_index;
 	(void)token;
+	(void)bin;
 	return (1);
 }
 
-int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index
+							, t_token *token, t_bin_buffer *bin)
 {
+	(void)bin;
 	if (token_index < 1)
 		return (ft_error(4, (char*[]){ILLEGAL_PARAM_INVOCATION, token->token
 					, AT_LINE, ft_static_ulltoa(unit->line_nbr)}, 0));
@@ -81,7 +90,8 @@ int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token 
 	return (1);
 }
 
-int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token)
+int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin)
 {
 	t_list	**lst;
 	t_list	*tmp;
@@ -100,6 +110,7 @@ int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token 
 		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
 	label->name = token->token; // ?
 	label->instruction_index = *ft_get_instruction_count();
+	label->relative_address = bin->offset;
 	tmp->content = label;
 	ft_lstadd(lst, tmp);
 	return (1); // ??

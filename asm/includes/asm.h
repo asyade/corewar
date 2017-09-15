@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 14:08:03 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:21:05 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,14 @@ typedef struct	s_semantic_unit
 {
 	char		*line;
 	uint64_t	line_nbr;
+	uint64_t	relative_address;
 	t_token		tokens[MAX_NBR_TOKEN];
 	uint64_t	tokens_nbr;
 }				t_semantic_unit;
 
 
 char					**ft_split(char *str, char *separators);
-t_semantic_unit			*ft_tokenize(char *line);
+t_semantic_unit			*ft_tokenize(char *line, t_bin_buffer *bin);
 
 /*
 ** **Lexing**
@@ -140,15 +141,17 @@ int32_t					ft_lex_is_name(char *token);
 ** **Interpretation**
 */
 
-int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token *token);
-int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index, t_token *token);
-int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_token *token);
-int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token);
-int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token);
-int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+typedef int32_t (*t_f_interpret_token)(t_semantic_unit *, uint64_t, t_token *, t_bin_buffer *);
+
+int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
 
 t_list	*ft_find_label(char *name, t_list *label_lst);
-int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token);
+int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
 
 /*
 ** Parsing actions
@@ -163,7 +166,7 @@ uint8_t		ft_make_encoding_byte(t_arg_type *args, uint64_t nbr_args);
 int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
 
 int32_t		ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin);
-int32_t		ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin);
+int32_t		ft_fill_header_comment(t_semantic_unit *unit, t_bin_buffer *bin);
 
 typedef struct	s_f_param_value
 {

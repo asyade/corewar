@@ -6,11 +6,16 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 12:27:44 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:24:56 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static void	ft_bin_buffer_hex_dump(t_bin_buffer *buffer)
+{
+	ft_putstr(buffer->buffer);
+}
 
 int	main(int argc, char **argv)
 {
@@ -30,6 +35,7 @@ int	main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 		bin = ft_parse(fd);
+		ft_bin_buffer_hex_dump(bin);
 		if (-1 == (close(fd)))
 		{
 			perror(BIN_NAME);

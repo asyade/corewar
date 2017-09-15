@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:52:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 14:15:48 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:23:22 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int32_t	ft_get_dir_value(t_token *token)
 	{
 		if (ft_strlen(token->token) < 3
 			|| !(label = ft_find_label(token->token + 2, *ft_get_label_lst())))
-			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 0));
+			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 1));
 		direct_value = (int32_t)((t_label*)label->content)->relative_address;
 	}
 	else
@@ -68,7 +68,7 @@ static int32_t	ft_get_ind_value(t_token *token)
 	{
 		if (ft_strlen(token->token) < 2
 			|| !(label = ft_find_label(token->token + 1, *ft_get_label_lst())))
-			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 0));
+			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 1));
 		indirect_value = (int16_t)((t_label*)label->content)->relative_address;
 	}
 	else
