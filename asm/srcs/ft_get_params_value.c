@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:52:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 14:05:37 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 14:15:48 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int32_t	ft_get_dir_value(t_token *token)
 	}
 	else
 	{
-		i = 0;
+		i = 1;
 		while (token->token[i])
 		{
 			if (!ft_strchr(CHARSET_DECIMAL, token->token[i]))
@@ -73,7 +73,7 @@ static int32_t	ft_get_ind_value(t_token *token)
 	}
 	else
 	{
-		i = 0;
+		i = 1;
 		while (token->token[i])
 		{
 			if (!ft_strchr(CHARSET_DECIMAL, token->token[i]))
