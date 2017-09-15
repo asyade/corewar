@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/14 13:12:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 14:08:03 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,31 @@ typedef struct	s_label
 	uint64_t	relative_address;
 }				t_label;
 
-void		ft_check_file_extansion(char *filename);
-char		*ft_parse(int fd);
-t_arg_type	ft_get_instruction_param_type(char *param);
-uint32_t	ft_get_instruction_params(char *line, char **params);
+typedef struct	s_bin_buffer
+{
+	char		*buffer;
+	uint64_t	capacity;
+	uint64_t	offset;
+	header_t	header;
+	uint16_t	name_flag;
+	uint16_t	comment_flag;
+}				t_bin_buffer;
 
-uint64_t	*ft_get_instruction_count(void);
-t_list		**ft_get_label_lst(void);
-void		ft_discard_comments(char *line);
+void			ft_check_file_extansion(char *filename);
+t_bin_buffer	*ft_parse(int fd);
+t_arg_type		ft_get_instruction_param_type(char *param);
+uint32_t		ft_get_instruction_params(char *line, char **params);
+
+uint64_t		*ft_get_instruction_count(void);
+t_list			**ft_get_label_lst(void);
+void			ft_discard_comments(char *line);
 
 /*
 ** Tokenization
 */
 
 # define CHARSET_SEPARATORS " \t,"
+# define CHARSET_DECIMAL "-0123456789"
 
 # define MAX_PARAMS_NBR MAX_NBR_PARAMS //
 # define MAX_LABEL_NBR 1
@@ -68,11 +79,14 @@ typedef enum	e_token_type
 	LABEL,
 }				t_token_type;
 
-typedef struct	u_param_content
+typedef union	u_param_content
 {
-	uint8_t	reg_value[T_REG_CODE_SIZE];
-	uint8_t	indirect_value[T_IND_CODE_SIZE];
-	uint8_t	direct_value[T_DIR_CODE_SIZE];
+/* 	uint8_t	reg_value[T_REG_CODE_SIZE]; */
+/* 	int8_t	indirect_value[T_IND_CODE_SIZE]; */
+/* 	int8_t	direct_value[T_DIR_CODE_SIZE]; */
+	uint8_t	reg_value;
+	int32_t	direct_value;
+	int16_t	indirect_value;
 	uint8_t	raw_value[sizeof(uint64_t)];
 }				t_param_content;
 
@@ -80,6 +94,7 @@ typedef struct	s_param
 {
 	t_param_content	content;
 	t_arg_type		param_type;
+	char			pad[7];
 }				t_param;
 
 typedef union	u_token_content
@@ -105,6 +120,7 @@ typedef struct	s_semantic_unit
 	t_token		tokens[MAX_NBR_TOKEN];
 	uint64_t	tokens_nbr;
 }				t_semantic_unit;
+
 
 char					**ft_split(char *str, char *separators);
 t_semantic_unit			*ft_tokenize(char *line);
@@ -140,9 +156,31 @@ int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token 
 
 typedef int32_t	(*t_parsing_action)(char *buffer);
 
-int32_t		ft_parse_semantic_unit(t_semantic_unit *unit);
-char		ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args);
+int32_t		ft_parse_semantic_unit(t_semantic_unit *unit, t_bin_buffer *bin);
+void		ft_fill_bin_with_instruction(t_semantic_unit *unit, uint64_t index
+									 , t_bin_buffer *bin);
+uint8_t		ft_make_encoding_byte(t_arg_type *args, uint64_t nbr_args);
 int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
+
+int32_t		ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin);
+int32_t		ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin);
+
+typedef struct	s_f_param_value
+{
+	int32_t		(*f)(t_token *);
+	t_arg_type	id;
+	char		pad[7];
+}				t_f_param_value;
+
+int32_t		ft_get_params_value(t_semantic_unit *unit
+								, uint64_t index);
+int32_t		ft_get_param_value(t_token *token);
+
+/*
+** Bin buffer
+*/
+
+t_bin_buffer	*ft_create_bin_buffer(uint64_t capacity);
 
 /*
 ** Error handling
@@ -161,6 +199,11 @@ int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
 # define LABEL_REDEFINITION "Label redefinition: "
 # define EXPECTED_EXPRESSION "Expected expression after: "
 # define INVALID_EXPRESSION "Invalid expression: "
+# define NAME_COMMENT_REDEFINITION "Redefinition of token: "
+# define NAME_TOO_LONG ".name value is too long"
+# define COMMENT_TOO_LONG ".comment value is too long"
+# define INVALID_REG_NUMBER "Invalid register number: "
+# define UNKOWN_LABEL_INVOCATION "Invocation of unkown label: "
 
 NORETURN	ft_put_asm_usage(char *str);
 

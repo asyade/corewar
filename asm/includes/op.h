@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/14 11:35:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 12:55:39 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,11 @@ extern t_op    op_tab[OP_NBR];
 
 typedef struct		header_s
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
+	uint32_t		magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	uint32_t		prog_size __attribute__((packed));
+	char			comment[COMMENT_LENGTH + 1];
+	char			pad[2];
 }					header_t;
 
 #endif

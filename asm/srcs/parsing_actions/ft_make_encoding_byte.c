@@ -6,13 +6,13 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 03:11:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 03:20:46 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/15 14:07:58 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-inline char	ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args)
+inline uint8_t	ft_make_encoding_byte(t_arg_type *args, uint64_t nbr_args)
 {
 	static const	t_encoding_byte encoding_bytes[] = {
 		{T_REG, REG_CODE},
@@ -20,7 +20,7 @@ inline char	ft_make_encoding_byte(t_arg_type *args, uint32_t nbr_args)
 		{T_IND, IND_CODE}};
 	uint32_t		i;
 	uint32_t		u;
-	char			encoding_byte;
+	uint8_t			encoding_byte;
 
 	i = 0;
 	encoding_byte = 0;

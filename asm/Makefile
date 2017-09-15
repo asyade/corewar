@@ -13,7 +13,12 @@ SRC= srcs/main.c \
 	srcs/tokenization/ft_tokenize.c \
 	srcs/tokenization/ft_lexing.c \
 	srcs/tokenization/ft_interpretations.c \
-	srcs/ft_parse_semantic_unit.c
+	srcs/ft_parse_semantic_unit.c \
+	srcs/ft_create_bin_buffer.c \
+	srcs/ft_fill_header_name.c \
+	srcs/ft_fill_header_comment.c \
+	srcs/ft_get_params_value.c \
+	srcs/ft_fill_bin_with_instruction.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)
