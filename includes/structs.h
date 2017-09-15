@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/11 00:02:50 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 02:58:56 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define PF_WAIT		(1 << 2)
 # define PF_CARRY		(1 << 3)
 
-# define PC_ALIVE		(1 << 4)
+# define PC_ALIVE		(1 << 24)
 # define PC_LOADED		(1 << 5)
 # define PC_DEAD		(1 << 6)
 # define PC_NONE		(1 << 7)
@@ -142,6 +142,7 @@ typedef void			(*t_memUpdated)(t_memory *, int , int);
 typedef int				(*t_loadChamps)(void);
 typedef	void			(*t_cycleUpdated)(void);
 typedef void			(*t_envDone)(t_vm *vm);
+typedef void			(*t_cycleToDieDelta)(int ctd);
 
 /*
 ** Public
@@ -150,6 +151,7 @@ typedef void			(*t_envDone)(t_vm *vm);
 typedef struct			s_render
 {
 	t_cycleUpdated		cycleUpdated;
+	t_cycleToDieDelta	cycleToDieDelta;
 	t_livesDelta		livesDelta;
 	t_processDie		processDie;
 	t_playerWin			playerWin;

@@ -6,15 +6,15 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/11 00:14:39 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 04:56:27 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-t_op    op_tab[17] =
+t_op    op_tab[17] = 
 {
-	//name		?	params					ID	Cycles	describ		PC IND_2/4
+	//name	pcount	params					ID	Cycles	describ		PC IND_2/4
 	{"live",	1, {T_DIR}, 				1,	10,		"alive",	0, 0},
 	{"ld",		2, {T_DIR | T_IND, T_REG}, 	2,	5,		"load",		1, 0},
 	{"st",		2, {T_REG, T_IND | T_REG}, 	3,	5,		"store",	1, 0},
@@ -28,7 +28,7 @@ t_op    op_tab[17] =
 	{"sti", 	3, {T_RID, T_DIR | T_REG},	11,	25,		"store i",	1, 1},
 	{"fork", 	1, {T_DIR},					12,	800,	"fork",		0, 1},
 	{"lld", 	2, {T_DIR | T_IR},			13,	10, 	"l load",	1, 0},
-	{"lldi", 	3, {T_RID, T_DR, T_REG},	14,	50,		"ll index", 1, 1},
+	{"lldi", 	3, {T_RID, T_DR, T_REG},	14,	50,		"ll index", 1
 	{"lfork", 	1, {T_DIR},					15,	1000,	"long fork",0, 1},
 	{"aff", 	1, {T_REG},					16,	2,		"aff",		1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}

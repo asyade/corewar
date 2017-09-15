@@ -28,11 +28,8 @@ t_int32		param_get_val(t_memory *mem, t_process *pc, t_byte pcode, t_int32 op)
 	t_int32	val;
 
 	val = 0;
-	if (op & INS_LABELNO)
-	{
-		if (pcode == T_IND)
-			op = INS_LABEL2;
-	}
+	if (op & INS_LABELNO && pcode == T_IND)
+		op = INS_LABEL2;
 	if (pcode == T_REG)
 		val = mem_readbyte(mem, pc->pc++);
 	else if (op & INS_LABEL4)
@@ -53,6 +50,8 @@ t_int32		params_read(t_memory *mem, t_process *pc, t_int32 code)
 	t_byte	i;
 
 	pc->inst[1] = mem_readbyte(mem, pc->pc++);
+	if (pc->inst[1] == 0x00)
+		return (0);
 	if ((i = IP1(pc->inst[1])))
 		pc->inst[2] = param_get_val(mem, pc, i, code);
 	if (i && (i = IP2(pc->inst[1])))
@@ -74,11 +73,6 @@ t_int32		params_load(t_vm *vm, t_process *pc)
 		return (0);
 	if (code & INS_OCTALCODE)
 		params_read(&vm->memory, pc, code);
-	else if (code == INS_AFF)
-	{
-		pc->inst[1] = mem_readbyte(&vm->memory, pc->pc);
-		off += 1;
-	}
 	else if (code & INS_LABEL2)
 	{
 		pc->inst[1] = mem_readshort(&vm->memory, pc->pc);

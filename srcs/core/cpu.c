@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/11 00:25:45 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/14 05:16:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		exec(t_vm *vm, t_byte ci, t_process *pc)
 {
+	int				success;
 	static t_inst	inst_table[] = {
 		&inst_live,
 		&inst_ld,
@@ -37,11 +38,12 @@ void		exec(t_vm *vm, t_byte ci, t_process *pc)
 		return ;
 	params_load(vm, pc);
 
+	if (!(success = (inst_table[pc->inst[0] - 1])(vm, ci, pc)))
+		update_invalide_pc(pc);
 	if (vm->params->verbose & PV_OPS && vm->instLoaded)
 		(vm->instLoaded)(&vm->champs[ci], pc);
 	if (vm->pcUpdated)
 		(vm->pcUpdated)(pc);
-	(inst_table[pc->inst[0] - 1])(vm, ci, pc);
 }
 
 t_int32		exec_dellay(t_byte  opcode)
@@ -81,7 +83,7 @@ void		cpu_do_ops(t_vm *vm, int ci, t_champ *ch)
 		{
 			ft_bzero(pc->inst, sizeof(t_int32) * 6);
 			pc->cc = pc->pc++;
-			pc->inst[0] = vm->memory.mem[ABSPTR(pc->cc)];      
+			pc->inst[0] = vm->memory.mem[ABSPTR(pc->cc)];
 			pc->flags |= PF_WAIT;
 			pc->cycles_to_do = exec_dellay(pc->inst[0]);
 		}
