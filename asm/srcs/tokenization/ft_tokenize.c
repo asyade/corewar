@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 17:04:03 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 23:37:23 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 	i = 0;
 	while (tokens[i])
 	{
+		printf("%p: --%s--\n", (void*)tokens[i], tokens[i]);
 		unit->tokens[i].token = tokens[i];
 		i++;
 	}
+	printf("nbr_tokens: %llu\n", i);
 	unit->tokens_nbr = i;
 }
 
@@ -59,6 +61,7 @@ static inline void		ft_assign_tokens_type(t_semantic_unit *unit)
 	i = 0;
 	while (i < unit->tokens_nbr)
 	{
+		printf("%p, token :s i: %llu\n", (void*)unit->tokens[i].token, /* unit->tokens[i].token */ i);
 		ft_assign_token_type(unit, i);
 		i++;
 	}

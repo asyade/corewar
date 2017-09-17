@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:35:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/14 11:38:49 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/16 02:51:10 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define NORETURN __attribute__((noreturn)) void
 
-# define ERROR_NAME_HEADER "asm: "
+# define ERROR_NAME_HEADER "libft_default_error: "
 
 typedef struct	s_list
 {
