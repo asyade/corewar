@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:52:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 23:23:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 15:02:28 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int32_t	ft_get_reg_value(t_token *token)
 			return (ft_error(2, (char*[]){INVALID_EXPRESSION, token->token}, 0));
 		i++;
 	}
-	if ((tmp_value = (uint8_t)ft_atoi(token->token + 1)) > REG_NUMBER)
+	if ((tmp_value = (uint8_t)ft_atoi(token->token + 1)) > REG_NUMBER || !tmp_value)
 		return (ft_error(2, (char*[]){INVALID_REG_NUMBER, token->token}, 0));
 	token->token_content.param.content.reg_value = tmp_value;
 	return (1);
@@ -32,17 +32,11 @@ static int32_t	ft_get_reg_value(t_token *token)
 
 static int32_t	ft_get_dir_value(t_token *token)
 {
-	t_list		*label;
 	int32_t		direct_value;
 	uint32_t	i;
 
-	if (token->token[0] && token->token[1] == LABEL_CHAR)
-	{
-		if (ft_strlen(token->token) < 3
-			|| !(label = ft_find_label(token->token + 2, *ft_get_label_lst())))
-			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 1));
-		direct_value = (int32_t)((t_label*)label->content)->relative_address;
-	}
+	if (token->token_content.param.param_type & T_LAB)
+		return ((token->token_content.param.label_to_seek = 1));
 	else
 	{
 		i = 1;
@@ -54,23 +48,17 @@ static int32_t	ft_get_dir_value(t_token *token)
 		}
 		direct_value = ft_atoi(token->token + 1);
 	}
-	token->token_content.param.content.direct_value = direct_value;
+	token->token_content.param.content.direct_value = (int32_t)ft_bswap_u32((uint32_t)direct_value);
 	return (1);
 }
 
 static int32_t	ft_get_ind_value(t_token *token)
 {
-	t_list		*label;
 	int16_t		indirect_value;
 	uint32_t	i;
 
-	if (token->token[0] == LABEL_CHAR)
-	{
-		if (ft_strlen(token->token) < 2
-			|| !(label = ft_find_label(token->token + 1, *ft_get_label_lst())))
-			return (ft_error(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, 1));
-		indirect_value = (int16_t)((t_label*)label->content)->relative_address;
-	}
+	if (token->token_content.param.param_type & T_LAB)
+		return ((token->token_content.param.label_to_seek = 1));
 	else
 	{
 		i = 1;
@@ -82,7 +70,7 @@ static int32_t	ft_get_ind_value(t_token *token)
 		}
 		indirect_value = (int16_t)ft_atoi(token->token + 1);
 	}
-	token->token_content.param.content.indirect_value = indirect_value;
+	token->token_content.param.content.indirect_value = (int16_t)ft_bswap_u16((uint16_t)indirect_value);
 	return (1);
 }
 
@@ -97,7 +85,7 @@ int32_t			ft_get_param_value(t_token *token)
 	i = 0;
 	while (i < sizeof(param_get_value) / sizeof(t_f_param_value))
 	{
-		if (token->token_content.param.param_type == param_get_value[i].id)
+		if (token->token_content.param.param_type & param_get_value[i].id)
 			return (param_get_value[i].f(token));
 		i++;
 	}

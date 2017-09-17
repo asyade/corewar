@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 23:45:24 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 17:34:21 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,28 @@ t_op    op_tab[OP_NBR] =
 	{"aff", 	1, (t_arg_type[]){T_REG},				16, {0},	2,		"aff",		1, 0},
 };
 
+static inline void		ft_add_unit_to_lst(t_list **unit_lst
+										, t_semantic_unit *unit)
+{
+	t_list	*tmp;
+
+	if (!(tmp = (t_list*)ft_memalloc(sizeof(t_list))))
+		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
+	tmp->content = unit;
+	ft_lstadd(unit_lst, tmp);
+}
+
 t_bin_buffer			*ft_parse(int fd)
 {
 	t_bin_buffer	*bin;
 	t_semantic_unit	*unit;
+	t_list			*unit_lst;
 	int32_t			current_case;
 	char			*line;
 
 	current_case = -1;
 	bin = ft_create_bin_buffer(CHAMP_MAX_SIZE);
+	unit_lst = NULL;
 	while ((get_next_line(fd, &line)) > 0)
 	{
 		ft_discard_comments(line);
@@ -49,8 +62,9 @@ t_bin_buffer			*ft_parse(int fd)
 		if (-1 == ft_parse_semantic_unit(unit, bin))
 			ft_error_exit(5, (char*[]){PARSING_ERROR, AT_LINE
 						, ft_static_ulltoa(unit->line_nbr + 1), ": ", line}, EXIT_FAILURE);
-		free(line);
+		ft_add_unit_to_lst(&unit_lst, unit);
 		(*ft_get_instruction_count())++;
 	}
+	ft_seek_labels(unit_lst, bin);
 	return (bin);
 }

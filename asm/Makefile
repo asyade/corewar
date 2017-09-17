@@ -18,7 +18,11 @@ SRC= srcs/main.c \
 	srcs/ft_fill_header_name.c \
 	srcs/ft_fill_header_comment.c \
 	srcs/ft_get_params_value.c \
-	srcs/ft_fill_bin_with_instruction.c
+	srcs/ft_fill_bin_with_instruction.c \
+	srcs/ft_create_corewar_file.c \
+	srcs/ft_get_bin_filename.c \
+	srcs/ft_bswap.c \
+	srcs/ft_seek_labels.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)

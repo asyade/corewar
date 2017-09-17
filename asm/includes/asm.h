@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 23:21:05 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 17:55:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define BIN_NAME "asm: "
 # define ASM_FILE_EXTENSION ".s"
+# define BIN_FILE_EXTENSION ".cor"
 
 /*
 ** Parsing
@@ -46,6 +47,7 @@ typedef struct	s_bin_buffer
 	header_t	header;
 	uint16_t	name_flag;
 	uint16_t	comment_flag;
+	char		pad[4];
 }				t_bin_buffer;
 
 void			ft_check_file_extansion(char *filename);
@@ -94,7 +96,8 @@ typedef struct	s_param
 {
 	t_param_content	content;
 	t_arg_type		param_type;
-	char			pad[7];
+	char			pad[3];
+	uint32_t		label_to_seek;
 }				t_param;
 
 typedef union	u_token_content
@@ -108,6 +111,7 @@ typedef union	u_token_content
 typedef struct	s_token
 {
 	char			*token;
+	uint64_t		relative_address;
 	t_token_content	token_content;
 	t_token_type	token_type;
 	char			pad[4];
@@ -178,12 +182,27 @@ typedef struct	s_f_param_value
 int32_t		ft_get_params_value(t_semantic_unit *unit
 								, uint64_t index);
 int32_t		ft_get_param_value(t_token *token);
+void		ft_seek_labels(t_list *unit_lst, t_bin_buffer *bin);
 
 /*
 ** Bin buffer
 */
 
 t_bin_buffer	*ft_create_bin_buffer(uint64_t capacity);
+
+/*
+** Bin creation
+*/
+
+void	ft_create_corewar_file(char *filename, t_bin_buffer *bin);
+char	*ft_get_bin_filename(char *filename);
+
+/*
+** Endianness Swap
+*/
+
+uint16_t	ft_bswap_u16(uint16_t to_swap);
+uint32_t	ft_bswap_u32(uint32_t to_swap);
 
 /*
 ** Error handling
@@ -207,6 +226,7 @@ t_bin_buffer	*ft_create_bin_buffer(uint64_t capacity);
 # define COMMENT_TOO_LONG ".comment value is too long"
 # define INVALID_REG_NUMBER "Invalid register number: "
 # define UNKOWN_LABEL_INVOCATION "Invocation of unkown label: "
+# define CREATE_FILE_ERROR "Failed to create binary file"
 
 NORETURN	ft_put_asm_usage(char *str);
 

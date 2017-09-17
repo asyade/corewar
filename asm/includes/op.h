@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/15 12:55:39 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 17:55:45 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_encoding_byte
 }				t_encoding_byte;
 
 # define REG_CODE			1 //0b01
-# define DIR_CODE			1 //0b10
+# define DIR_CODE			2 //0b10
 # define IND_CODE			3 //0b11
 
 /*
@@ -57,7 +57,7 @@ typedef struct	s_op
 	char		pad[7];
 	uint64_t	nbr_cycles;
 	char		*describ;
-	uint32_t	pc_modifier;
+	uint32_t	octal_code;
 	uint32_t	dafuq;
 }				t_op;
 
@@ -104,9 +104,10 @@ typedef struct		header_s
 {
 	uint32_t		magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
-	uint32_t		prog_size __attribute__((packed));
+	char			pad[3];
+	uint32_t		prog_size;
 	char			comment[COMMENT_LENGTH + 1];
-	char			pad[2];
+	char			pad2[3];
 }					header_t;
 
 #endif

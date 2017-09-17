@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 23:21:39 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 17:04:03 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 	uint64_t	i;
 
 	i = 0;
-	while (tokens[i] && i < MAX_PARAMS_NBR)
+	while (tokens[i])
 	{
 		unit->tokens[i].token = tokens[i];
 		i++;

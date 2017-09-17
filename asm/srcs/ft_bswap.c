@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_bin_buffer.c                             :+:      :+:    :+:   */
+/*   ft_bswap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/15 12:21:18 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 07:23:48 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/17 07:14:49 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/17 07:29:34 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_bin_buffer	*ft_create_bin_buffer(uint64_t capacity)
-{
-	t_bin_buffer	*bin;
+/*
+** Endianness swap
+*/
 
-	if (!(bin = (t_bin_buffer*)ft_memalloc(sizeof(t_bin_buffer) + sizeof(char) * capacity)))
-		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
-	bin->capacity = capacity;
-	bin->offset = 0;
-	bin->buffer = (char*)bin + sizeof(t_bin_buffer);
-	bin->header.magic = ft_bswap_u32(COREWAR_EXEC_MAGIC);
-	return (bin);
+inline uint16_t	ft_bswap_u16(uint16_t to_swap)
+{
+	uint16_t	tmp;
+
+	tmp = 0 | (to_swap >> 8) ;
+	tmp |= to_swap << 8;
+	return (tmp);
+}
+
+inline uint32_t	ft_bswap_u32(uint32_t to_swap)
+{
+	uint32_t	tmp;
+
+	tmp = 0 | ((to_swap >> 24) & 0xFF);
+	tmp |= (to_swap >> 8) & 0xFF00;
+	tmp |= (to_swap << 8) & 0xFF0000;
+	tmp |= (to_swap << 24) & 0xFF000000;
+	return (tmp);
 }

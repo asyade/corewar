@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_get_bin_filename.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/14 11:16:33 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 12:27:17 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/17 06:43:38 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/17 06:51:02 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "asm.h"
 
-int	main(void)
+inline char	*ft_get_bin_filename(char *filename)
 {
-	t_bin_buffer	*bin
-	uint64_t	i;
+	char		*cpy;
+	uint64_t	len;
 
-	i = 0;
-	while (i + 1)
+	len = ft_strlen(filename) - 1;
+	if (!(cpy = ft_strndup(filename, len + 3)))
+		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
+	while (len > 0)
 	{
-		str = ft_static_ulltoa(i);
-		printf("%llu: %s\n", i, str);
-		i++;
+		if (filename[len] == '.')
+			break;
+		len--;
 	}
-	return (0);
+	ft_memcpy(cpy + len, BIN_FILE_EXTENSION, sizeof(BIN_FILE_EXTENSION));
+	return (cpy);
 }

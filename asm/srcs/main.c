@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/15 23:24:56 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 17:41:39 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 static void	ft_bin_buffer_hex_dump(t_bin_buffer *buffer)
 {
-	ft_putstr(buffer->buffer);
+	uint64_t	i;
+
+	i = 0;
+	while (i < buffer->offset)
+	{
+		if (i % 32 == 0)
+			printf("\n%8p: ", (void*)(i));
+		printf("%02hhx ", buffer->buffer[i]);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -35,13 +44,15 @@ int	main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 		bin = ft_parse(fd);
+		bin->header.prog_size = ft_bswap_u32((uint32_t)bin->offset);
+		printf("bin_size: %x\n", /* ft_bswap_u32((uint32_t)bin->offset) */bin->header.prog_size);
 		ft_bin_buffer_hex_dump(bin);
 		if (-1 == (close(fd)))
 		{
 			perror(BIN_NAME);
 			exit(EXIT_FAILURE);
 		}
-//ft_create_corewar_file(argv[1], buffer);
+		ft_create_corewar_file(ft_get_bin_filename(argv[1]), bin);
 	}
 	return (0);
 }
