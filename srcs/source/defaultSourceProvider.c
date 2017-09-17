@@ -9,7 +9,12 @@ static int		checkSize(char *nm, int fd, int size)
 	real = lseek(fd, 0, SEEK_END) - sizeof(t_champHeader);
 	if (real != size)
 	{
-		pcri("%s: file size different from header size\n", nm);
+		pcri("%s: champ size different from header size\n", nm);
+		return (0);
+	}
+	if (real > CHAMP_MAX_SIZE)
+	{
+		pcri("%s: champ size too big ( %d > %d )\n", real, CHAMP_MAX_SIZE);
 		return (0);
 	}
 	lseek(fd, -real, SEEK_CUR);
