@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 22:26:53 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 00:16:23 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	main(int argc, char **argv)
 		}
 		bin = ft_parse(fd);
 		bin->header.prog_size = ft_bswap_u32((uint32_t)bin->offset);
-		printf("bin_size: %x\n", /* ft_bswap_u32((uint32_t)bin->offset) */bin->header.prog_size);
-		ft_bin_buffer_hex_dump(bin);
+//		printf("bin_size: %x\n", /* ft_bswap_u32((uint32_t)bin->offset) */bin->header.prog_size);
+//		ft_bin_buffer_hex_dump(bin);
+		(void)ft_bin_buffer_hex_dump;
 		if (-1 == (close(fd)))
 		{
 			perror(BIN_NAME);

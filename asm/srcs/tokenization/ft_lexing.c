@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 07:29:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 23:33:45 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 23:42:06 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int32_t	ft_lex_is_instruction(char *token)
 		exit(EXIT_FAILURE);
 	while (i < sizeof(opcodes) / sizeof(char*))
 	{
-//		printf("%p, i: %u\n", (void*)token, i);
 		if (ft_strequ(token, opcodes[i]))
 			return (1);
 		i++;
