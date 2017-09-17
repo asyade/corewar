@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 17:55:40 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 21:34:00 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct	s_param
 {
 	t_param_content	content;
 	t_arg_type		param_type;
-	char			pad[3];
+	char			pad[1];
+	uint16_t		size;
 	uint32_t		label_to_seek;
 }				t_param;
 
@@ -174,15 +175,15 @@ int32_t		ft_fill_header_comment(t_semantic_unit *unit, t_bin_buffer *bin);
 
 typedef struct	s_f_param_value
 {
-	int32_t		(*f)(t_token *);
+	int32_t		(*f)(t_token *, uint8_t);
 	t_arg_type	id;
 	char		pad[7];
 }				t_f_param_value;
 
 int32_t		ft_get_params_value(t_semantic_unit *unit
 								, uint64_t index);
-int32_t		ft_get_param_value(t_token *token);
 void		ft_seek_labels(t_list *unit_lst, t_bin_buffer *bin);
+int32_t		ft_is_token_decimal(char *token);
 
 /*
 ** Bin buffer

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 09:58:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 17:49:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 21:36:39 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 	i++;
 	if (!(label = ft_find_label(token->token + i, *ft_get_label_lst())))
 		ft_error_exit(2, (char*[]){UNKOWN_LABEL_INVOCATION, token->token}, EXIT_FAILURE);
-	if (token->token_content.param.param_type & T_DIR)
+	if (/* token->token_content.param.param_type & T_DIR */token->token_content.param.size == 2)
 		*((uint16_t*)(void*)(bin->buffer + token->relative_address)) =
 			ft_bswap_u16((uint16_t)(((t_label*)label->content)->relative_address - unit->relative_address));
-	else if (token->token_content.param.param_type & T_IND)
-		*((uint16_t*)(void*)(bin->buffer + token->relative_address)) =
-			ft_bswap_u16((uint16_t)(((t_label*)label->content)->relative_address - unit->relative_address));
+	else if (/* token->token_content.param.param_type & T_IND */token->token_content.param.size == 4)
+		*((uint32_t*)(void*)(bin->buffer + token->relative_address)) =
+			ft_bswap_u32((uint32_t)(((t_label*)label->content)->relative_address - unit->relative_address));
 	else
 		ft_error_exit(2, (char*[]){"Invalid invocation of label: "
 					, token->token}, EXIT_FAILURE);

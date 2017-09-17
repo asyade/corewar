@@ -22,7 +22,8 @@ SRC= srcs/main.c \
 	srcs/ft_create_corewar_file.c \
 	srcs/ft_get_bin_filename.c \
 	srcs/ft_bswap.c \
-	srcs/ft_seek_labels.c
+	srcs/ft_seek_labels.c \
+	srcs/ft_is_token_decimal.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/17 17:55:45 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/17 22:34:06 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_op
 	uint64_t	nbr_cycles;
 	char		*describ;
 	uint32_t	octal_code;
-	uint32_t	dafuq;
+	uint32_t	label_size;
 }				t_op;
 
 # define OP_NBR 17
@@ -67,7 +67,6 @@ extern t_op    op_tab[OP_NBR];
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
-
 
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS				4
