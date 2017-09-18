@@ -23,13 +23,20 @@ SRC= srcs/main.c \
 	srcs/ft_get_bin_filename.c \
 	srcs/ft_bswap.c \
 	srcs/ft_seek_labels.c \
-	srcs/ft_is_token_decimal.c
+	srcs/ft_is_token_decimal.c \
+	srcs/ft_check_bin_integrity.c \
+	srcs/diagnostics/ft_diagnostic.c \
+	srcs/diagnostics/ft_get_abort_on_dk.c \
+	srcs/diagnostics/ft_get_dk_colors_to_kind.c \
+	srcs/diagnostics/ft_get_dk_conf_from_msg.c \
+	srcs/diagnostics/ft_set_dk_location.c \
+	srcs/diagnostics/ft_init_dk_info.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ./libft/includes/
 CC= gcc
-CC_FLAGS= -v -Ofast -Weverything -Wall -Werror -Wextra  -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
+CC_FLAGS= -v -Ofast -Weverything -Wall -Werror -Wextra  -Wno-padded -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
 LIBFT_PATH=./libft
 FLAGS= -L$(LIBFT_PATH) -lft -I$(HDR_PATH) -I./includes
 

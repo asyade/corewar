@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:37:07 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 11:46:28 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 21:18:24 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ inline int32_t	ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin)
 						AT_LINE, ft_static_ulltoa(unit->line_nbr)}, -1));
 	len = ft_strlen(unit->tokens[1].token);
 	if (!len)
-		return (-1);
+		return (ft_error(3, (char*[]){NAME_TOO_SHORT, AT_LINE
+						, ft_static_ulltoa(unit->line_nbr)}, -1));
 	unit->tokens[1].token[len - 1] = '\0';
 	if (len - 1 > PROG_NAME_LENGTH)
 		return (ft_error(3, (char*[]){NAME_TOO_LONG, AT_LINE

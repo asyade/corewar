@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/18 15:39:40 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 01:26:32 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_op    op_tab[OP_NBR] =
 	{"aff", 	1, (t_arg_type[]){T_REG},				16, {0},	2,		"aff",		1, 0},
 };
 
+t_dk_info	g_dk_info;
+
 static inline void		ft_add_unit_to_lst(t_list **unit_lst
 										, t_semantic_unit *unit)
 {
@@ -55,15 +57,25 @@ t_bin_buffer			*ft_parse(int fd)
 	current_case = -1;
 	bin = ft_create_bin_buffer(CHAMP_MAX_SIZE);
 	unit_lst = NULL;
+	ft_init_dk_info(&g_dk_info);
+	g_dk_info.line = "label: stdi r1,r2,r3";
+	g_dk_info.content = "stdi";
+	g_dk_info.location.line = 1;
+	g_dk_info.location.column = 7;
+	g_dk_info.location.len = 4;
+	g_dk_info.context = 1;
+	ft_diagnostic(&g_dk_info, INVALID_INSTRUCTION, 0);
 	while ((get_next_line(fd, &line)) > 0)
 	{
 		ft_discard_comments(line);
 		(*ft_get_instruction_count())++;
+		g_dk_info.line = line;
 		unit = ft_tokenize(line, bin);
 		if (-1 == ft_parse_semantic_unit(unit, bin))
 			ft_error_exit(4, (char*[]){PARSING_ERROR, ft_static_ulltoa(unit->line_nbr), ": ", line}, EXIT_FAILURE);
 		ft_add_unit_to_lst(&unit_lst, unit);
 	}
 	ft_seek_labels(unit_lst, bin);
+	ft_check_bin_integrity(bin);
 	return (bin);
 }

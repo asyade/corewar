@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/18 15:44:40 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 01:54:53 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
 
 int32_t		ft_fill_header_name(t_semantic_unit *unit, t_bin_buffer *bin);
 int32_t		ft_fill_header_comment(t_semantic_unit *unit, t_bin_buffer *bin);
+void		ft_check_bin_integrity(t_bin_buffer *bin);
 
 typedef struct	s_f_param_value
 {
@@ -207,6 +208,68 @@ uint16_t	ft_bswap_u16(uint16_t to_swap);
 uint32_t	ft_bswap_u32(uint32_t to_swap);
 
 /*
+** Diagnostics
+*/
+
+# include "colors.h"
+
+typedef enum	e_diagnostic_kind
+{
+	DK_UNKNOWN = 0,
+	DK_ERROR,
+	DK_WARNING,
+	DK_INTERNAL_ERROR,
+	DK_LAST_KIND,
+}				t_dk_kind;
+
+typedef struct	s_diagnostic_location
+{
+	uint64_t	line;
+	uint64_t	column;
+	uint64_t	len;
+}				t_dk_location;
+
+typedef struct	s_diagnostic_color
+{
+	char		*font;
+	char		*back;
+	char		*style;
+}				t_dk_color;
+
+typedef struct	s_diagnostic_info
+{
+	t_dk_location	location;
+	t_dk_color		colors;
+	char			*content;
+	char			*line;
+	char			*msg;
+	t_dk_kind		kind;
+	uint8_t			abort_on_dk;
+	uint8_t			context;
+	char			pad[2];
+}				t_dk_info;
+
+typedef struct	 s_diagnostic_conf
+{
+	char		*msg;
+	t_dk_kind	kind;
+	uint8_t		context;
+}				t_dk_conf;
+
+extern t_dk_info	g_dk_info;
+
+int32_t			ft_diagnostic(t_dk_info *dk_info, char *msg, int32_t return_value);
+void			ft_put_diagnostic(t_dk_info *dk_info);
+
+t_dk_color		ft_get_dk_colors_to_kind(t_dk_kind kind);
+t_dk_location	ft_set_dk_location(t_dk_info *dk_info, uint64_t line
+								, uint64_t column, uint64_t token_nbr);
+uint8_t			*ft_get_abort_on_dk(void);
+t_dk_kind		ft_get_kind_from_msg(const char *msg);
+void			ft_init_dk_info(t_dk_info *dk_info);
+t_dk_conf		ft_get_dk_conf_from_msg(const char *msg);
+
+/*
 ** Error handling
 */
 
@@ -225,10 +288,15 @@ uint32_t	ft_bswap_u32(uint32_t to_swap);
 # define INVALID_EXPRESSION "Invalid expression: "
 # define NAME_COMMENT_REDEFINITION "Redefinition of token: "
 # define NAME_TOO_LONG ".name value is too long"
+# define NAME_TOO_SHORT ".name value is too short"
 # define COMMENT_TOO_LONG ".comment value is too long"
 # define INVALID_REG_NUMBER "Invalid register number: "
-# define UNKOWN_LABEL_INVOCATION "Invocation of unkown label: "
+# define UNKNOWN_LABEL_INVOCATION "Invocation of unkown label: "
 # define CREATE_FILE_ERROR "Failed to create binary file"
+# define UNAMED_BIN_FILE "Unamed binary file"
+# define WARNING "Warning: "
+# define NO_COMMENT_DEFINED "No comment has been defined"
+# define EMPTY_TEXT "Empty text"
 
 NORETURN	ft_put_asm_usage(char *str);
 
