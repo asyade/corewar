@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/14 05:16:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/18 23:47:29 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void		exec(t_vm *vm, t_byte ci, t_process *pc)
 	if (!OPVALIDE(pc->inst[0]))
 		return ;
 	params_load(vm, pc);
-
 	if (!(success = (inst_table[pc->inst[0] - 1])(vm, ci, pc)))
 		update_invalide_pc(pc);
 	if (vm->params->verbose & PV_OPS && vm->instLoaded)
