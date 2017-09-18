@@ -14,7 +14,7 @@ static int		checkSize(char *nm, int fd, int size)
 	}
 	if (real > CHAMP_MAX_SIZE)
 	{
-		pcri("%s: champ size too big ( %d > %d )\n", real, CHAMP_MAX_SIZE);
+		pcri("%s: champ size too big ( %d > %d )\n", nm, real, CHAMP_MAX_SIZE);
 		return (0);
 	}
 	lseek(fd, -real, SEEK_CUR);

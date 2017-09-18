@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/14 04:22:39 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/18 23:50:17 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void     play_load_champs(t_vm *vm)
 {
-	t_int32         i;
-	t_vptr          offset;
-	t_process       *pc;
+	t_int32		i;
+	t_vptr		offset;
+	t_process	*pc;
 
 	i = vm->champ_count;
 	while (i--)

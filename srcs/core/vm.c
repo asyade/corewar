@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/10 21:10:02 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/18 23:43:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		vm_init(t_vm *vm)
 void		vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
 {
 	mem_write(vm, champ->body, champ->header.size, offset, champ->number);
-	champ->flags |= PC_LOADED;
+	champ->flags = PC_LOADED;
 }
 
 /*
@@ -49,6 +49,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	npc->id = ++champ->nbr_process;
 	if (vm->processLoaded)
 		vm->processLoaded(champ);
+	npc->flags = 0;
 	return (npc);
 }
 

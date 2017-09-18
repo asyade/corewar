@@ -10,11 +10,13 @@ static t_int16	param_size(t_byte op, t_byte code)
 	if (code == T_REG)
 		return (1);
 	if (m & INS_LABELNO && code == T_IND)
-		m = INS_LABEL2; 
-	if (m & INS_LABEL2)
 		return (2);
+	else
+		return (4);
 	if (m & INS_LABEL4)
 		return (4);
+	else
+		return (2);
 	return (0);
 }
 

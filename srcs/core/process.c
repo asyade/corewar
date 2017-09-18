@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 23:59:18 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 21:49:02 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/18 23:49:19 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_process	*pc_new(t_reg number)
 	npc = ft_salloc(sizeof(t_process));
 	ft_bzero(npc, sizeof(t_process));
 	npc->reg[0] = number;
+	npc->flags = 0;
 	return (npc);
 }
 
