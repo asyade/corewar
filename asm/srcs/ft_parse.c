@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 22:31:21 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:39:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ t_bin_buffer			*ft_parse(int fd)
 	while ((get_next_line(fd, &line)) > 0)
 	{
 		ft_discard_comments(line);
+		(*ft_get_instruction_count())++;
 		unit = ft_tokenize(line, bin);
 		if (-1 == ft_parse_semantic_unit(unit, bin))
-			ft_error_exit(5, (char*[]){PARSING_ERROR, AT_LINE
-						, ft_static_ulltoa(unit->line_nbr + 1), ": ", line}, EXIT_FAILURE);
+			ft_error_exit(4, (char*[]){PARSING_ERROR, ft_static_ulltoa(unit->line_nbr), ": ", line}, EXIT_FAILURE);
 		ft_add_unit_to_lst(&unit_lst, unit);
-		(*ft_get_instruction_count())++;
 	}
 	ft_seek_labels(unit_lst, bin);
 	return (bin);

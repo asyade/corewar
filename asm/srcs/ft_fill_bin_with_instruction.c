@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 13:50:15 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 22:53:13 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:44:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_fill_bin_with_instruction(t_semantic_unit *unit, uint64_t index
 	encoding_byte = op_tab[unit->tokens[index].token_content.opcode - 1].octal_code;
 	instruction_size = 1 + encoding_byte + ft_get_params_size(unit, index);
 	if (instruction_size + bin->offset > bin->capacity)
-		ft_error_exit(1, (char*[]){"champ size too big"}, EXIT_FAILURE);
+		ft_realloc_bin_buffer(bin);
 	buffer[0] = unit->tokens[index].token_content.opcode;
 	if (encoding_byte)
 		buffer[1] = ft_make_encoding_byte(ft_get_arg_type_buffer(unit, index)

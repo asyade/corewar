@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 23:41:17 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:44:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ int32_t		ft_is_token_decimal(char *token);
 */
 
 t_bin_buffer	*ft_create_bin_buffer(uint64_t capacity);
+t_bin_buffer	*ft_realloc_bin_buffer(t_bin_buffer *bin);
 
 /*
 ** Bin creation
@@ -212,7 +213,7 @@ uint32_t	ft_bswap_u32(uint32_t to_swap);
 # define ASM_PARAM_ERROR "Invalid parameter provided to asm: "
 # define ASM_USAGE "./asm [file.s]"
 # define INVALID_FILE_EXTENSION "Invalid file extension: "
-# define PARSING_ERROR "Parsing error near: "
+# define PARSING_ERROR "Parsing error at line "
 # define INVALID_PARAMS_NBR "Invalid number of parameters provided to instruction: "
 # define INVALID_PARAM_TYPE "Invalid parameter type: "
 # define INVALID_INSTRUCTION "Invalid instruction: "

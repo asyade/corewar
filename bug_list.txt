@@ -1,0 +1,29 @@
+/*
+** Bug 0
+*/
+
+e3r2p2% ./corewar -nc Kappa.cor 42.cor
+ASAN:DEADLYSIGNAL
+=================================================================
+==29703==ERROR: AddressSanitizer: SEGV on unknown address 0x0000000003e1 (pc 0x0001094dfa10 bp 0x7fff567af320 sp 0x7fff567af320 T0)
+==29703==The signal is caused by a READ memory access.
+==29703==Hint: address points to the zero page.
+    #0 0x1094dfa0f in __sanitizer::internal_strlen(char const*) (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x65a0f)
+    #1 0x10949948b in printf_common(void*, char const*, __va_list_tag*) (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x1f48b)
+    #2 0x109499da9 in wrap_vsprintf (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x1fda9)
+    #3 0x1094609cc in pcri logger.c:53
+    #4 0x1094601b5 in checkSize defaultSourceProvider.c:17
+    #5 0x10945feb2 in readChampDef defaultSourceProvider.c:39
+    #6 0x10945fa0a in loadChampsDefault defaultSourceProvider.c:59
+    #7 0x1094614a6 in main main.c:39
+    #8 0x7fff9f95a234 in start (libdyld.dylib:x86_64+0x5234)
+
+==29703==Register values:
+rax = 0xffffffffffffffff  rbx = 0x0000000109464d40  rcx = 0x0000000000000010  rdx = 0x0000000000000000
+rdi = 0x00000000000003e1  rsi = 0x0000000000000000  rbp = 0x00007fff567af320  rsp = 0x00007fff567af320
+ r8 = 0x0000000000000027   r9 = 0xffffefffded7365c  r10 = 0x000010002128c9ac  r11 = 0x0000000109499d10
+r12 = 0x00000000000003e1  r13 = 0x0000000109464d42  r14 = 0x0000000000000073  r15 = 0x00007fff567b0410
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x65a0f) in __sanitizer::internal_strlen(char const*)
+==29703==ABORTING
+zsh: abort      ./corewar -nc Kappa.cor 42.cor

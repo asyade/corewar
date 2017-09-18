@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 23:42:02 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:39:41 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit, t_bin_buffer *b
 	{
 		if (!(interpretations[unit->tokens[i].token_type](unit, i
 														, &unit->tokens[i], bin)))
-		{
-//			return (0);
-			;
-		}
+			ft_error_exit(4, (char*[]){PARSING_ERROR, ft_static_ulltoa(unit->line_nbr), ": "
+						, unit->line}, EXIT_FAILURE);
 		i++;
 	}
 	return (1);
