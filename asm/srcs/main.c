@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/18 00:16:23 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 01:58:27 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_check_file_extansion(argv[1]);
+		ft_init_dk_info(&g_dk_info);
 		if (-1 == (fd = open(argv[1], O_RDONLY)))
 		{
 			perror(BIN_NAME);

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:51:56 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 08:56:08 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:37:15 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,19 @@ static inline int32_t	ft_handler_verbose_structure(t_semantic_unit *unit
 			return (ft_fill_header_comment(unit, bin));
 	}
 	else if (unit->tokens_nbr == 1)
-		return (ft_error(4, (char*[]){EXPECTED_EXPRESSION, unit->tokens[0].token,
-						AT_LINE, ft_static_ulltoa(unit->line_nbr)}, -1));
+	{
+		g_dk_info.content = unit->tokens[0].token;
+		g_dk_info.location.column = unit->tokens[0].column;
+		g_dk_info.location.len = unit->tokens[0].len;
+		return (ft_diagnostic(&g_dk_info, EXPECTED_EXPRESSION, -1));
+	}
 	else
-		return (ft_error(4, (char*[]){INVALID_EXPRESSION, unit->tokens[1].token
-				, AT_LINE, ft_static_ulltoa(unit->line_nbr)}, -1));
+	{
+		g_dk_info.content = unit->tokens[1].token;
+		g_dk_info.location.column = unit->tokens[1].column;
+		g_dk_info.location.len = unit->tokens[1].len;
+		return (ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, -1));
+	}
 }
 
 static inline int32_t	ft_handler_instruction_structure(t_semantic_unit *unit

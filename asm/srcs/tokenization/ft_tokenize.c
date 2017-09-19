@@ -6,21 +6,35 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/18 18:52:59 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:11:38 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+static inline uint64_t	ft_adjust_dk_columns(char *line)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (line[i] && ft_strchr(CHARSET_SEPARATORS, line[i]))
+		i++;
+	return (i);
+}
+
 static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 											, char **tokens)
 {
 	uint64_t	i;
+	uint64_t	column_add;
 
 	i = 0;
+	column_add = ft_adjust_dk_columns(g_dk_info.line);
 	while (tokens[i] && i < MAX_NBR_TOKEN)
 	{
 		unit->tokens[i].token = tokens[i];
+		unit->tokens[i].len = ft_strlen(tokens[i]);
+		unit->tokens[i].column = (uint64_t)(uintptr_t)tokens[i] - (uintptr_t)tokens[0] + column_add;
 		i++;
 	}
 	unit->tokens_nbr = i;
@@ -58,6 +72,9 @@ static inline void		ft_assign_tokens_type(t_semantic_unit *unit)
 	i = 0;
 	while (i < unit->tokens_nbr)
 	{
+		g_dk_info.content = unit->tokens[i].token;
+		g_dk_info.location.len = unit->tokens[i].len;
+		g_dk_info.location.column = unit->tokens[i].column;
 		ft_assign_token_type(unit, i);
 		i++;
 	}
@@ -78,10 +95,12 @@ static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit, t_bin_buffer *b
 	i = 0;
 	while (i < unit->tokens_nbr)
 	{
+		g_dk_info.content = unit->tokens[i].token;
+		g_dk_info.location.len = unit->tokens[i].len;
+		g_dk_info.location.column = unit->tokens[i].column;
 		if (!(interpretations[unit->tokens[i].token_type](unit, i
 														, &unit->tokens[i], bin)))
-			ft_error_exit(4, (char*[]){PARSING_ERROR, ft_static_ulltoa(unit->line_nbr), ": "
-						, unit->line}, EXIT_FAILURE);
+			ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, 0);
 		i++;
 	}
 	return (1);

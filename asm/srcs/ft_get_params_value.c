@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:52:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 22:35:13 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:35:35 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static int32_t	ft_get_reg_value(t_token *token, uint8_t opcode)
 	uint8_t		tmp_value;
 
 	(void)opcode;
-	token->token_content.param.size = 1;
+	g_dk_info.content = token->token;
+	g_dk_info.location.column = token->column;
+	g_dk_info.location.len = token->len;
 	if (!(ft_is_token_decimal(token->token + 1)))
-		return (ft_error(2, (char*[]){INVALID_EXPRESSION, token->token}, 0));
+		return (ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, 0));
 	if ((tmp_value = (uint8_t)ft_atoi(token->token + 1)) > REG_NUMBER || !tmp_value)
-		return (ft_error(2, (char*[]){INVALID_REG_NUMBER, token->token}, 0));
+		return (ft_diagnostic(&g_dk_info, INVALID_REG_NUMBER, 0));
 	token->token_content.param.content.reg_value = tmp_value;
 	return (1);
 }
@@ -31,6 +33,9 @@ static int32_t	ft_get_dir_value(t_token *token, uint8_t opcode)
 	int32_t		direct_value;
 	int16_t		indirect_value;
 
+	g_dk_info.content = token->token;
+	g_dk_info.location.column = token->column;
+	g_dk_info.location.len = token->len;
 	if (op_tab[opcode - 1].label_size)
 		token->token_content.param.size = 2;
 	else
@@ -38,7 +43,7 @@ static int32_t	ft_get_dir_value(t_token *token, uint8_t opcode)
 	if (token->token_content.param.param_type & T_LAB)
 		return ((token->token_content.param.label_to_seek = 1));
 	if (!(ft_is_token_decimal(token->token + 1)))
-		return (ft_error(2, (char*[]){INVALID_EXPRESSION, token->token}, 0));
+		return (ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, 0));
 	if (token->token_content.param.size == 2)
 	{
 		indirect_value = (int16_t)ft_atoi(token->token + 1);
@@ -57,11 +62,14 @@ static int32_t	ft_get_ind_value(t_token *token, uint8_t opcode)
 	int16_t		indirect_value;
 
 	(void)opcode;
+	g_dk_info.content = token->token;
+	g_dk_info.location.column = token->column;
+	g_dk_info.location.len = token->len;
 	token->token_content.param.size = 2;
 	if (token->token_content.param.param_type & T_LAB)
 		return ((token->token_content.param.label_to_seek = 1));
 	if (!(ft_is_token_decimal(token->token)))
-			return (ft_error(2, (char*[]){INVALID_EXPRESSION, token->token}, 0));
+		return (ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, 0));
 	if (token->token_content.param.size == 2)
 	{
 		indirect_value = (int16_t)ft_atoi(token->token);

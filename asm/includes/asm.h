@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 01:54:53 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:27:53 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef union	u_token_content
 typedef struct	s_token
 {
 	char			*token;
+	uint64_t		len;
+	uint64_t		column;
 	uint64_t		relative_address;
 	t_token_content	token_content;
 	t_token_type	token_type;
@@ -245,8 +247,9 @@ typedef struct	s_diagnostic_info
 	char			*msg;
 	t_dk_kind		kind;
 	uint8_t			abort_on_dk;
+	uint8_t			force_no_abort;
 	uint8_t			context;
-	char			pad[2];
+	char			pad[1];
 }				t_dk_info;
 
 typedef struct	 s_diagnostic_conf
@@ -286,6 +289,7 @@ t_dk_conf		ft_get_dk_conf_from_msg(const char *msg);
 # define LABEL_REDEFINITION "Label redefinition: "
 # define EXPECTED_EXPRESSION "Expected expression after: "
 # define INVALID_EXPRESSION "Invalid expression: "
+//# define INVALID_EXPRESSION (char*)(uintptr_t)__func__
 # define NAME_COMMENT_REDEFINITION "Redefinition of token: "
 # define NAME_TOO_LONG ".name value is too long"
 # define NAME_TOO_SHORT ".name value is too short"

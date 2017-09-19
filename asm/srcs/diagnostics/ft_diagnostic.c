@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 23:01:34 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 01:53:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:39:50 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void				ft_put_diagnostic(t_dk_info *dk_info)
 			ft_putchar_fd('\n', 2);
 		}
 	}
+	else
+		ft_putchar_fd('\n', 2);
 }
 
 int32_t				ft_diagnostic(t_dk_info *dk_info, char *msg, int32_t return_value)
@@ -99,6 +101,8 @@ int32_t				ft_diagnostic(t_dk_info *dk_info, char *msg, int32_t return_value)
 	dk_info->colors = ft_get_dk_colors_to_kind(dk_info->kind);
 	dk_info->abort_on_dk = *ft_get_abort_on_dk();
 	ft_put_diagnostic(dk_info);
+	if (dk_info->force_no_abort)
+		return (return_value);
 	if (dk_info->kind != DK_WARNING || dk_info->abort_on_dk)
 		exit(EXIT_FAILURE);
 	return (return_value);

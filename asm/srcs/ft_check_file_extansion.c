@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 01:17:28 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 10:06:01 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 02:31:36 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	ft_check_file_extansion(char *filename)
 	len -= 2;
 	if (!ft_strequ(filename + len, ASM_FILE_EXTENSION))
 	{
-		ft_error(2, (char*[]){INVALID_FILE_EXTENSION, filename}, EXIT_FAILURE);
+		g_dk_info.content = filename;
+		g_dk_info.force_no_abort = 1;
+		ft_diagnostic(&g_dk_info, INVALID_FILE_EXTENSION, 0);
 		ft_put_asm_usage(NULL);
 	}
 }
