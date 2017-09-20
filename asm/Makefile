@@ -30,7 +30,8 @@ SRC= srcs/main.c \
 	srcs/diagnostics/ft_get_dk_colors_to_kind.c \
 	srcs/diagnostics/ft_get_dk_conf_from_msg.c \
 	srcs/diagnostics/ft_set_dk_location.c \
-	srcs/diagnostics/ft_init_dk_info.c
+	srcs/diagnostics/ft_init_dk_info.c \
+	srcs/ft_check_label_integrity.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 01:46:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 02:29:26 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/20 16:38:51 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ inline t_dk_conf	ft_get_dk_conf_from_msg(const char *msg)
 	{COMMENT_TOO_LONG, DK_ERROR, 1}, {INVALID_REG_NUMBER, DK_ERROR, 1},
 	{UNKNOWN_LABEL_INVOCATION, DK_ERROR, 1}, {CREATE_FILE_ERROR, DK_INTERNAL_ERROR, 0},
 	{UNAMED_BIN_FILE, DK_ERROR, 0}, {EMPTY_TEXT, DK_WARNING, 0},
-	{NO_COMMENT_DEFINED, DK_WARNING, 0},
+	{NO_COMMENT_DEFINED, DK_WARNING, 0}, {INVALID_LABEL_CHARS, DK_ERROR, 1},
 	{"Internal error: ", DK_INTERNAL_ERROR, 0}};
 	uint64_t	i;
 

@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 23:01:34 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 03:39:50 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/20 15:53:07 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static inline void	ft_put_dk_location(t_dk_location location)
 		return ;
 	ft_putstr_fd(ft_static_ulltoa(location.line), 2);
 	ft_putchar_fd(':', 2);
-	ft_putstr_fd(ft_static_ulltoa(location.line), 2);
+	ft_putstr_fd(ft_static_ulltoa(location.column), 2);
 	ft_putstr_fd(": ", 2);
 }
 
