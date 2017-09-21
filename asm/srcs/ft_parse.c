@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 03:11:35 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:31:55 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,31 @@ static inline void		ft_add_unit_to_lst(t_list **unit_lst
 	ft_lstadd(unit_lst, tmp);
 }
 
+static void				ft_cleanup_unit_lst(t_list **unit_lst)
+{
+	t_list	*tmp;
+	t_list	*lst;
+
+	tmp = NULL;
+	lst = *unit_lst;
+	while (lst)
+	{
+		free(((t_semantic_unit*)lst->content)->line);
+		if (((t_semantic_unit*)lst->content)->tokens_nbr)
+			free(((t_semantic_unit*)lst->content)->tokens[0].token
+				- ((t_semantic_unit*)lst->content)->tokens[0].column);
+		free(lst->content);
+		tmp = lst;
+		lst = lst->next;
+		free(tmp);
+	}
+}
+
 t_bin_buffer			*ft_parse(int fd)
 {
 	t_bin_buffer	*bin;
 	t_semantic_unit	*unit;
-	t_list			*unit_lst;
+	t_list			*unit_lst __attribute__((cleanup(ft_cleanup_unit_lst)));
 	int32_t			current_case;
 	char			*line;
 
@@ -68,6 +88,9 @@ t_bin_buffer			*ft_parse(int fd)
 			exit(EXIT_FAILURE);
 		ft_add_unit_to_lst(&unit_lst, unit);
 	}
+	(void)unit;
+	(void)ft_add_unit_to_lst;
+	free(line);
 	ft_seek_labels(unit_lst, bin);
 	ft_check_bin_integrity(bin);
 	return (bin);

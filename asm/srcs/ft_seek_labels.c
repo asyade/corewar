@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 09:58:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 16:39:14 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:21:02 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 	g_dk_info.location.len = token->len;
 	while (token->token[i] != ':' && token->token[i])
 		i++;
-	if (!token->token[i])
+	if (!token->token[i] || !token->token[i + 1])
 		ft_diagnostic(&g_dk_info, UNKNOWN_LABEL_INVOCATION, 0);
-	if (!(ft_check_label_integrity(token->token + i)))
+	if (!(ft_check_label_integrity(token->token + i + 1)))
 		ft_diagnostic(&g_dk_info, INVALID_LABEL_CHARS, 0);
 	i++;
 	if (!(label = ft_find_label(token->token + i, *ft_get_label_lst())))
@@ -39,6 +39,23 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 	else if (token->token_content.param.size == 4)
 		*((uint32_t*)(void*)(bin->buffer + token->relative_address)) =
 			ft_bswap_u32((uint32_t)(((t_label*)label->content)->relative_address - unit->relative_address));
+}
+
+static inline void	ft_cleanup_labels(t_list **labels)
+{
+	t_list	*label_lst;
+	t_list	*tmp;
+
+	label_lst = *labels;
+	tmp = NULL;
+	while (label_lst)
+	{
+		free(label_lst->content);
+		tmp = label_lst;
+		label_lst = label_lst->next;
+		free(tmp);
+	}
+	*labels = NULL;
 }
 
 void				ft_seek_labels(t_list *unit_lst, t_bin_buffer *bin)
@@ -59,4 +76,5 @@ void				ft_seek_labels(t_list *unit_lst, t_bin_buffer *bin)
 		}
 		unit_lst = unit_lst->next;
 	}
+	ft_cleanup_labels(ft_get_label_lst());
 }

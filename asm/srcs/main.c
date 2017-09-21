@@ -6,26 +6,11 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 01:58:27 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:59:27 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-static void	ft_bin_buffer_hex_dump(t_bin_buffer *buffer)
-{
-	uint64_t	i;
-
-	i = 0;
-	printf("bin buff_size: %llx\n", buffer->offset);
-	while (i < buffer->offset)
-	{
-		if (i % 32 == 0)
-			printf("\n%8p: ", (void*)(i));
-		printf("%02hhx ", buffer->buffer[i]);
-		i++;
-	}
-}
 
 int	main(int argc, char **argv)
 {
@@ -47,9 +32,6 @@ int	main(int argc, char **argv)
 		}
 		bin = ft_parse(fd);
 		bin->header.prog_size = ft_bswap_u32((uint32_t)bin->offset);
-//		printf("bin_size: %x\n", /* ft_bswap_u32((uint32_t)bin->offset) */bin->header.prog_size);
-//		ft_bin_buffer_hex_dump(bin);
-		(void)ft_bin_buffer_hex_dump;
 		if (-1 == (close(fd)))
 		{
 			perror(BIN_NAME);

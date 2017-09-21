@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 03:11:38 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:23:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 	{
 		unit->tokens[i].token = tokens[i];
 		unit->tokens[i].len = ft_strlen(tokens[i]);
-		unit->tokens[i].column = (uint64_t)(uintptr_t)tokens[i] - (uintptr_t)tokens[0] + column_add;
+		unit->tokens[i].column = (uint64_t)(uintptr_t)tokens[i]
+			- (uintptr_t)tokens[0] + column_add;
 		i++;
 	}
 	unit->tokens_nbr = i;

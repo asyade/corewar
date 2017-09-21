@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 16:39:41 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 19:19:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ typedef union	u_token_content
 {
 	t_param	param;
 	uint8_t	opcode;
-	char	*label;
-	char	*content;
 }				t_token_content;
 
 typedef struct	s_token

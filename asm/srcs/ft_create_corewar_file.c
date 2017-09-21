@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 06:39:51 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 02:33:00 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:34:10 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@ inline void	ft_create_corewar_file(char *filename, t_bin_buffer *bin)
 	if (-1 == (close(fd)))
 		perror(BIN_NAME);
 	free(filename);
+	free(bin->buffer);
+	free(bin);
 }

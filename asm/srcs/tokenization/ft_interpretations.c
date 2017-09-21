@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 09:42:16 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 02:38:30 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:28:26 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index
 	token->token[ft_strlen(token->token) - 1] = '\0';
 	if (ft_find_label(token->token, *lst))
 		return (ft_diagnostic(&g_dk_info, LABEL_REDEFINITION, 0));
-	if (!(tmp = ft_lstnew(0, 0))
+	if (!(tmp = (t_list*)ft_memalloc(sizeof(t_list)))
 		|| !(label = (t_label*)ft_memalloc(sizeof(t_label))))
 		ft_error_exit(1, (char*[]){MALLOC_FAILURE}, EXIT_FAILURE);
 	label->name = token->token; // ?
