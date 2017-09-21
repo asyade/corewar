@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 19:19:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 21:40:43 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct	s_bin_buffer
 	char		*buffer;
 	uint64_t	capacity;
 	uint64_t	offset;
-	header_t	header;
+	t_header	header;
 	uint16_t	name_flag;
 	uint16_t	comment_flag;
 	char		pad[4];

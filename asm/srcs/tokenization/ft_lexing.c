@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 07:29:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 23:42:06 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:46:54 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int32_t	ft_lex_is_instruction(char *token)
 	static const char	*opcodes[] =
 	{"live", "ld", "st", "add", "sub",
 	"and", "or", "xor", "zjmp", "ldi",
-	"sti","fork","lld","lldi","lfork",
+	"sti", "fork", "lld", "lldi", "lfork",
 	"aff"};
 	uint32_t	i;
 

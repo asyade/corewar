@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 07:13:56 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/14 12:07:13 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:42:18 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ inline t_list	*ft_find_label(char *name, t_list *label_lst)
 	return (NULL);
 }
 
-t_list	**ft_get_label_lst(void)
+t_list			**ft_get_label_lst(void)
 {
 	static t_list	*label_lst = NULL;
 

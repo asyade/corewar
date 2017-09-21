@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 09:42:16 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:28:26 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 21:40:09 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int32_t	ft_interpret_instruction(t_semantic_unit __attribute__((unused))*unit, u
 	{
 		if (ft_strequ(token->token, opcodes[i]))
 		{
-			token->token_content.opcode = op_tab[i].opcode;
+			token->token_content.opcode = g_op_tab[i].opcode;
 			return (1);
 		}
 		i++;

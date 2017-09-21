@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:51:56 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:20:08 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:43:53 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline int32_t	ft_handler_verbose_structure(t_semantic_unit *unit
 }
 
 static inline int32_t	ft_handler_instruction_structure(t_semantic_unit *unit
-														 , uint64_t index, t_bin_buffer *bin)
+											, uint64_t index, t_bin_buffer *bin)
 {
 	if (!ft_check_params_integrity(unit, index))
 		return (-1);
@@ -49,7 +49,8 @@ static inline int32_t	ft_handler_instruction_structure(t_semantic_unit *unit
 	return (0);
 }
 
-int32_t			ft_parse_semantic_unit(t_semantic_unit *unit, t_bin_buffer *bin)
+int32_t					ft_parse_semantic_unit(t_semantic_unit *unit
+											, t_bin_buffer *bin)
 {
 	uint64_t	i;
 
@@ -69,5 +70,5 @@ int32_t			ft_parse_semantic_unit(t_semantic_unit *unit, t_bin_buffer *bin)
 	if (unit->tokens[i].token_type == INSTRUCTION)
 		return (ft_handler_instruction_structure(unit, i, bin));
 	else
-		return (-1); //
+		return (-1);
 }

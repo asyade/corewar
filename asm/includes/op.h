@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/17 22:53:28 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 21:41:15 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ typedef struct	s_encoding_byte
 	uint8_t				code;
 }				t_encoding_byte;
 
-# define REG_CODE			1 //0b01
-# define DIR_CODE			2 //0b10
-# define IND_CODE			3 //0b11
+# define REG_CODE			1
+# define DIR_CODE			2
+# define IND_CODE			3
 
 /*
 ** Opcodes
@@ -62,44 +62,41 @@ typedef struct	s_op
 }				t_op;
 
 # define OP_NBR 17
-extern t_op    op_tab[OP_NBR];
 
-#define IND_SIZE				2
-#define REG_SIZE				4
-#define DIR_SIZE				REG_SIZE
+extern t_op	g_op_tab[OP_NBR];
 
-#define MAX_ARGS_NUMBER			4
-#define MAX_PLAYERS				4
-#define MEM_SIZE				(4 * 1024)
-#define IDX_MOD					(MEM_SIZE / 8)
-#define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+# define IND_SIZE				2
+# define REG_SIZE				4
+# define DIR_SIZE				REG_SIZE
 
-#define COMMENT_CHAR			'#'
-#define LABEL_CHAR				':'
-#define DIRECT_CHAR				'%'
-#define SEPARATOR_CHAR			','
+# define MAX_ARGS_NUMBER			4
+# define MAX_PLAYERS				4
+# define MEM_SIZE				(4 * 1024)
+# define IDX_MOD					(MEM_SIZE / 8)
+# define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
-#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define COMMENT_CHAR			'#'
+# define LABEL_CHAR				':'
+# define DIRECT_CHAR				'%'
+# define SEPARATOR_CHAR			','
 
-#define NAME_CMD_STRING			".name"
-#define COMMENT_CMD_STRING		".comment"
+# define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
 
-#define REG_NUMBER				16
+# define NAME_CMD_STRING			".name"
+# define COMMENT_CMD_STRING		".comment"
 
-#define CYCLE_TO_DIE			1536
-#define CYCLE_DELTA				50
-#define NBR_LIVE				21
-#define MAX_CHECKS				10
+# define REG_NUMBER				16
 
-/*
-**
-*/
+# define CYCLE_TO_DIE			1536
+# define CYCLE_DELTA				50
+# define NBR_LIVE				21
+# define MAX_CHECKS				10
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		header_s
+typedef struct	s_header
 {
 	uint32_t		magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
@@ -107,6 +104,6 @@ typedef struct		header_s
 	uint32_t		prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 	char			pad2[3];
-}					header_t;
+}				t_header;
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:31:55 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 21:40:09 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_op    op_tab[OP_NBR] =
+t_op    g_op_tab[OP_NBR] =
 {
 	//name		?	params								ID	Cycles	describ		PC IND_2/4
 	{"live",	1, (t_arg_type[]){T_DIR}, 				1, {0},	10,		"alive",	0, 0},

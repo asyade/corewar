@@ -6,14 +6,14 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 09:58:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:21:02 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:44:59 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
-										  , t_semantic_unit *unit)
+										, t_semantic_unit *unit)
 {
 	t_list			*label;
 	uint64_t		i;
@@ -28,17 +28,18 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 		i++;
 	if (!token->token[i] || !token->token[i + 1])
 		ft_diagnostic(&g_dk_info, UNKNOWN_LABEL_INVOCATION, 0);
-	if (!(ft_check_label_integrity(token->token + i + 1)))
+	if (!(ft_check_label_integrity(token->token + i++ + 1)))
 		ft_diagnostic(&g_dk_info, INVALID_LABEL_CHARS, 0);
-	i++;
 	if (!(label = ft_find_label(token->token + i, *ft_get_label_lst())))
 		ft_diagnostic(&g_dk_info, UNKNOWN_LABEL_INVOCATION, 0);
 	if (token->token_content.param.size == 2)
 		*((uint16_t*)(void*)(bin->buffer + token->relative_address)) =
-			ft_bswap_u16((uint16_t)(((t_label*)label->content)->relative_address - unit->relative_address));
+			ft_bswap_u16((uint16_t)(((t_label*)label->content)->relative_address
+								- unit->relative_address));
 	else if (token->token_content.param.size == 4)
 		*((uint32_t*)(void*)(bin->buffer + token->relative_address)) =
-			ft_bswap_u32((uint32_t)(((t_label*)label->content)->relative_address - unit->relative_address));
+			ft_bswap_u32((uint32_t)(((t_label*)label->content)->relative_address
+								- unit->relative_address));
 }
 
 static inline void	ft_cleanup_labels(t_list **labels)

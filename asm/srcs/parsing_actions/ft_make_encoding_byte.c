@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 03:11:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 17:01:14 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:49:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ inline uint8_t	ft_make_encoding_byte(t_arg_type *args, uint64_t nbr_args)
 		{T_REG, REG_CODE},
 		{T_DIR, DIR_CODE},
 		{T_IND, IND_CODE}};
-	uint32_t		i;
-	uint32_t		u;
-	uint8_t			encoding_byte;
+	uint32_t						i;
+	uint32_t						u;
+	uint8_t							encoding_byte;
 
 	i = 0;
 	encoding_byte = 0;

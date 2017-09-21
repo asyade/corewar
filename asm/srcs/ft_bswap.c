@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 07:14:49 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 07:29:34 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:38:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline uint16_t	ft_bswap_u16(uint16_t to_swap)
 {
 	uint16_t	tmp;
 
-	tmp = 0 | (to_swap >> 8) ;
+	tmp = 0 | (to_swap >> 8);
 	tmp |= to_swap << 8;
 	return (tmp);
 }

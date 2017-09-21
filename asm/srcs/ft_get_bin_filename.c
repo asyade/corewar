@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 06:43:38 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 06:51:02 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:39:23 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ inline char	*ft_get_bin_filename(char *filename)
 	while (len > 0)
 	{
 		if (filename[len] == '.')
-			break;
+			break ;
 		len--;
 	}
 	ft_memcpy(cpy + len, BIN_FILE_EXTENSION, sizeof(BIN_FILE_EXTENSION));

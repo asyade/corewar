@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:42:18 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/19 03:36:04 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:39:36 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ inline int32_t	ft_fill_header_comment(t_semantic_unit *unit, t_bin_buffer *bin)
 	bin->comment_flag = 1;
 	return (0);
 }
-

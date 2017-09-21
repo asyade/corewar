@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 05:24:23 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:31:46 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 20:48:46 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ inline static size_t	ft_count_tokens(char *str, size_t len)
 	return (nbr_tokens);
 }
 
-static inline char		**ft_assign_tokens(char **tokens, size_t len, size_t nbr_tokens
+static inline char		**ft_assign_tokens(char **tokens, size_t len
+										, size_t nbr_tokens
 										, char *str)
 {
 	size_t	i;
