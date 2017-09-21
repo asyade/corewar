@@ -30,13 +30,12 @@ SRC= srcs/main.c \
 	srcs/diagnostics/ft_get_dk_colors_to_kind.c \
 	srcs/diagnostics/ft_get_dk_conf_from_msg.c \
 	srcs/diagnostics/ft_set_dk_location.c \
-	srcs/diagnostics/ft_init_dk_info.c \
-	srcs/ft_check_label_integrity.c
+	srcs/diagnostics/ft_init_dk_info.c
 
 HDRS= includes/asm.h
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ./libft/includes/
-CC= gcc
+CC= clang
 CC_FLAGS= -v -Ofast -Weverything -Wall -Werror -Wextra  -Wno-padded -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
 LIBFT_PATH=./libft
 FLAGS= -L$(LIBFT_PATH) -lft -I$(HDR_PATH) -I./includes

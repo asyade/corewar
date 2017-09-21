@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 09:58:05 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 16:39:14 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:36:54 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 		i++;
 	if (!token->token[i])
 		ft_diagnostic(&g_dk_info, UNKNOWN_LABEL_INVOCATION, 0);
-	if (!(ft_check_label_integrity(token->token + i)))
-		ft_diagnostic(&g_dk_info, INVALID_LABEL_CHARS, 0);
 	i++;
 	if (!(label = ft_find_label(token->token + i, *ft_get_label_lst())))
 		ft_diagnostic(&g_dk_info, UNKNOWN_LABEL_INVOCATION, 0);
@@ -39,6 +37,9 @@ static inline void	ft_assign_label_value(t_token *token, t_bin_buffer *bin
 	else if (token->token_content.param.size == 4)
 		*((uint32_t*)(void*)(bin->buffer + token->relative_address)) =
 			ft_bswap_u32((uint32_t)(((t_label*)label->content)->relative_address - unit->relative_address));
+/* 	else */
+/* 		ft_error_exit(2, (char*[]){"Invalid invocation of label: " */
+/* 					, token->token}, EXIT_FAILURE); */
 }
 
 void				ft_seek_labels(t_list *unit_lst, t_bin_buffer *bin)

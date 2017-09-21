@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_label_integrity.c                         :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/20 16:34:41 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 16:39:52 by sclolus          ###   ########.fr       */
+/*   Created: 2016/11/05 16:07:34 by sclolus           #+#    #+#             */
+/*   Updated: 2016/11/07 11:48:43 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
+#include <unistd.h>
 
-inline int32_t	ft_check_label_integrity(char *label)
+void	ft_putstr_fd(char const *s, int fd)
 {
-	uint64_t	i;
-
-	i = 0;
-	while (label[i])
-	{
-		if (!ft_strchr(LABEL_CHARS, label[i]))
-			return (0);
-		i++;
-	}
-	return (1);
+	if (s)
+		write(fd, s, ft_strlen((char*)s));
 }

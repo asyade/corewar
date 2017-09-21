@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 12:52:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 14:59:57 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:35:35 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int32_t	ft_get_reg_value(t_token *token, uint8_t opcode)
 	uint8_t		tmp_value;
 
 	(void)opcode;
-	token->token_content.param.size = 1;
 	g_dk_info.content = token->token;
 	g_dk_info.location.column = token->column;
 	g_dk_info.location.len = token->len;

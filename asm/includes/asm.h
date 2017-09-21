@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 16:39:41 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/19 03:27:53 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *t
 t_list	*ft_find_label(char *name, t_list *label_lst);
 int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
 
-int32_t	ft_check_label_integrity(char *label);
 /*
 ** Parsing actions
 */
@@ -297,7 +296,6 @@ t_dk_conf		ft_get_dk_conf_from_msg(const char *msg);
 # define COMMENT_TOO_LONG ".comment value is too long"
 # define INVALID_REG_NUMBER "Invalid register number: "
 # define UNKNOWN_LABEL_INVOCATION "Invocation of unkown label: "
-# define INVALID_LABEL_CHARS "Illegal character in label name: "
 # define CREATE_FILE_ERROR "Failed to create binary file"
 # define UNAMED_BIN_FILE "Unamed binary file"
 # define WARNING "Warning: "
