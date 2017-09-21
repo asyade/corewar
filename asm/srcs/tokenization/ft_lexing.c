@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 07:29:48 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:46:54 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 21:52:07 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int32_t	ft_lex_is_instruction(char *token)
 	"and", "or", "xor", "zjmp", "ldi",
 	"sti", "fork", "lld", "lldi", "lfork",
 	"aff"};
-	uint32_t	i;
+	uint32_t			i;
 
 	i = 0;
 	if (!token)
@@ -52,20 +52,4 @@ int32_t	ft_lex_is_instruction(char *token)
 int32_t	ft_lex_is_name(char *token)
 {
 	return (ft_strequ(token, ".name"));
-}
-
-int32_t	ft_lex_is_comment(char *token)
-{
-	return (ft_strequ(token, ".comment"));
-}
-
-int32_t	ft_lex_is_content(char *token)
-{
-	return (*token == '"'); //
-}
-
-int32_t	ft_lex_is_param(char *token)
-{
-	(void)token;
-	return (1); //
 }

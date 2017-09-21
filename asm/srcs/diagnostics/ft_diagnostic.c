@@ -6,25 +6,11 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 23:01:34 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 15:53:07 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 22:31:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-static inline void	ft_put_dk_colors(t_dk_color colors)
-{
-	ft_putstr_fd(colors.font, 2);
-	ft_putstr_fd(colors.back, 2);
-	ft_putstr_fd(colors.style, 2);
-}
-
-static inline void	ft_dk_colors_reset(void)
-{
-	ft_putstr_fd(RESET, 2);
-//	ft_putstr_fd(BACK_RESET, 2);
-//	ft_putstr_fd(RESET_FONT, 2);
-}
 
 static inline void	ft_put_dk_kind(t_dk_info *dk_info)
 {
@@ -56,14 +42,16 @@ static inline void	ft_put_dk_context(t_dk_info *dk_info)
 
 	if (!dk_info->location.line || !dk_info->context)
 		return ;
-	len = ft_strlen(dk_info->line) - (dk_info->location.column + dk_info->location.len);
+	len = ft_strlen(dk_info->line) - (dk_info->location.column
+									+ dk_info->location.len);
 	write(2, dk_info->line, dk_info->location.column);
 	ft_putstr_fd(ITALICS, 2);
 	ft_putstr_fd(UNDERLINE, 2);
 	ft_putstr_fd(dk_info->colors.font, 2);
 	write(2, dk_info->line + dk_info->location.column, dk_info->location.len);
 	ft_dk_colors_reset();
-	write(2, dk_info->line + dk_info->location.column + dk_info->location.len, len);
+	write(2, dk_info->line + dk_info->location.column + dk_info->location.len
+		, len);
 }
 
 void				ft_put_diagnostic(t_dk_info *dk_info)
@@ -87,7 +75,8 @@ void				ft_put_diagnostic(t_dk_info *dk_info)
 		ft_putchar_fd('\n', 2);
 }
 
-int32_t				ft_diagnostic(t_dk_info *dk_info, char *msg, int32_t return_value)
+int32_t				ft_diagnostic(t_dk_info *dk_info, char *msg
+								, int32_t return_value)
 {
 	t_dk_conf	conf;
 

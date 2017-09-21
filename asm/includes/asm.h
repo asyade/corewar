@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 21:40:43 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 22:32:01 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define ASM_H
 
 # define NORETURN __attribute__((noreturn)) void
+# include <stdio.h>
 # include "libft.h"
 # include <stdint.h>
-# include <stdio.h>//
 # include <unistd.h>
 # include "op.h"
 # include <fcntl.h>
+# include "colors.h"
 
 # define BIN_NAME "asm: "
 # define ASM_FILE_EXTENSION ".s"
@@ -66,7 +67,7 @@ void			ft_discard_comments(char *line);
 # define CHARSET_SEPARATORS " \t,"
 # define CHARSET_DECIMAL "-0123456789"
 
-# define MAX_PARAMS_NBR MAX_NBR_PARAMS //
+# define MAX_PARAMS_NBR MAX_NBR_PARAMS
 # define MAX_LABEL_NBR 1
 # define MAX_NBR_TOKEN MAX_LABEL_NBR + 1 + MAX_PARAMS_NBR
 
@@ -83,9 +84,6 @@ typedef enum	e_token_type
 
 typedef union	u_param_content
 {
-/* 	uint8_t	reg_value[T_REG_CODE_SIZE]; */
-/* 	int8_t	indirect_value[T_IND_CODE_SIZE]; */
-/* 	int8_t	direct_value[T_DIR_CODE_SIZE]; */
 	uint8_t	reg_value;
 	int32_t	direct_value;
 	int16_t	indirect_value;
@@ -127,7 +125,6 @@ typedef struct	s_semantic_unit
 	uint64_t	tokens_nbr;
 }				t_semantic_unit;
 
-
 char					**ft_split(char *str, char *separators);
 t_semantic_unit			*ft_tokenize(char *line, t_bin_buffer *bin);
 
@@ -142,21 +139,35 @@ int32_t					ft_lex_is_content(char *token);
 int32_t					ft_lex_is_comment(char *token);
 int32_t					ft_lex_is_name(char *token);
 
+typedef int32_t	(*t_f_lexing)(char *);
+
+void					ft_assign_tokens_type(t_semantic_unit *unit);
+void					ft_assign_token_type(t_semantic_unit *unit
+											, uint64_t token_index);
 /*
 ** **Interpretation**
 */
 
-typedef int32_t (*t_f_interpret_token)(t_semantic_unit *, uint64_t, t_token *, t_bin_buffer *);
-
-int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
-int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
-int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
-int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
-int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
-int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+typedef int32_t	(*t_f_interpret_token)(t_semantic_unit *, uint64_t
+									, t_token *, t_bin_buffer *);
+int32_t	ft_interpret_tokens(t_semantic_unit *unit
+						, t_bin_buffer *bin);
+int32_t	ft_interpret_param(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_content(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_comment(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_name(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_instruction(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_err(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
 
 t_list	*ft_find_label(char *name, t_list *label_lst);
-int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index, t_token *token, t_bin_buffer *bin);
+int32_t	ft_interpret_label(t_semantic_unit *unit, uint64_t token_index
+						, t_token *token, t_bin_buffer *bin);
 
 int32_t	ft_check_label_integrity(char *label);
 /*
@@ -167,7 +178,7 @@ typedef int32_t	(*t_parsing_action)(char *buffer);
 
 int32_t		ft_parse_semantic_unit(t_semantic_unit *unit, t_bin_buffer *bin);
 void		ft_fill_bin_with_instruction(t_semantic_unit *unit, uint64_t index
-									 , t_bin_buffer *bin);
+									, t_bin_buffer *bin);
 uint8_t		ft_make_encoding_byte(t_arg_type *args, uint64_t nbr_args);
 int32_t		ft_check_params_integrity(t_semantic_unit *unit, uint64_t index);
 
@@ -212,8 +223,6 @@ uint32_t	ft_bswap_u32(uint32_t to_swap);
 ** Diagnostics
 */
 
-# include "colors.h"
-
 typedef enum	e_diagnostic_kind
 {
 	DK_UNKNOWN = 0,
@@ -251,7 +260,7 @@ typedef struct	s_diagnostic_info
 	char			pad[1];
 }				t_dk_info;
 
-typedef struct	 s_diagnostic_conf
+typedef struct	s_diagnostic_conf
 {
 	char		*msg;
 	t_dk_kind	kind;
@@ -260,10 +269,13 @@ typedef struct	 s_diagnostic_conf
 
 extern t_dk_info	g_dk_info;
 
-int32_t			ft_diagnostic(t_dk_info *dk_info, char *msg, int32_t return_value);
+int32_t			ft_diagnostic(t_dk_info *dk_info, char *msg
+							, int32_t return_value);
 void			ft_put_diagnostic(t_dk_info *dk_info);
 
 t_dk_color		ft_get_dk_colors_to_kind(t_dk_kind kind);
+void			ft_put_dk_colors(t_dk_color colors);
+void			ft_dk_colors_reset(void);
 t_dk_location	ft_set_dk_location(t_dk_info *dk_info, uint64_t line
 								, uint64_t column, uint64_t token_nbr);
 uint8_t			*ft_get_abort_on_dk(void);
@@ -279,7 +291,8 @@ t_dk_conf		ft_get_dk_conf_from_msg(const char *msg);
 # define ASM_USAGE "./asm [file.s]"
 # define INVALID_FILE_EXTENSION "Invalid file extension: "
 # define PARSING_ERROR "Parsing error at line "
-# define INVALID_PARAMS_NBR "Invalid number of parameters provided to instruction: "
+# define PROVIDED " provided to instruction: "
+# define INVALID_PARAMS_NBR "Invalid number of parameters"PROVIDED
 # define INVALID_PARAM_TYPE "Invalid parameter type: "
 # define INVALID_INSTRUCTION "Invalid instruction: "
 # define AT_LINE " at line: "
@@ -288,7 +301,6 @@ t_dk_conf		ft_get_dk_conf_from_msg(const char *msg);
 # define LABEL_REDEFINITION "Label redefinition: "
 # define EXPECTED_EXPRESSION "Expected expression after: "
 # define INVALID_EXPRESSION "Invalid expression: "
-//# define INVALID_EXPRESSION (char*)(uintptr_t)__func__
 # define NAME_COMMENT_REDEFINITION "Redefinition of token: "
 # define NAME_TOO_LONG ".name value is too long"
 # define NAME_TOO_SHORT ".name value is too short"

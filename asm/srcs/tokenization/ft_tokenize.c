@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 04:01:44 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 20:48:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/21 22:24:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,73 +39,6 @@ static inline void		ft_assign_tokens_data(t_semantic_unit *unit
 		i++;
 	}
 	unit->tokens_nbr = i;
-}
-
-typedef int32_t	(*t_f_lexing)(char *);
-
-static inline void		ft_assign_token_type(t_semantic_unit *unit
-											, uint64_t token_index)
-{
-	uint32_t					i;
-	static const t_token_type	token_types[] =
-	{INSTRUCTION, LABEL, NAME, COMMENT, CONTENT, PARAM};
-	static const t_f_lexing		lexing_checks[] = {&ft_lex_is_instruction
-		, &ft_lex_is_label, &ft_lex_is_name
-		, &ft_lex_is_comment, &ft_lex_is_content, &ft_lex_is_param};
-
-	i = 0;
-	while (i < sizeof(lexing_checks) / sizeof(t_f_lexing))
-	{
-		if (lexing_checks[i](unit->tokens[token_index].token))
-		{
-			unit->tokens[token_index].token_type = token_types[i];
-			return ;
-		}
-		i++;
-	}
-	unit->tokens[token_index].token_type = ERR;
-}
-
-static inline void		ft_assign_tokens_type(t_semantic_unit *unit)
-{
-	uint64_t	i;
-
-	i = 0;
-	while (i < unit->tokens_nbr)
-	{
-		g_dk_info.content = unit->tokens[i].token;
-		g_dk_info.location.len = unit->tokens[i].len;
-		g_dk_info.location.column = unit->tokens[i].column;
-		ft_assign_token_type(unit, i);
-		i++;
-	}
-}
-
-static inline int32_t	ft_interpret_tokens(t_semantic_unit *unit
-											, t_bin_buffer *bin)
-{
-	static const	t_f_interpret_token	interpretations[] =
-	{	&ft_interpret_err,
-		&ft_interpret_instruction,
-		&ft_interpret_name,
-		&ft_interpret_comment,
-		&ft_interpret_content,
-		&ft_interpret_param,
-		&ft_interpret_label};
-	uint64_t							i;
-
-	i = 0;
-	while (i < unit->tokens_nbr)
-	{
-		g_dk_info.content = unit->tokens[i].token;
-		g_dk_info.location.len = unit->tokens[i].len;
-		g_dk_info.location.column = unit->tokens[i].column;
-		if (!(interpretations[unit->tokens[i].token_type](unit, i
-											, &unit->tokens[i], bin)))
-			ft_diagnostic(&g_dk_info, INVALID_EXPRESSION, 0);
-		i++;
-	}
-	return (1);
 }
 
 t_semantic_unit			*ft_tokenize(char *line, t_bin_buffer *bin)

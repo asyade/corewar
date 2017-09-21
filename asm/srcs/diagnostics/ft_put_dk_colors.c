@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_file_extansion.c                          :+:      :+:    :+:   */
+/*   ft_put_dk_colors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/12 01:17:28 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 22:25:33 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/21 22:31:15 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/21 22:32:03 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	ft_check_file_extansion(char *filename)
+inline void			ft_put_dk_colors(t_dk_color colors)
 {
-	size_t	len;
+	ft_putstr_fd(colors.font, 2);
+	ft_putstr_fd(colors.back, 2);
+	ft_putstr_fd(colors.style, 2);
+}
 
-	ft_init_dk_info(&g_dk_info);
-	len = ft_strlen(filename);
-	if (len <= 2)
-		ft_put_asm_usage(filename);
-	len -= 2;
-	if (!ft_strequ(filename + len, ASM_FILE_EXTENSION))
-	{
-		g_dk_info.content = filename;
-		g_dk_info.force_no_abort = 1;
-		ft_diagnostic(&g_dk_info, INVALID_FILE_EXTENSION, 0);
-		ft_put_asm_usage(NULL);
-	}
+inline void			ft_dk_colors_reset(void)
+{
+	ft_putstr_fd(RESET, 2);
 }

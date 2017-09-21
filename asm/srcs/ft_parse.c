@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/12 02:08:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 21:40:09 by sclolus          ###   ########.fr       */
+/*   Created: 2017/09/21 22:37:09 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/21 22:43:09 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 t_op    g_op_tab[OP_NBR] =
 {
-	//name		?	params								ID	Cycles	describ		PC IND_2/4
-	{"live",	1, (t_arg_type[]){T_DIR}, 				1, {0},	10,		"alive",	0, 0},
-	{"ld",		2, (t_arg_type[]){T_DIR | T_IND, T_REG},2, {0},	5,		"load",		1, 0},
-	{"st",		2, (t_arg_type[]){T_REG, T_IND | T_REG},3, {0},	5,		"store",	1, 0},
+	{"live", 1, (t_arg_type[]){T_DIR}, 				1, {0},	10,		"alive",	0, 0},
+	{"ld", 2, (t_arg_type[]){T_DIR | T_IND, T_REG},2, {0},	5,		"load",		1, 0},
+	{"st", 2, (t_arg_type[]){T_REG, T_IND | T_REG},3, {0},	5,		"store",	1, 0},
 	{"add",		3, (t_arg_type[]){T_REG, T_REG, T_REG}, 4, {0},	10,		"add",		1, 0},
 	{"sub",		3, (t_arg_type[]){T_REG, T_REG, T_REG}, 5, {0},	10,		"sub", 		1, 0},
 	{"and",		3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, {0},	6,		"and",		1, 0},
@@ -30,8 +29,7 @@ t_op    g_op_tab[OP_NBR] =
 	{"lld", 	2, (t_arg_type[]){T_DIR | T_IND, T_REG},		13, {0},	10, 	"l load",	1, 0},
 	{"lldi", 	3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},	14, {0},	50,		"ll index", 1, 1},
 	{"lfork", 	1, (t_arg_type[]){T_DIR},				15, {0},	1000,	"long fork",0, 1},
-	{"aff", 	1, (t_arg_type[]){T_REG},				16, {0},	2,		"aff",		1, 0},
-};
+	{"aff", 	1, (t_arg_type[]){T_REG},				16, {0},	2,		"aff",		1, 0},};
 
 t_dk_info	g_dk_info;
 
@@ -88,8 +86,6 @@ t_bin_buffer			*ft_parse(int fd)
 			exit(EXIT_FAILURE);
 		ft_add_unit_to_lst(&unit_lst, unit);
 	}
-	(void)unit;
-	(void)ft_add_unit_to_lst;
 	free(line);
 	ft_seek_labels(unit_lst, bin);
 	ft_check_bin_integrity(bin);

@@ -12,7 +12,10 @@ SRC= srcs/main.c \
 	srcs/tokenization/ft_split.c \
 	srcs/tokenization/ft_tokenize.c \
 	srcs/tokenization/ft_lexing.c \
+	srcs/tokenization/ft_lexing_2.c \
+	srcs/tokenization/ft_assign_tokens_type.c \
 	srcs/tokenization/ft_interpretations.c \
+	srcs/tokenization/ft_interpretations_2.c \
 	srcs/ft_parse_semantic_unit.c \
 	srcs/ft_create_bin_buffer.c \
 	srcs/ft_fill_header_name.c \
@@ -28,6 +31,7 @@ SRC= srcs/main.c \
 	srcs/diagnostics/ft_diagnostic.c \
 	srcs/diagnostics/ft_get_abort_on_dk.c \
 	srcs/diagnostics/ft_get_dk_colors_to_kind.c \
+	srcs/diagnostics/ft_put_dk_colors.c \
 	srcs/diagnostics/ft_get_dk_conf_from_msg.c \
 	srcs/diagnostics/ft_set_dk_location.c \
 	srcs/diagnostics/ft_init_dk_info.c \
