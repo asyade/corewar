@@ -157,30 +157,29 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 {
 	char 			buffer[1024];
-	t_byte			*ptr;
-	int				n;
-	int				i;
+	char			*ptr;
+	t_vptr			i;
+	t_memory		*mem;
 
 	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES))
 		return ;
-	ptr = sh_env(NULL)->vm.memory.mem + pc->cc;
-	n = pc->zc - pc->cc;
-	i = 0;
-	if (n <= 0 || n >= 100)
-		return ;
-	while (n--)
+	mem = &sh_env(NULL)->vm.memory;
+	i = pc->cc;
+	ptr = buffer;
+	while (i < pc->cc)
 	{
-		buffer[i++] = BASE_HEX_MIN[*ptr / 16];
-		buffer[i++] = BASE_HEX_MIN[*ptr++ % 16];
-		buffer[i++] = ' ';
+		*ptr++ = BASE_HEX[mem_readbyte(mem, i) / 16];
+		*ptr++ = BASE_HEX[mem_readbyte(mem, i++) % 16];
+		*ptr++ = ' ';
 	}
-	buffer[i] = '\0';
+	*ptr = '\0';
 	printf("ADV %ld (0x%4.4lx -> 0x%4.4lx) %s\n", pc->zc - pc->cc, pc->cc, pc->zc, buffer);
 }
 
 void			cb_cycle_to_die_delta(int ctd)
 {
-	printf("Cycle to die is now %d\n", ctd);
+	if (sh_env(NULL)->vm.params->verbose & PV_CYCLES)
+		printf("Cycle to die is now %d\n", ctd);
 }
 
 void			she_init(t_core *core)

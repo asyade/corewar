@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/20 16:04:33 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:42:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct			s_vm
 	t_int32				cycles_to_die;
 	t_int32				cycles;
 	t_int32				lives;
+	t_int32				nbr_check;
 }						t_vm;
 
 /*

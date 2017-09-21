@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/21 06:43:06 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:45:00 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,6 @@ t_byte			play_check_champs(t_core *core)
 	avc = 0;
 	ci = -1;
 	ret = 0;
-	if (core->vm.lives <= 0)
-	{
-		core->vm.lives = NBR_LIVE;
-		core->vm.cycles_to_die -= CYCLE_DELTA;
-		if (core->vm.cycles_to_die < 1)
-			core->vm.cycles_to_die = 0;
-		if (core->render.cycleToDieDelta)
-			(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
-	}
-	core->vm.cycles = core->vm.cycles_to_die;
 	while (++ci < core->vm.champ_count)
 	{
 		if (play_is_alive(&core->vm, &core->vm.champs[ci], ci))
@@ -96,25 +86,20 @@ t_byte			play_check_champs(t_core *core)
 	return (avc);
 }
 
-/*
-** A voire si c'est pas du sucide de faire une recursive ici
-** Aucune allocatiosion sur la stack sa passe ou pas ? O_o
-** Au pire deux petite while
-*/
-
-void			play_recursive(t_core *core)
+void			play_loop(t_core *core)
 {
 	while (--core->vm.cycles)
 		cpu_process_cycle(&core->vm);
-	if (core->vm.lives <= 0)
+	if (core->vm.lives <= 0 || ++core->vm.nbr_check >= MAX_CHECKS)
 	{
+		core->vm.nbr_check = 0;
 		core->vm.cycles_to_die -= CYCLE_DELTA;
 		core->vm.cycles_to_die = (core->vm.cycles_to_die) <= 0 ? 1 : core->vm.cycles_to_die;
 		core->vm.lives = NBR_LIVE;
+		if (core->render.cycleToDieDelta)
+			(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
 	}
 	core->vm.cycles = core->vm.cycles_to_die;
-	if (play_check_champs(core))
-		play_recursive(core);
 }
 
 t_byte			play(t_core *core)
@@ -125,6 +110,11 @@ t_byte			play(t_core *core)
 	core->vm.cycles_to_die = CYCLE_TO_DIE;
 	core->vm.cycles = CYCLE_TO_DIE;
 	play_load_champs(&core->vm);
-	play_recursive(core);
+	while (1)
+	{
+		play_loop(core);
+		if (!play_check_champs(core))
+			break ;
+	}
 	return (1);//TODO:winer id
 }
