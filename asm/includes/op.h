@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/21 21:41:15 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/22 23:27:37 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ typedef char	t_arg_type;
 # define T_DIR					2
 # define T_IND					4
 # define T_LAB					8
+
+/*
+** Combinated types cause I love the norme
+*/
+
+# define CT_DIR T_REG | T_DIR | T_IND
+# define CT_IR T_IND | T_REG
+# define CT_DI T_DIR | T_IND
+# define CT_DR T_DIR | T_REG
 
 # define T_REG_CODE_SIZE 1
 # define T_IND_CODE_SIZE 2
@@ -48,6 +57,8 @@ typedef struct	s_encoding_byte
 ** Opcodes
 */
 
+# define TYPE_ARRAY t_arg_type[]
+
 typedef struct	s_op
 {
 	char		*name;
@@ -55,8 +66,6 @@ typedef struct	s_op
 	t_arg_type	*arg_type;
 	uint8_t		opcode;
 	char		pad[7];
-	uint64_t	nbr_cycles;
-	char		*describ;
 	uint32_t	octal_code;
 	uint32_t	label_size;
 }				t_op;
@@ -75,7 +84,9 @@ extern t_op	g_op_tab[OP_NBR];
 # define IDX_MOD					(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
+# define COMMENT_CHARS			 "#;"
 # define COMMENT_CHAR			'#'
+# define COMMENT_CHAR2			';'
 # define LABEL_CHAR				':'
 # define DIRECT_CHAR				'%'
 # define SEPARATOR_CHAR			','

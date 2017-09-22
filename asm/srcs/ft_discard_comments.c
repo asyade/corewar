@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 04:15:10 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/13 10:08:33 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/22 23:15:11 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 inline void	ft_discard_comments(char *line)
 {
-	char	*tmp;
+	uint64_t	i;
 
-	if (!(tmp = ft_strchr(line, COMMENT_CHAR)))
-		return ;
-	*tmp = '\0';
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr(COMMENT_CHARS, line[i]))
+		{
+			line[i] = '\0';
+			return ;
+		}
+		i++;
+	}
 }

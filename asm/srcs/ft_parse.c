@@ -6,30 +6,29 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:37:09 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/21 22:43:09 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/22 23:28:27 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_op    g_op_tab[OP_NBR] =
-{
-	{"live", 1, (t_arg_type[]){T_DIR}, 				1, {0},	10,		"alive",	0, 0},
-	{"ld", 2, (t_arg_type[]){T_DIR | T_IND, T_REG},2, {0},	5,		"load",		1, 0},
-	{"st", 2, (t_arg_type[]){T_REG, T_IND | T_REG},3, {0},	5,		"store",	1, 0},
-	{"add",		3, (t_arg_type[]){T_REG, T_REG, T_REG}, 4, {0},	10,		"add",		1, 0},
-	{"sub",		3, (t_arg_type[]){T_REG, T_REG, T_REG}, 5, {0},	10,		"sub", 		1, 0},
-	{"and",		3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, {0},	6,		"and",		1, 0},
-	{"or",		3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},	7, {0},	6,		"or",		1, 0},
-	{"xor",		3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},	8, {0},	6,		"xor",		1, 0},
-	{"zjmp",	1, (t_arg_type[]){T_DIR},				9, {0},	20,		"jump", 	0, 1},
-	{"ldi", 	3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},	10, {0},	25,		"load i",	1, 1},
-	{"sti", 	3, (t_arg_type[]){T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},11, {0},	25,		"store i",	1, 1},
-	{"fork", 	1, (t_arg_type[]){T_DIR},				12, {0},	800,	"fork",		0, 1},
-	{"lld", 	2, (t_arg_type[]){T_DIR | T_IND, T_REG},		13, {0},	10, 	"l load",	1, 0},
-	{"lldi", 	3, (t_arg_type[]){T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},	14, {0},	50,		"ll index", 1, 1},
-	{"lfork", 	1, (t_arg_type[]){T_DIR},				15, {0},	1000,	"long fork",0, 1},
-	{"aff", 	1, (t_arg_type[]){T_REG},				16, {0},	2,		"aff",		1, 0},};
+t_op	g_op_tab[OP_NBR] =
+{{"live", 1, (TYPE_ARRAY){T_DIR}, 1, {0}, 0, 0},
+	{"ld", 2, (TYPE_ARRAY){CT_DI, T_REG}, 2, {0}, 1, 0},
+	{"st", 2, (TYPE_ARRAY){T_REG, CT_IR}, 3, {0}, 1, 0},
+	{"add", 3, (TYPE_ARRAY){T_REG, T_REG, T_REG}, 4, {0}, 1, 0},
+	{"sub", 3, (TYPE_ARRAY){T_REG, T_REG, T_REG}, 5, {0}, 1, 0},
+	{"and", 3, (TYPE_ARRAY){CT_DIR, CT_DIR, T_REG}, 6, {0}, 1, 0},
+	{"or", 3, (TYPE_ARRAY){CT_DIR, CT_DIR, T_REG}, 7, {0}, 1, 0},
+	{"xor", 3, (TYPE_ARRAY){CT_DIR, CT_DIR, T_REG}, 8, {0}, 1, 0}
+	, {"zjmp", 1, (TYPE_ARRAY){T_DIR}, 9, {0}, 0, 1},
+	{"ldi", 3, (TYPE_ARRAY){CT_DIR, T_DIR | T_REG, T_REG}, 10, {0}, 1, 1},
+	{"sti", 3, (TYPE_ARRAY){T_REG, CT_DIR, T_DIR | T_REG}, 11, {0}, 1, 1},
+	{"fork", 1, (TYPE_ARRAY){T_DIR}, 12, {0}, 0, 1},
+	{"lld", 2, (TYPE_ARRAY){CT_DI, T_REG}, 13, {0}, 1, 0},
+	{"lldi", 3, (TYPE_ARRAY){CT_DIR, CT_DR, T_REG}, 14, {0}, 1, 1},
+	{"lfork", 1, (TYPE_ARRAY){T_DIR}, 15, {0}, 0, 1},
+	{"aff", 1, (TYPE_ARRAY){T_REG}, 16, {0}, 1, 0}};
 
 t_dk_info	g_dk_info;
 
