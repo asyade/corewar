@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/21 13:42:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 11:24:13 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct			s_param
 typedef	struct			s_process
 {
 	int					id;
+	t_int64				last_live;
 	t_reg				reg[REG_NUMBER];
 	t_vptr				pc;
 	t_vptr				cc;
@@ -100,6 +101,7 @@ typedef struct			s_vm
 	void		 		(*cycleUpdated)(void);
 	void				(*memUpdated)(t_memory *, int , int);
 	void				(*processLoaded)(t_champ *c);
+	void				(*processDie)(t_champ *, t_process *);
 	void				(*playerLive)(t_champ *c, int);
 	void				(*playerDie)(t_champ *c);
 	void				(*liveDelta)(int);
@@ -123,7 +125,7 @@ typedef struct			s_vm
 */
 
 typedef void			(*t_livesDelta)(int);
-typedef void			(*t_processDie)(t_champ *);
+typedef void			(*t_processDie)(t_champ *, t_process *);
 typedef void			(*t_playerDie)(t_champ *);
 typedef void			(*t_playerWin)(t_champ *);
 

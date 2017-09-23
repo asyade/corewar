@@ -9,6 +9,8 @@ all :
 clean :
 	make -C vm/ clean
 	make -C asm/ clean	
+	rm		./corewar_asm
+	rm		./corewar
 
 fclean : clean
 	make -C vm/ fclean

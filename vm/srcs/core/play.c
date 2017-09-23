@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/21 13:45:00 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 11:29:45 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,15 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (pc->flags & PF_LIVEUP)
 		{
 			pc->flags &= ~PF_LIVEUP;
+			pc->last_live = 0;
 			count++;
 		}
 		else if (!(champ->flags & PC_ALIVE))
+		{
+			if (vm->processDie)
+				vm->processDie(champ, pc);
 			vm_kill(vm, ci, pc);
+		}
 	}
 	if (!count && !(champ->flags | PC_DIE))
 	{

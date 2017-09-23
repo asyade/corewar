@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:07:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 14:03:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 10:36:14 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_bin_buffer_hex_dump(t_bin_buffer *buffer)
 	uint64_t	i;
 
 	i = 0;
-	printf("bin buff_size: %lx\n", buffer->offset);
+	printf("bin buff_size: %llx\n", buffer->offset);
 	while (i < buffer->offset)
 	{
 		if (i % 32 == 0)

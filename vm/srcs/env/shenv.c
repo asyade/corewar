@@ -1,7 +1,7 @@
 #include "envSh.h"
 #include "corewar.h"
 
-# define BASE_HEX_MIN	"0123456789abcdef"
+# define BASE_HEX_MAJ	"0123456789abcdef"
 
 t_core			*sh_env(t_core *c)
 {
@@ -34,9 +34,11 @@ static void		cb_live_delta(int del)
 	(void)del;
 }
 
-static void		cb_pc_die(t_champ *champ)
+static void		cb_pc_die(t_champ *champ, t_process *pc)
 {
-	plog("%s: sub process killed (%d)\n", champ->header.name, champ->nbr_process);
+	(void)champ;
+	if (params()->verbose & PV_DEATH)
+		printf("Process %d hasn't lived for %ld cycles (CTD %d)\n", pc->id, pc->last_live, sh_env(NULL)->vm.cycles);
 }
 
 static void		cb_pc_loaded(t_champ *champ)
@@ -146,10 +148,19 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 	if (p->inst[0] == 11)
 	{
 		printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-			p->inst[3],
-			p->inst[4],
-			p->inst[3] + p->inst[4],
-			MEMPTR(((p->inst[3] + p->inst[4]) % IDX_MOD))
+			param_dirval(p, 2),
+			param_dirval(p, 3),
+			param_dirval(p, 2) + param_dirval(p, 3),
+			MEMPTR(((param_dirval(p, 2), + param_dirval(p, 3)) % IDX_MOD))
+		);
+	}
+	else if (p->inst[0] == 10)
+	{
+		printf("       | -> load from %d + %d = %d (with pc and mod %ld)\n",
+			param_dirval(p, 1),
+			param_dirval(p, 2),
+			param_dirval(p, 1) + param_dirval(p, 2),
+			IDXPTR(p->cc, param_dirval(p, 1) + param_dirval(p, 2))
 		);
 	}
 }
@@ -166,10 +177,10 @@ void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 	mem = &sh_env(NULL)->vm.memory;
 	i = pc->cc;
 	ptr = buffer;
-	while (i < pc->cc)
+	while (i < pc->pc)
 	{
-		*ptr++ = BASE_HEX[mem_readbyte(mem, i) / 16];
-		*ptr++ = BASE_HEX[mem_readbyte(mem, i++) % 16];
+		*ptr++ = BASE_HEX_MAJ[mem_readbyte(mem, i) / 16];
+		*ptr++ = BASE_HEX_MAJ[mem_readbyte(mem, i++) % 16];
 		*ptr++ = ' ';
 	}
 	*ptr = '\0';
