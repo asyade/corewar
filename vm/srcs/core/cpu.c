@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/23 11:31:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 15:23:49 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,4 @@ void		cpu_process_cycle(t_vm *vm)
 	}
 	if (vm->params->flag & P_DUMP && --vm->params->dump <= 0)
 		dump(vm);
-	if (vm->cycleUpdated)
-		(vm->cycleUpdated)();
 }

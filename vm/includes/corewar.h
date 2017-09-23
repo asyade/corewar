@@ -2,6 +2,7 @@
 # define COREWAR_H
 
 # include <stdio.h>
+# include <stdint.h>
 # include "libft.h"
 # include "def.h"
 # include "structs.h"
@@ -25,7 +26,7 @@ void		usage(void);
 */
 
 char		*ptstr(t_byte type);
-char		*dump_parametters(t_int32 inst[6], int c);
+char		*dump_parametters(t_process *pc, uint32_t nbr_param);
 void		pwarn(char *format, ...);
 void		pcri(char *format, ...);
 void		plog(char *format, ...);

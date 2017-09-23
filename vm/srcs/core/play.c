@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/23 11:29:45 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 16:43:44 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void     play_load_champs(t_vm *vm)
 		vm_load_champ(vm, &vm->champs[i], offset);
 		pc = vm_fork(vm, &vm->champs[i], offset);
 		pc->reg[0] = -vm->champs[i].number;
-		vm->champs[i].flags = PC_LOADED;
+		vm->champs[i].flags = PC_LOADED | PC_ALIVE;
 	}
 }
 
@@ -44,10 +44,10 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (pc->flags & PF_LIVEUP)
 		{
 			pc->flags &= ~PF_LIVEUP;
-			pc->last_live = 0;
+//			pc->last_live = 0;
 			count++;
 		}
-		else if (!(champ->flags & PC_ALIVE))
+		else/*  if (!(champ->flags & PC_ALIVE)/\*  && pc->last_live >= vm->cycles_to_die * 2 *\/) */
 		{
 			if (vm->processDie)
 				vm->processDie(champ, pc);
@@ -93,8 +93,12 @@ t_byte			play_check_champs(t_core *core)
 
 void			play_loop(t_core *core)
 {
-	while (--core->vm.cycles)
+	while (core->vm.cycles--)
+	{
+		if (core->vm.cycleUpdated)
+			(core->vm.cycleUpdated)();
 		cpu_process_cycle(&core->vm);
+	}
 	if (core->vm.lives <= 0 || ++core->vm.nbr_check >= MAX_CHECKS)
 	{
 		core->vm.nbr_check = 0;
@@ -109,10 +113,8 @@ void			play_loop(t_core *core)
 
 t_byte			play(t_core *core)
 {
-	if (core->vm.cycleUpdated)
-		(core->vm.cycleUpdated)();
 	core->vm.lives = NBR_LIVE;
-	core->vm.cycles_to_die = CYCLE_TO_DIE;
+	core->vm.cycles_to_die = CYCLE_TO_DIE/*  + 2 */;
 	core->vm.cycles = CYCLE_TO_DIE;
 	play_load_champs(&core->vm);
 	while (1)

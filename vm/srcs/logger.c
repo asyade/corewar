@@ -78,7 +78,7 @@ char		*reg_str(t_int32 inst[6], int i)
 	st[1] = '\0';
 	if (i == 1 && IP1(inst[1]) == T_REG)
 		st[0] = 'r';
-	if (i == 2 && IP2(inst[1]) == T_REG)
+	if (i == 2 && IP2(inst[1]) == T_REG && inst[0] != 3)
 		st[0] = 'r';
 	if (i == 3 && IP3(inst[1]) == T_REG)
 		st[0] = 'r';
@@ -87,25 +87,43 @@ char		*reg_str(t_int32 inst[6], int i)
 	return (st);
 }
 
-char		*dump_parametters(t_int32 inst[6], int c)
+char		*dump_parametters(t_process *pc, uint32_t nbr_param)
 {
+	const uint8_t	*print_type[OP_NBR] = {(uint8_t[]){0, 0, 0},
+	(uint8_t[]){1, 0},
+	(uint8_t[]){0, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){1, 1, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){1, 1, 0},
+	(uint8_t[]){0, 1, 1},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){1, 0},
+	(uint8_t[]){1, 1, 0},
+	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){0, 0, 0}};
 	static char		buff[1024];
 	char			*bptr;
+	uint32_t		i;
 
 	bptr = buff;
 	*bptr = '\0';
 	if (LOGGER_FD < 0)
 		return (buff);
-	if (c == 0)
-		sprintf(buff, " %d", inst[1]);
-	if (c >= 1)
-		bptr += sprintf(buff," %s%d", reg_str(inst, 1),inst[2]);//TODO: replace printf
-	if (c >= 2)
-		bptr += sprintf(bptr," %s%d", reg_str(inst, 2), inst[3]);//TODO: replace printf
-	if (c >= 3)
-		bptr += sprintf(bptr," %s%d", reg_str(inst, 3), inst[4]);//TODO: replace printf
-	if (c >= 4)
-		bptr += sprintf(bptr," %s%d", reg_str(inst, 4), inst[5]);//TODO: replace printf
+	i = 0;
+	if (nbr_param == 0)
+		sprintf(buff, " %d", pc->inst[1]);
+	while (i < nbr_param)
+	{
+		if (!print_type[pc->inst[0] - 1][i])
+			bptr += sprintf(bptr," %s%d", reg_str(pc->inst, i + 1), pc->inst[i + 2]);//TODO: replace printf
+		else
+			bptr += sprintf(bptr," %d", param_dirval(pc, i + 1));//TODO: replace printf
+		i++;
+	}
 	return (buff);
 }
 
@@ -114,7 +132,7 @@ char		*dump_parametters(t_int32 inst[6], int c)
 ** {
 **     static char buff[1024];
 **     char        *bptr;
-** 
+**
 **     bptr = buff;
 **     *bptr = '\0';
 ** 	if (LOGGER_FD < 0)

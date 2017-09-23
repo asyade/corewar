@@ -38,7 +38,7 @@ FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LIBS = -L./libft -lft -lncurses
 
 HEADERS = -I libft/includes -I includes/
- 
+
 DEPTHS = Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/envNcurse.h includes/envSh.h includes/source.h includes/vm.h includes/inst.h includes/libft.h
 
 all : $(NAME)

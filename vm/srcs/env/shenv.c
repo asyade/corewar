@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shenv.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/23 16:47:16 by sclolus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "envSh.h"
 #include "corewar.h"
 
@@ -22,7 +34,7 @@ int				last_live(int nid)
 	return (tmp);
 }
 
-void			cb_memUpdated(t_memory m, int a, int b)
+static void		cb_memUpdated(t_memory *m, int a, int b)
 {
 	(void)m;
 	(void)a;
@@ -142,16 +154,17 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 		return ;
 	printf("P%5d | %s%s%s\n",  p->id,
 		op_tab[p->inst[0] - 1].name,
-		dump_parametters(p->inst, inst_count(p->inst[0])),
+		dump_parametters(p, inst_count(p->inst[0])),
 		carry_label(p)
 	);
 	if (p->inst[0] == 11)
 	{
-		printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+		printf("       | -> store to %d + %d = %d (with pc and mod %ld)\n",
 			param_dirval(p, 2),
 			param_dirval(p, 3),
 			param_dirval(p, 2) + param_dirval(p, 3),
-			MEMPTR(((param_dirval(p, 2), + param_dirval(p, 3)) % IDX_MOD))
+//			MEMPTR(((param_dirval(p, 2), + param_dirval(p, 3)) % IDX_MOD))
+			   IDXPTR(p->cc, param_dirval(p, 2) + param_dirval(p, 3))
 		);
 	}
 	else if (p->inst[0] == 10)
@@ -175,7 +188,7 @@ void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES))
 		return ;
 	mem = &sh_env(NULL)->vm.memory;
-	i = pc->cc;
+	i = pc->zc;
 	ptr = buffer;
 	while (i < pc->pc)
 	{

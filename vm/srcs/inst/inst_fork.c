@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inst_fork.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/23 16:39:01 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/23 16:39:48 by sclolus          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
+#include "def.h"
 
 static void		do_fork(t_vm *vm, t_process *pc, t_vptr offset, t_byte ci)
 {
 	t_process	*new;
-	
+
 	new = vm_fork(vm, &vm->champs[ci], offset);
 	ft_memcpy(new->reg, pc->reg, sizeof(t_reg) * REG_NUMBER);
-	new->flags = pc->flags;	
+	new->flags = pc->flags | PF_LIVEUP; // maybe not this
 	cpu_pc_process(vm, ci, new);//A voir si c'est correct, on pars du principe que la vm execute le champion forked dans le cycle du fork
 }
 
