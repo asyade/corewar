@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/20 16:28:16 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/23 17:42:35 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 void		vm_kill(t_vm *vm, t_byte cid, t_process *pc)
 {
-	vm->champs[cid].nbr_process--;
+//	vm->champs[cid].nbr_process--;
 	pc_remove(&vm->champs[cid].process, pc);
 	if (vm->params->flag & P_SOUND)
 		vm_kill_sound();

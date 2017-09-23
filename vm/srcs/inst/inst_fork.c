@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 16:39:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/23 16:39:48 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/23 17:39:54 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		do_fork(t_vm *vm, t_process *pc, t_vptr offset, t_byte ci)
 
 	new = vm_fork(vm, &vm->champs[ci], offset);
 	ft_memcpy(new->reg, pc->reg, sizeof(t_reg) * REG_NUMBER);
-	new->flags = pc->flags | PF_LIVEUP; // maybe not this
+	new->flags = pc->flags; // maybe not this
 	cpu_pc_process(vm, ci, new);//A voir si c'est correct, on pars du principe que la vm execute le champion forked dans le cycle du fork
 }
 
