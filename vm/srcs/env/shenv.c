@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/23 16:47:16 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/23 17:07:13 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 
 void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 {
-	char 			buffer[1024];
+	char 			buffer[1024 * 4 * 8];
 	char			*ptr;
 	t_vptr			i;
 	t_memory		*mem;
@@ -188,9 +188,11 @@ void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES))
 		return ;
 	mem = &sh_env(NULL)->vm.memory;
-	i = pc->zc;
+	i = pc->cc;
 	ptr = buffer;
-	while (i < pc->pc)
+	if (labs(pc->zc - i) > 500)
+		return ;
+	while (i < pc->zc)
 	{
 		*ptr++ = BASE_HEX_MAJ[mem_readbyte(mem, i) / 16];
 		*ptr++ = BASE_HEX_MAJ[mem_readbyte(mem, i++) % 16];
