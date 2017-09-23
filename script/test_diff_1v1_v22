@@ -1,0 +1,4 @@
+./corwar_zaz/corewar $1 -v 22  > diff/$2_real;
+../vm/corewar $1   -v 22 > diff/$2_mine;
+diff diff/$2_mine diff/$2_real;
+
