@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/23 17:07:13 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/23 17:47:34 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 	t_vptr			i;
 	t_memory		*mem;
 
-	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES))
+	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES) || pc->inst[0] == 9)
 		return ;
 	mem = &sh_env(NULL)->vm.memory;
 	i = pc->cc;
