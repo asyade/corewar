@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/23 16:43:44 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/25 16:39:30 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void     play_load_champs(t_vm *vm)
 		vm_load_champ(vm, &vm->champs[i], offset);
 		pc = vm_fork(vm, &vm->champs[i], offset);
 		pc->reg[0] = -vm->champs[i].number;
-		vm->champs[i].flags = PC_LOADED | PC_ALIVE;
+		vm->champs[i].flags = PC_LOADED | PC_ALIVE | PC_YOUNG;
 	}
 }
 
@@ -44,7 +44,6 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (pc->flags & PF_LIVEUP)
 		{
 			pc->flags &= ~PF_LIVEUP;
-//			pc->last_live = 0;
 			count++;
 		}
 		else/*  if (!(champ->flags & PC_ALIVE)/\*  && pc->last_live >= vm->cycles_to_die * 2 *\/) */
@@ -60,12 +59,17 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (vm->playerDie)
 			(vm->playerDie)(champ);
 	}
-	if (champ->flags & PC_ALIVE || count)
+	if (champ->flags & PC_ALIVE)
 	{
+		if (champ->flags & PC_YOUNG)
+		{
+			champ->flags &= ~PC_YOUNG;
+			return (count > 0 ? 1 : 0);		
+		}
 		champ->flags &= ~PC_ALIVE;
 		return (1);
 	}
-	return (0);
+	return (count > 0 ? 1 : 0);
 }
 
 t_byte			play_check_champs(t_core *core)

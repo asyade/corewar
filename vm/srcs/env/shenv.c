@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shenv.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/23 17:47:34 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/25 18:18:15 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,10 @@ char		*carry_label(t_process *pc)
 	static char	buff[1024];
 	if (pc->inst[0] == 9)
 		return (pc->flags & PF_CARRY) ? " OK" : " FAILED";
-	if (pc->inst[0] == 12)
+	if (pc->inst[0] == 12 || pc->inst[0] == 15)
 	{
 		buff[0] = '\0';
-		sprintf(buff, " (%ld)", IDXPTR(pc->cc, pc->inst[1]));
+		sprintf(buff, " (%ld)",(pc->inst[0] == 15) ?  pc->cc + pc->inst[1] : IDXPTR(pc->cc, pc->inst[1]));
 		return (buff);
 	}
 	return ("");
@@ -185,7 +185,7 @@ void			cb_pc_updated(t_process *pc)//ICI segfault a refaire !!
 	t_vptr			i;
 	t_memory		*mem;
 
-	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES) || pc->inst[0] == 9)
+	if (!(sh_env(NULL)->vm.params->verbose & PV_MOVES) || (pc->inst[0] == 9 && pc->flags & PF_CARRY))
 		return ;
 	mem = &sh_env(NULL)->vm.memory;
 	i = pc->cc;

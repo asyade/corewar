@@ -7,6 +7,8 @@
 
 t_int32		params_match(t_byte a, t_arg_type b)
 {
+	if (a == 0 && b == 0)
+		return (1);
 	if (a == 0 && b)
 		return (0);
 	if (b == 0 && a)
@@ -50,13 +52,13 @@ t_int32		params_check_correct(t_process *pc)
 	t_op	*mask;
 
 	mask = &op_tab[pc->inst[0] - 1];
-	if (mask->nbr_arg >= 1 && !params_match(IP1(pc->inst[1]), mask->arg_type[0]))
+	if (!params_match(IP1(pc->inst[1]), mask->arg_type[0]))
 		return (params_correct(pc));
-	if (mask->nbr_arg >= 2 && !params_match(IP2(pc->inst[1]), mask->arg_type[1]))
+	if (!params_match(IP2(pc->inst[1]), mask->arg_type[1]))
 		return (params_correct(pc));
-	if (mask->nbr_arg >= 3 && !params_match(IP3(pc->inst[1]), mask->arg_type[2]))
+	if (!params_match(IP3(pc->inst[1]), mask->arg_type[2]))
 		return (params_correct(pc));
-	if (mask->nbr_arg >= 4 && !params_match(IP4(pc->inst[1]), mask->arg_type[3]))
+	if (!params_match(IP4(pc->inst[1]), mask->arg_type[3]))//a check
 		return (params_correct(pc));
 	return (1);
 }

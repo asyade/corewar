@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/23 11:24:13 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/25 16:40:59 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define PC_DEAD		(1 << 6)
 # define PC_NONE		(1 << 7)
 # define PC_DIE			(1 << 8)
+# define PC_YOUNG		(1 << 9)
 
 typedef struct			s_champDescrib
 {
