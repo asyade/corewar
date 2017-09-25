@@ -34,7 +34,7 @@ static int		readChampDef(char *src, int i, t_champ *ch)
 	ch->header.magic = BSWAP32(ch->header.magic);
 	ch->header.size = BSWAP32(ch->header.size);
 	ch->header.name[PROG_NAME_LEN] = '\0';
-	ch->header.comment[PROG_NAME_LEN] = '\0';
+	ch->header.comment[COMMENT_LEN] = '\0';
 	ch->number = i;
 	if (!checkSize(src, fd, ch->header.size))
 		return (0);
