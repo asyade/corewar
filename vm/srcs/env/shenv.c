@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 01:26:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 01:29:23 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,7 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 			param_dirval(p, 2),
 			param_dirval(p, 3),
 			param_dirval(p, 2) + param_dirval(p, 3),
-//			MEMPTR(((param_dirval(p, 2), + param_dirval(p, 3)) % IDX_MOD))
-			   p->cc + param_dirval(p, 2) + param_dirval(p, 3)
-		);
+			p->cc + param_dirval(p, 2) + param_dirval(p, 3));
 	}
 	else if (p->inst[0] == 10)
 	{
