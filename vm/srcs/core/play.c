@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 00:51:52 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 01:53:18 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 	{
 		pc = tmp;
 		tmp = tmp->next;
-		if (pc->flags & PF_LIVEUP)
+		if (pc->flags & PF_LIVEUP && vm->cycles_to_die > 0)
 		{
 			pc->flags &= ~PF_LIVEUP;
 			count++;
@@ -139,7 +139,7 @@ t_byte			play(t_core *core)
 		play_loop(core);
 		if (!play_check_champs(core))
 			break ;
-		if (/* core->vm.lives <= 0 */ft_is_one_champ_live_breakdown(core) || ++core->vm.nbr_check >= MAX_CHECKS)
+		if (ft_is_one_champ_live_breakdown(core) || ++core->vm.nbr_check >= MAX_CHECKS)
 		{
 			core->vm.nbr_check = 0;
 			core->vm.cycles_to_die -= CYCLE_DELTA;
