@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/25 20:17:57 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 00:51:52 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void     play_load_champs(t_vm *vm)
 		vm_load_champ(vm, &vm->champs[i], offset);
 		pc = vm_fork(vm, &vm->champs[i], offset);
 		pc->reg[0] = -vm->champs[i].number;
-		vm->champs[i].flags = PC_LOADED | PC_ALIVE | PC_YOUNG;
+		vm->champs[i].flags = PC_LOADED | PC_ALIVE/*  | PC_YOUNG */;
 	}
 }
 
@@ -61,11 +61,11 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 	}
 	if (champ->flags & PC_ALIVE)
 	{
-		if (champ->flags & PC_YOUNG)
-		{
-			champ->flags &= ~PC_YOUNG;
-			return (count > 0 ? 1 : 0);
-		}
+/* 		if (champ->flags & PC_YOUNG) */
+/* 		{ */
+/* 			champ->flags &= ~PC_YOUNG; */
+/* 			return (count > 0 ? 1 : 0); */
+/* 		} */
 		champ->flags &= ~PC_ALIVE;
 		return (1);
 	}
@@ -105,18 +105,41 @@ void			play_loop(t_core *core)
 	}
 }
 
+uint32_t		ft_is_one_champ_live_breakdown(t_core *core)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < core->vm.champ_count)
+	{
+		if (!core->vm.champs[i].nbr_live)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_byte			play(t_core *core)
 {
+	uint32_t	i;
+
 	core->vm.lives = NBR_LIVE;
 	core->vm.cycles_to_die = CYCLE_TO_DIE;
 	core->vm.cycles = CYCLE_TO_DIE;
+	core->vm.nbr_check = 0;
 	play_load_champs(&core->vm);
 	while (1)
 	{
+		i = 0;
+		while (i < core->vm.champ_count)
+		{
+			core->vm.champs[i].nbr_live = NBR_LIVE;
+			i++;
+		}
 		play_loop(core);
 		if (!play_check_champs(core))
 			break ;
-		if (core->vm.lives <= 0 || ++core->vm.nbr_check > MAX_CHECKS)
+		if (/* core->vm.lives <= 0 */ft_is_one_champ_live_breakdown(core) || ++core->vm.nbr_check >= MAX_CHECKS)
 		{
 			core->vm.nbr_check = 0;
 			core->vm.cycles_to_die -= CYCLE_DELTA;

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/25 16:40:59 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/25 22:50:37 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef	struct			s_champ
 	t_int32				nbr_process;
 	t_byte				number;
 	t_flags				flags;
+	uint32_t			nbr_live;
 }						t_champ;
 
 typedef	struct			s_memory
