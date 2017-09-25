@@ -87,16 +87,16 @@ char		*reg_str(t_int32 inst[6], int i)
 	return (st);
 }
 
-char		*dump_parametters(t_process *pc, uint32_t nbr_param)
+char		*dump_parametters(t_vm *vm, t_process *pc, uint32_t nbr_param)
 {
 	const uint8_t	*print_type[OP_NBR] = {(uint8_t[]){0, 0, 0},
-	(uint8_t[]){1, 0},
+	(uint8_t[]){2, 0},
 	(uint8_t[]){0, 0},
 	(uint8_t[]){0, 0, 0},
 	(uint8_t[]){0, 0, 0},
 	(uint8_t[]){1, 1, 0},
 	(uint8_t[]){1, 1, 0},
-	(uint8_t[]){0, 0, 0},
+	(uint8_t[]){1, 1, 0},
 	(uint8_t[]){0, 0, 0},
 	(uint8_t[]){1, 1, 0},
 	(uint8_t[]){0, 1, 1},
@@ -120,8 +120,10 @@ char		*dump_parametters(t_process *pc, uint32_t nbr_param)
 	{
 		if (!print_type[pc->inst[0] - 1][i])
 			bptr += sprintf(bptr," %s%d", reg_str(pc->inst, i + 1), pc->inst[i + 2]);//TODO: replace printf
-		else
+		else if (print_type[pc->inst[0] - 1][i] == 1)
 			bptr += sprintf(bptr," %d", param_dirval(pc, i + 1));//TODO: replace printf
+		else
+			bptr += sprintf(bptr," %d", param_idxval(vm, pc, i + 1));//TODO: replace printf
 		i++;
 	}
 	return (buff);

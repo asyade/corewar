@@ -7,7 +7,7 @@
 static void	fill_line(char *buff, t_byte *ptr, int n)
 {
 	while (n--)
-	{	
+	{
 		*buff++ = DUMP_BASE[*ptr / 16];
 		*buff++ = DUMP_BASE[*ptr++ % 16];
 		*buff++ = ' ';
@@ -20,7 +20,8 @@ static void	dump_line(t_byte *ptr, t_vptr v, int n)
 	char	buff[DUMP_LSIZE];
 
 	fill_line(buff + sprintf(buff, "0x%4.4x : ", (unsigned)v), ptr, n);
-	ft_putendl(buff);
+	printf("%s\n", buff);
+//	ft_putendl(buff);
 }
 
 void		dump(t_vm *vm)

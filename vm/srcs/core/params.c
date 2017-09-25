@@ -19,9 +19,9 @@ t_int32		params_read(t_memory *mem, t_process *pc)
 
 t_int32		params_load(t_vm *vm, t_process *pc)
 {
+	op_tab[pc->inst[0] - 1].called = 1;
 	if (op_tab[pc->inst[0] - 1].octal_code == 1)
 	{
-		op_tab[pc->inst[0] - 1].called = 1;
 		pc->inst[1] = mem_readbyte(&vm->memory, pc->pc++);
 		if (params_check_correct(pc))
 			params_read(&vm->memory, pc);

@@ -26,7 +26,7 @@ void		usage(void);
 */
 
 char		*ptstr(t_byte type);
-char		*dump_parametters(t_process *pc, uint32_t nbr_param);
+char		*dump_parametters(t_vm *vm, t_process *pc, uint32_t nbr_param);
 void		pwarn(char *format, ...);
 void		pcri(char *format, ...);
 void		plog(char *format, ...);

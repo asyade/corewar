@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/25 18:18:15 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/25 21:59:18 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		cb_pc_die(t_champ *champ, t_process *pc)
 {
 	(void)champ;
 	if (params()->verbose & PV_DEATH)
-		printf("Process %d hasn't lived for %ld cycles (CTD %d)\n", pc->id, pc->last_live, sh_env(NULL)->vm.cycles);
+		printf("Process %d hasn't lived for %ld cycles (CTD %d)\n", pc->id, pc->last_live, sh_env(NULL)->vm.cycles_to_die);
 }
 
 static void		cb_pc_loaded(t_champ *champ)
@@ -80,7 +80,7 @@ void			dump_inst_called(void)
 
 	i = -1;
 
-	ft_putendl("the following instructions have been used :");
+	ft_putendl("the following instructions have been used :\n");
 	while (++i < OP_NBR)
 	{
 		if (op_tab[i].called)
@@ -118,7 +118,7 @@ void			show_consts(t_core *c)
 {
 	int			i;
 
-	ft_putendl("Introducing contestants...");
+	printf("Introducing contestants...\n");
 	i = -1;
 	while (++i < c->vm.champ_count)
 	{
@@ -154,7 +154,7 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 		return ;
 	printf("P%5d | %s%s%s\n",  p->id,
 		op_tab[p->inst[0] - 1].name,
-		dump_parametters(p, inst_count(p->inst[0])),
+		   dump_parametters(&sh_env(NULL)->vm, p, inst_count(p->inst[0])),
 		carry_label(p)
 	);
 	if (p->inst[0] == 11)

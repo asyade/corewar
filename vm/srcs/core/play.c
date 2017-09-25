@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/25 16:39:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/25 20:17:57 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 			pc->flags &= ~PF_LIVEUP;
 			count++;
 		}
-		else/*  if (!(champ->flags & PC_ALIVE)/\*  && pc->last_live >= vm->cycles_to_die * 2 *\/) */
+		else
 		{
 			if (vm->processDie)
 				vm->processDie(champ, pc);
@@ -64,7 +64,7 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 		if (champ->flags & PC_YOUNG)
 		{
 			champ->flags &= ~PC_YOUNG;
-			return (count > 0 ? 1 : 0);		
+			return (count > 0 ? 1 : 0);
 		}
 		champ->flags &= ~PC_ALIVE;
 		return (1);
@@ -103,22 +103,12 @@ void			play_loop(t_core *core)
 			(core->vm.cycleUpdated)();
 		cpu_process_cycle(&core->vm);
 	}
-	if (core->vm.lives <= 0 || ++core->vm.nbr_check >= MAX_CHECKS)
-	{
-		core->vm.nbr_check = 0;
-		core->vm.cycles_to_die -= CYCLE_DELTA;
-		core->vm.cycles_to_die = (core->vm.cycles_to_die) <= 0 ? 1 : core->vm.cycles_to_die;
-		core->vm.lives = NBR_LIVE;
-		if (core->render.cycleToDieDelta)
-			(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
-	}
-	core->vm.cycles = core->vm.cycles_to_die;
 }
 
 t_byte			play(t_core *core)
 {
 	core->vm.lives = NBR_LIVE;
-	core->vm.cycles_to_die = CYCLE_TO_DIE/*  + 2 */;
+	core->vm.cycles_to_die = CYCLE_TO_DIE;
 	core->vm.cycles = CYCLE_TO_DIE;
 	play_load_champs(&core->vm);
 	while (1)
@@ -126,6 +116,15 @@ t_byte			play(t_core *core)
 		play_loop(core);
 		if (!play_check_champs(core))
 			break ;
+		if (core->vm.lives <= 0 || ++core->vm.nbr_check > MAX_CHECKS)
+		{
+			core->vm.nbr_check = 0;
+			core->vm.cycles_to_die -= CYCLE_DELTA;
+			core->vm.lives = NBR_LIVE;
+			if (core->render.cycleToDieDelta)
+				(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
+		}
+		core->vm.cycles = core->vm.cycles_to_die < 0 ? 1 : core->vm.cycles_to_die;
 	}
 	return (1);//TODO:winer id
 }
