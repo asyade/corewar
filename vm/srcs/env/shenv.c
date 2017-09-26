@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 01:42:41 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 07:09:00 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ t_core			*sh_env(t_core *c)
 	if (c)
 		core = c;
 	return (core);
-}
-
-int				last_live(int nid)
-{
-	int			tmp;
-	static int	id = 0;
-
-	tmp = id;
-	id = nid;
-	return (tmp);
 }
 
 static void		cb_memUpdated(t_memory *m, int a, int b)
@@ -68,10 +58,7 @@ void			cb_player_live(t_champ *c, int id)
 	if (!(params()->verbose & PV_LIVES))
 		return ;
 	if (-id == c->number)
-	{
-		last_live(-id);
 		printf("Player %d (%s) is said to be alive\n", c->number, c->header.name);
-	}
 }
 
 void			dump_inst_called(void)
@@ -93,10 +80,12 @@ void			dump_inst_called(void)
 void			cb_envdone(t_vm *vm)
 {
 	t_champ		*ch;
+	int			i;
 
 	if (vm->params->verbose & PV_DMPINST)
 		dump_inst_called();
-	ch = &vm->champs[last_live(0)];
+	i = -1;
+	ch = &vm->champs[vm->winner];
 	printf("Contestant %d, \"%s\", has won !\n", ch->number, ch->header.name);
 }
 

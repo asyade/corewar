@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 05:03:15 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 07:04:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 {
-//	printf("this is nbr_live.champ: %u\n", vm->champs[ci].nbr_live);
-	if (vm->champs[ci].nbr_live > 0)
-		vm->champs[ci].nbr_live--;
+	int		i;
+	if (vm->lives > 0)
+		vm->lives--;
 	pc->flags |= PF_LIVEUP;
 	pc->last_live = 0;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
 	{
-//		vm->champs[ci].flags &= ~PC_YOUNG;
+		i = -1;
+		vm->champs[ci].flags &= ~PC_YOUNG;
+		while (++i < vm->champ_count)
+			vm->champs[i].flags &= ~PC_ALIVE;
 		vm->champs[ci].flags |= PC_ALIVE;
 	}
 	if (vm->playerLive)
