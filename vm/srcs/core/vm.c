@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:37:51 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 02:53:53 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		vm_init(t_vm *vm)
 
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->total_process = 0;
+	vm->process = NULL;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
@@ -46,7 +47,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	}
 	npc = pc_new(champ->number);
 	npc->pc = offset;
-	pc_push(&champ->process, npc);
+	pc_push(&vm->process, npc);
 	npc->id = ++vm->total_process;
 	if (vm->processLoaded)
 		vm->processLoaded(champ);
@@ -58,8 +59,9 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 void		vm_kill(t_vm *vm, t_byte cid, t_process *pc)
 {
+	(void)cid;
 //	vm->champs[cid].nbr_process--;
-	pc_remove(&vm->champs[cid].process, pc);
+	pc_remove(&vm->process, pc);
 	if (vm->params->flag & P_SOUND)
 		vm_kill_sound();
 }

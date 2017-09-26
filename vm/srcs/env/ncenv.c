@@ -19,7 +19,7 @@ int            nc_colptr(t_vptr ptr)
     int         ci;
     t_process   *pc;
 
-    ci = -1;
+   /* ci = -1;
     while (++ci < core->vm.champ_count)
     {
         pc = core->vm.champs[ci].process;
@@ -33,7 +33,10 @@ int            nc_colptr(t_vptr ptr)
             }
             pc = pc->next;
         }
-    }
+    }*/
+	(void)ci;
+	(void)pc;
+	(void)ptr;
     return (7);
 }
 

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:37:38 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 02:44:15 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef	struct			s_champ
 {
 	t_champHeader		header;
 	t_byte				*body;
-	t_process			*process;
 	t_int32				nbr_process;
 	t_byte				number;
 	t_flags				flags;
@@ -99,6 +98,7 @@ typedef	struct			s_memory
 
 typedef struct			s_vm
 {
+	t_process			*process;
 	t_param				*params;
 	void		 		(*cycleUpdated)(void);
 	void				(*memUpdated)(t_memory *, int , int);

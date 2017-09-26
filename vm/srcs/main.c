@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 22:13:46 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 02:57:14 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int		main(t_int32 ac, t_char **av)
 	i = -1;
 	while (++i < core->vm.champ_count)
 	{
-		pc_clear(core->vm.champs[i].process);
 		free(core->vm.champs[i].body);
 	}
+	pc_clear(core->vm.process);
 	free(core);
 }

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 01:50:43 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 02:46:51 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void		cpu_champ_process_pc(t_vm *vm, int ci, t_champ *ch)
 {
 	t_process	*pc;
 
-	pc = ch->process;
+	(void)ci;
+	(void)ch;
+	pc = vm->process;
 	while (pc)
 	{
 		pc->last_live++;
@@ -94,10 +96,10 @@ void		cpu_process_cycle(t_vm *vm)
 	int 		ci;
 
 	ci = -1;
-	while (++ci < vm->champ_count)
-	{
+//	while (++ci < vm->champ_count)
+//	{
 		cpu_champ_process_pc(vm, ci, &vm->champs[ci]);
-	}
+//	}
 	if (vm->params->flag & P_DUMP && --vm->params->dump <= 0)
 		dump(vm);
 }

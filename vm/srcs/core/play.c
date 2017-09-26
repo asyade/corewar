@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:31:11 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 02:55:48 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void     play_load_champs(t_vm *vm)
 	}
 }
 
-t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
+/*t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 {
 	t_process   *pc;
 	int         count;
@@ -60,39 +60,50 @@ t_byte     play_is_alive(t_vm *vm, t_champ *champ, int ci)
 			(vm->playerDie)(champ);
 	}
 	if (champ->flags & PC_ALIVE)
-	{
-/* 		if (champ->flags & PC_YOUNG) */
-/* 		{ */
-/* 			champ->flags &= ~PC_YOUNG; */
-/* 			return (count > 0 ? 1 : 0); */
-/* 		} */
+	{ 		if (champ->flags & PC_YOUNG) 
+ 		{ 
+			champ->flags &= ~PC_YOUNG; 
+ 			return (count > 0 ? 1 : 0); 
+		} 
 		champ->flags &= ~PC_ALIVE;
 		return (1);
 	}
 	return (count > 0 ? 1 : 0);
+}*/
+
+int				play_check_process(t_vm *vm)
+{
+	t_process		*tmp;
+	int				ret;
+
+	ret = 0;
+	tmp = vm->process;
+	while (tmp)
+	{
+		if (tmp->flags & PF_LIVEUP)
+		{
+			tmp->flags |= PF_LIVEUP;
+			ret = 1;
+		}
+		else
+		{
+			if (vm->processDie)
+				vm->processDie(&vm->champs[0], tmp);
+			vm_kill(vm, 0, tmp);
+		}
+		tmp = tmp->next;
+	}
+	return (ret);
 }
 
 t_byte			play_check_champs(t_core *core)
 {
-	int    ci;
-	int    ret;
-	int    avc;
+	int		ret;
 
-	avc = 0;
-	ci = -1;
-	ret = 0;
-	while (++ci < core->vm.champ_count)
-	{
-		if (play_is_alive(&core->vm, &core->vm.champs[ci], ci))
-		{
-			core->vm.champs[ci].flags &= ~PC_ALIVE;
-			avc++;
-			ret = ci;
-		}
-	}
-	if (avc == 1 && core->render.playerWin)
+	ret = play_check_process(&core->vm);
+	if (!ret && core->render.playerWin)
 		(core->render.playerWin)(&core->vm.champs[ret]);
-	return (avc);
+	return (ret);
 }
 
 void			play_loop(t_core *core)
