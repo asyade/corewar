@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:13:59 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 05:03:15 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 {
 //	printf("this is nbr_live.champ: %u\n", vm->champs[ci].nbr_live);
-	if (vm->champs[ci].nbr_live > 0
-		&& vm->lives)
-	{
+	if (vm->champs[ci].nbr_live > 0)
 		vm->champs[ci].nbr_live--;
-		vm->lives--;
-	}
 	pc->flags |= PF_LIVEUP;
 	pc->last_live = 0;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
@@ -35,7 +31,7 @@ t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 
 t_int32		inst_zjmp(t_vm *vm, t_byte ci, t_process *pc)
 {
-	(void)vm;
+ 	(void)vm;
 	(void)ci;
 	if (pc->flags & PF_CARRY)
 	{

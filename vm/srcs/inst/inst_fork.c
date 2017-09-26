@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 16:39:01 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 04:12:07 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 05:10:02 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void		do_fork(t_vm *vm, t_process *pc, t_vptr offset, t_byte ci)
 
 	new = vm_fork(vm, &vm->champs[ci], offset);
 	ft_memcpy(new->reg, pc->reg, sizeof(t_reg) * REG_NUMBER);
-	new->last_live = pc->last_live;
+	new->last_live = pc->last_live - 1;
 	new->flags = pc->flags; // maybe not this
 	cpu_pc_process(vm, ci, new);
 }

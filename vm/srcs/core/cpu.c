@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 04:03:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 05:13:05 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,30 +76,23 @@ void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
 	}
 }
 
-void		cpu_champ_process_pc(t_vm *vm, int ci, t_champ *ch)
+void		cpu_champ_process_pc(t_vm *vm)
 {
 	t_process	*pc;
 
-	(void)ci;
-	(void)ch;
 	pc = vm->process;
 	while (pc)
 	{
-		pc->last_live++;
+//		printf("pdi: %d\n", pc->id);
 		cpu_pc_process(vm, pc->champ_index, pc);
+		pc->last_live++;
 		pc = pc->next;
 	}
 }
 
 void		cpu_process_cycle(t_vm *vm)
 {
-	int 		ci;
-
-	ci = -1;
-//	while (++ci < vm->champ_count)
-//	{
-		cpu_champ_process_pc(vm, ci, &vm->champs[ci]);
-//	}
+	cpu_champ_process_pc(vm);
 	if (vm->params->flag & P_DUMP && --vm->params->dump <= 0)
 		dump(vm);
 }
