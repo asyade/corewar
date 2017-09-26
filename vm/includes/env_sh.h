@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   env_sh.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 09:06:15 by acorbeau         ###   ########.fr       */
+/*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 10:19:50 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#ifndef ENV_SH_H
+# define ENV_SH_H
 
-void	free_process(t_process **proc)
-{
-	(void)proc;
-}
+# include "corewar.h"
 
-void	free_vm(t_vm **vm)
-{
-	(void)vm;
-}
+void	she_init(t_core *core);
+
+#endif

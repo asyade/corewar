@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:30:01 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/20 12:19:11 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 09:06:52 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_int32			param_val(t_vm *vm, t_process *pc, t_byte pid)
 	if (t == T_DIR)
 		return (pc->inst[pid + 1]);
 	else if (t == T_IND)
-		return (mem_readint(&vm->memory, pc->cc + pc->inst[pid + 1]));//on pars de pc ou cc?
+		return (mem_readint(&vm->memory, pc->cc + pc->inst[pid + 1]));
 	else if (t == T_REG)
 		return (pc->reg[pc->inst[pid + 1] - 1]);
 	return (-1);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   params_get.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 08:54:13 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 t_byte		param_get_size(t_byte opcode, t_byte type)
@@ -6,7 +18,7 @@ t_byte		param_get_size(t_byte opcode, t_byte type)
 		return (2);
 	if (type == T_DIR)
 	{
-		if (op_tab[opcode - 1].label_size == 0)
+		if (g_op_tab[opcode - 1].label_size == 0)
 			return (4);
 		else
 			return (2);

@@ -4,12 +4,13 @@ NAME = corewar
 
 PATH_SRC = srcs/ srcs/parsing/
 
-DIRS =	obj/core/ obj/env/ obj/source/ obj/inst
+DIRS =	obj/core/ obj/env/ obj/inst
 
 SRC = srcs/core/core.c \
 		srcs/core/cpu.c \
 		srcs/core/free.c \
 		srcs/core/memory.c \
+		srcs/core/memory_read_n.c \
 		srcs/core/params.c \
 		srcs/core/params_get.c \
 		srcs/core/params_check.c \
@@ -26,9 +27,10 @@ SRC = srcs/core/core.c \
 		srcs/core/dump.c \
 		srcs/env/ncenv.c \
 		srcs/env/shenv.c \
-		srcs/source/defaultSourceProvider.c \
+		srcs/source_provider.c \
 		srcs/logger.c \
 		srcs/main.c \
+		srcs/usage.c \
 		srcs/params.c \
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))

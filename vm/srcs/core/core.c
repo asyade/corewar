@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 10:03:39 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-t_core		*core_init()
+t_core		*core_init(void)
 {
 	t_core	*core;
 
@@ -12,12 +24,12 @@ t_core		*core_init()
 
 void		core_load_callback(t_core *core)
 {
-	core->vm.memUpdated = core->render.memUpdated;
-	core->vm.processLoaded = core->render.processLoaded;
-	core->vm.cycleUpdated = core->render.cycleUpdated;
-	core->vm.processDie = core->render.processDie;
-	core->vm.playerLive = core->render.playerLive;
-	core->vm.playerDie = core->render.playerDie;
-	core->vm.instLoaded = core->render.instLoaded;
-	core->vm.pcUpdated = core->render.pcUpdated;
+	core->vm.mem_updated = core->render.mem_updated;
+	core->vm.process_loaded = core->render.process_loaded;
+	core->vm.cycle_updated = core->render.cycle_updated;
+	core->vm.process_die = core->render.process_die;
+	core->vm.player_live = core->render.player_live;
+	core->vm.player_die = core->render.player_die;
+	core->vm.inst_loaded = core->render.inst_loaded;
+	core->vm.pc_updated = core->render.pc_updated;
 }

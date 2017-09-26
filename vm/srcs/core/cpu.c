@@ -6,37 +6,30 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 05:13:05 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 10:06:13 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-t_op    op_tab[OP_NBR] =
+t_op	g_op_tab[OP_NBR] =
 {
-	//name		?	params									ID	Cycles			describ	 OCP? 2/4 CallBack  Already used
-	{"live",	1, (t_arg_type[]){FT_DIR, 0, 0, 0 }, 					1, {0},	10,			"alive",	0, 0, &inst_live, 0 },
-	{"ld",		2, (t_arg_type[]){FT_DIR | FT_IND, FT_REG, 0, 0 },	2, {0},	5,			"load",		1, 0, &inst_ld, 0 },
-	{"st",		2, (t_arg_type[]){FT_REG, FT_IND | FT_REG, 0 ,0},	3, {0},	5,			"store",	1, 0, &inst_st, 0 },
-	{"add",		3, (t_arg_type[]){FT_REG, FT_REG, FT_REG, 0 }, 	4, {0},	10,			"add",		1, 0, &inst_add, 0 },
-	{"sub",		3, (t_arg_type[]){FT_REG, FT_REG, FT_REG, 0 }, 	5, {0},	10,			"sub", 		1, 0, &inst_sub, 0 },
-	{"and",		3, (t_arg_type[]){FT_REG | FT_DIR | FT_IND, FT_REG | FT_IND | FT_DIR, FT_REG, 0},
-															6, {0},	6,			"and",		1, 0, &inst_and, 0 },
-	{"or",		3, (t_arg_type[]){FT_REG | FT_DIR | FT_IND, FT_REG | FT_IND | FT_DIR, FT_REG, 0},
-															7, {0},	6,			"or",		1, 0, &inst_or, 0 },
-	{"xor",		3, (t_arg_type[]){FT_REG | FT_DIR | FT_IND, FT_REG | FT_IND | FT_DIR, FT_REG, 0},
-															8, {0},	6,			"xor",		1, 0, &inst_xor, 0 },
-	{"zjmp",	1, (t_arg_type[]){FT_DIR, 0, 0, 0},					9, {0},	20,			"jump", 	0, 1, &inst_zjmp, 0 },
-	{"ldi", 	3, (t_arg_type[]){FT_REG | FT_DIR | FT_IND, FT_DIR | FT_REG, FT_REG, 0},
-															10, {0},	25,		"load i",	1, 1, &inst_ldi, 0 },
-	{"sti", 	3, (t_arg_type[]){FT_REG, FT_REG | FT_DIR | FT_IND, FT_DIR | FT_REG, 0},
-															11, {0},	25,		"store i",	1, 1, &inst_sti, 0 },
-	{"fork", 	1, (t_arg_type[]){FT_DIR, 0, 0, 0},					12, {0},	800,	"fork",		0, 1, &inst_fork, 0 },
-	{"lld", 	2, (t_arg_type[]){FT_DIR | FT_IND, FT_REG, 0, 0}, 13, {0},	10, 	"l load",	1, 0, &inst_lld, 0 },
-	{"lldi", 	3, (t_arg_type[]){FT_REG | FT_DIR | FT_IND, FT_DIR | FT_REG, FT_REG, 0},
-															14, {0},	50,		"ll index", 1, 1, &inst_lldi, 0 },
-	{"lfork", 	1, (t_arg_type[]){FT_DIR, 0, 0, 0},					15, {0},	1000,	"long fork",0, 1, &inst_lfork, 0 },
-	{"aff", 	1, (t_arg_type[]){FT_REG, 0, 0, 0},					16, {0},	2,		"aff",		1, 0, &inst_aff, 0 },
+	{"live", 1, ARG_LIVE, 1, {0}, 10, "alive", 0, 0, &inst_live, 0},
+	{"ld", 2, ARG_LD, 2, {0}, 5, "load", 1, 0, &inst_ld, 0},
+	{"st", 2, ARG_ST, 3, {0}, 5, "store", 1, 0, &inst_st, 0},
+	{"add", 3, ARG_ADD, 4, {0}, 10, "add", 1, 0, &inst_add, 0},
+	{"sub", 3, ARG_SUB, 5, {0}, 10, "sub", 1, 0, &inst_sub, 0},
+	{"and", 3, ARG_AND, 6, {0}, 6, "and", 1, 0, &inst_and, 0},
+	{"or", 3, ARG_OR, 7, {0}, 6, "or", 1, 0, &inst_or, 0},
+	{"xor", 3, ARG_XOR, 8, {0}, 6, "xor", 1, 0, &inst_xor, 0},
+	{"zjmp", 1, ARG_ZJMP, 9, {0}, 20, "jump", 0, 1, &inst_zjmp, 0},
+	{"ldi", 3, ARG_LDI, 10, {0}, 25, "load i", 1, 1, &inst_ldi, 0},
+	{"sti", 3, ARG_STI, 11, {0}, 25, "store i", 1, 1, &inst_sti, 0},
+	{"fork", 1, ARG_FORK, 12, {0}, 800, "fork", 0, 1, &inst_fork, 0},
+	{"lld", 2, ARG_LLD, 13, {0}, 10, "l load", 1, 0, &inst_lld, 0},
+	{"lldi", 3, ARG_LLDI, 14, {0}, 50, "ll index", 1, 1, &inst_lldi, 0},
+	{"lfork", 1, ARG_LFORK, 15, {0}, 1000, "long fork", 0, 1, &inst_lfork, 0},
+	{"aff", 1, ARG_AFF, 16, {0}, 2, "aff", 1, 0, &inst_aff, 0},
 };
 
 void		exec(t_vm *vm, t_byte ci, t_process *pc)
@@ -46,13 +39,13 @@ void		exec(t_vm *vm, t_byte ci, t_process *pc)
 	if (params_load(vm, pc))
 	{
 		pc->zc = pc->pc;
-		if (vm->params->verbose & PV_OPS && vm->instLoaded)
-			(vm->instLoaded)(&vm->champs[ci], pc);
-		(op_tab[pc->inst[0] - 1].call)(vm, ci, pc);
+		if (vm->params->verbose & PV_OPS && vm->inst_loaded)
+			(vm->inst_loaded)(&vm->champs[ci], pc);
+		(g_op_tab[pc->inst[0] - 1].call)(vm, ci, pc);
 	}
 	pc->zc = pc->pc;
-	if (vm->pcUpdated)
-		(vm->pcUpdated)(pc);
+	if (vm->pc_updated)
+		(vm->pc_updated)(pc);
 }
 
 void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
@@ -66,7 +59,7 @@ void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
 		if (OPVALIDE(pc->inst[0]))
 		{
 			pc->flags |= PF_WAIT;
-			pc->cycles_to_do = op_tab[pc->inst[0] - 1].nbr_cycles;
+			pc->cycles_to_do = g_op_tab[pc->inst[0] - 1].nbr_cycles;
 		}
 	}
 	if (pc->cycles_to_do-- <= 1)
@@ -83,7 +76,6 @@ void		cpu_champ_process_pc(t_vm *vm)
 	pc = vm->process;
 	while (pc)
 	{
-//		printf("pdi: %d\n", pc->id);
 		cpu_pc_process(vm, pc->champ_index, pc);
 		pc->last_live++;
 		pc = pc->next;

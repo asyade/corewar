@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   def.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 09:54:30 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEF_H
 # define DEF_H
 
@@ -10,10 +22,10 @@ typedef unsigned char	t_byte;
 typedef short			t_int16;
 typedef int				t_int32;
 typedef long			t_int64;
-typedef unsigned short	t_uint16;
-typedef unsigned int	t_uint32;
-typedef unsigned long	t_uint64;
-typedef unsigned int	t_flags;
+typedef uint16_t		t_uint16;
+typedef uint32_t		t_uint32;
+typedef uint64_t		t_uint64;
+typedef uint32_t		t_flags;
 
 # define TRUE			1
 # define FALS			0

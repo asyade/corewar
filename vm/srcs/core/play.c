@@ -6,19 +6,19 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 07:07:56 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:08:00 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void     play_load_champs(t_vm *vm)
+static void		play_load_champs(t_vm *vm)
 {
 	t_int32		i;
 	t_vptr		offset;
 	t_process	*pc;
 
-	i =  0;
+	i = 0;
 	while (i < vm->champ_count)
 	{
 		offset = i * (MEM_SIZE / vm->champ_count);
@@ -47,9 +47,9 @@ int				play_check_process(t_vm *vm)
 		}
 		else
 		{
-			if (vm->processDie)
-				vm->processDie(&vm->champs[0], tmp);
-			vm_kill(vm, 0, tmp);
+			if (vm->process_die)
+				vm->process_die(&vm->champs[0], tmp);
+			vm_kill(vm, tmp);
 		}
 		tmp = tmp->next;
 	}
@@ -60,8 +60,8 @@ void			play_loop(t_core *core)
 {
 	while (core->vm.cycles--)
 	{
-		if (core->vm.cycleUpdated)
-			(core->vm.cycleUpdated)();
+		if (core->vm.cycle_updated)
+			(core->vm.cycle_updated)();
 		cpu_process_cycle(&core->vm);
 	}
 }
@@ -85,10 +85,11 @@ t_byte			play(t_core *core)
 		{
 			core->vm.nbr_check = 0;
 			core->vm.cycles_to_die -= CYCLE_DELTA;
-			if (core->render.cycleToDieDelta)
-				(core->render.cycleToDieDelta)(core->vm.cycles_to_die);
+			if (core->render.cycle_delta)
+				(core->render.cycle_delta)(core->vm.cycles_to_die);
 		}
-		core->vm.cycles = core->vm.cycles_to_die < 0 ? 1 : core->vm.cycles_to_die;
+		core->vm.cycles = core->vm.cycles_to_die < 0 ? 1 :
+core->vm.cycles_to_die;
 	}
 	return (ret);
 }

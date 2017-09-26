@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   params_check.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 08:53:45 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 /*
@@ -30,7 +42,7 @@ t_int32		params_correct(t_process *pc)
 {
 	t_int32		i;
 
-	i = op_tab[pc->inst[0] - 1].nbr_arg;
+	i = g_op_tab[pc->inst[0] - 1].nbr_arg;
 	if (i >= 1)
 		pc->pc += param_get_size(pc->inst[0], IP1(pc->inst[1]));
 	if (i >= 2)
@@ -51,23 +63,23 @@ t_int32		params_check_correct(t_process *pc)
 {
 	t_op	*mask;
 
-	mask = &op_tab[pc->inst[0] - 1];
+	mask = &g_op_tab[pc->inst[0] - 1];
 	if (!params_match(IP1(pc->inst[1]), mask->arg_type[0]))
 		return (params_correct(pc));
 	if (!params_match(IP2(pc->inst[1]), mask->arg_type[1]))
 		return (params_correct(pc));
 	if (!params_match(IP3(pc->inst[1]), mask->arg_type[2]))
 		return (params_correct(pc));
-	if (!params_match(IP4(pc->inst[1]), mask->arg_type[3]))//a check
+	if (!params_match(IP4(pc->inst[1]), mask->arg_type[3]))
 		return (params_correct(pc));
 	return (1);
 }
 
 t_int32		params_check_register(t_process *pc)
 {
-	if (op_tab[pc->inst[0] - 1].octal_code == 0)
+	if (g_op_tab[pc->inst[0] - 1].octal_code == 0)
 	{
-		if (op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
+		if (g_op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
 			return (REGVALIDE(pc->inst[1]));
 		else
 			return (0);
@@ -76,8 +88,7 @@ t_int32		params_check_register(t_process *pc)
 		(IP1(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[2])) ||
 		(IP2(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[3])) ||
 		(IP3(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[4])) ||
-		(IP4(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[5]))
-	)
+		(IP4(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[5])))
 		return (0);
 	return (1);
 }

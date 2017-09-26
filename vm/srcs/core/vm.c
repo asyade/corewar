@@ -6,13 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 04:03:45 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:08:21 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		vm_init(t_vm *vm)
+void			vm_init(t_vm *vm)
 {
 	int		i;
 
@@ -26,15 +26,12 @@ void		vm_init(t_vm *vm)
 	}
 }
 
-void		vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
+void			vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
 {
-	mem_write(vm, champ->body, champ->header.size, offset, champ->number);
+	mem_write(vm, champ->body,
+				(t_memzone){champ->header.size, offset}, champ->number);
 	champ->flags = PC_LOADED;
 }
-
-/*
-** Gestion des process pouris, a revoir surment une liste doublement chainée mais la fléme tout de suite
-*/
 
 t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 {
@@ -49,18 +46,14 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	npc->pc = offset;
 	pc_push(&vm->process, npc);
 	npc->id = ++vm->total_process;
-	if (vm->processLoaded)
-		vm->processLoaded(champ);
+	if (vm->process_loaded)
+		vm->process_loaded(champ);
 	npc->flags = 0;
 	return (npc);
 }
 
-
-
-void		vm_kill(t_vm *vm, t_byte cid, t_process *pc)
+void			vm_kill(t_vm *vm, t_process *pc)
 {
-	(void)cid;
-//	vm->champs[cid].nbr_process--;
 	pc_remove(&vm->process, pc);
 	if (vm->params->flag & P_SOUND)
 		vm_kill_sound();

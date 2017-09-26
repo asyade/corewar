@@ -1,8 +1,16 @@
-#include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dump.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 09:05:18 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define	DUMP_OPL	64 //32 selon le pdf
-#define DUMP_LSIZE	(DUMP_OPL + (DUMP_OPL * 2) + (11 * DUMP_OPL))
-#define DUMP_BASE	"0123456789abcdef"
+#include "corewar.h"
 
 static void	fill_line(char *buff, t_byte *ptr, int n)
 {
@@ -21,7 +29,6 @@ static void	dump_line(t_byte *ptr, t_vptr v, int n)
 
 	fill_line(buff + sprintf(buff, "0x%4.4x : ", (unsigned)v), ptr, n);
 	printf("%s\n", buff);
-//	ft_putendl(buff);
 }
 
 void		dump(t_vm *vm)
@@ -35,7 +42,7 @@ void		dump(t_vm *vm)
 		dump_line(vm->memory.mem + curr, curr, DUMP_OPL);
 		curr += DUMP_OPL;
 	}
-	if (vm->params->flag &P_DUMPREP)
+	if (vm->params->flag & P_DUMPREP)
 	{
 		vm->params->dump = vm->params->basedump;
 		read(0, buff, 1);

@@ -6,11 +6,11 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 08:21:10 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:13:12 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "envSh.h"
+#include "env_sh.h"
 #include "corewar.h"
 
 # define BASE_HEX_MAJ	"0123456789abcdef"
@@ -24,7 +24,7 @@ t_core			*sh_env(t_core *c)
 	return (core);
 }
 
-static void		cb_memUpdated(t_memory *m, int a, int b)
+static void		cb_mem_updated(t_memory *m, int a, int b)
 {
 	(void)m;
 	(void)a;
@@ -70,9 +70,9 @@ void			dump_inst_called(void)
 	ft_putendl("the following instructions have been used :\n");
 	while (++i < OP_NBR)
 	{
-		if (op_tab[i].called)
+		if (g_op_tab[i].called)
 		{
-			ft_putendl(op_tab[i].name);
+			ft_putendl(g_op_tab[i].name);
 		}
 	}
 }
@@ -147,7 +147,7 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 	if (p->inst[0] == 16)
 		return ;
 	printf("P%5d | %s%s%s\n",  p->id,
-		op_tab[p->inst[0] - 1].name,
+		g_op_tab[p->inst[0] - 1].name,
 		   dump_parametters(&sh_env(NULL)->vm, p, inst_count(p->inst[0])),
 		carry_label(p)
 	);
@@ -204,15 +204,15 @@ void			she_init(t_core *core)
 {
 	sh_env(core);
 	show_consts(core);
-	core->render.cycleToDieDelta = &cb_cycle_to_die_delta;
-	core->render.instLoaded = (t_instLoaded)&cb_inst_loaded;
-	core->render.cycleUpdated = (t_cycleUpdated)&cb_cycle_updated;
-	core->render.envDone = (t_envDone)&cb_envdone;
-	core->render.playerLive = (t_playerLive)&cb_player_live;
-	core->render.livesDelta = (t_livesDelta)&cb_live_delta;
-	core->render.processDie = (t_processDie)&cb_pc_die;
-	core->render.playerDie = (t_playerDie)&cb_player_die;
-	core->render.processLoaded = (t_processLoaded)&cb_pc_loaded;
-	core->render.pcUpdated = (t_pcUpdated)&cb_pc_updated;
-	core->render.memUpdated = (t_memUpdated)cb_memUpdated;
+	core->render.cycle_delta = &cb_cycle_to_die_delta;
+	core->render.inst_loaded = &cb_inst_loaded;
+	core->render.cycle_updated = &cb_cycle_updated;
+	core->render.env_done = &cb_envdone;
+	core->render.player_live = &cb_player_live;
+	core->render.lives_delta = &cb_live_delta;
+	core->render.process_die = &cb_pc_die;
+	core->render.player_die = &cb_player_die;
+	core->render.process_loaded = &cb_pc_loaded;
+	core->render.pc_updated = &cb_pc_updated;
+	core->render.mem_updated = cb_mem_updated;
 }

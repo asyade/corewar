@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 07:04:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:08:42 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 {
 	int		i;
+
 	if (vm->lives > 0)
 		vm->lives--;
 	pc->flags |= PF_LIVEUP;
@@ -27,14 +28,14 @@ t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 			vm->champs[i].flags &= ~PC_ALIVE;
 		vm->champs[ci].flags |= PC_ALIVE;
 	}
-	if (vm->playerLive)
-		(vm->playerLive)(&vm->champs[ci], pc->inst[1]);
+	if (vm->player_live)
+		(vm->player_live)(&vm->champs[ci], pc->inst[1]);
 	return (1);
 }
 
 t_int32		inst_zjmp(t_vm *vm, t_byte ci, t_process *pc)
 {
- 	(void)vm;
+	(void)vm;
 	(void)ci;
 	if (pc->flags & PF_CARRY)
 	{
