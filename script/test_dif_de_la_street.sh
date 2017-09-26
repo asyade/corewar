@@ -1,5 +1,7 @@
 #!/bin/bash
 for filename in champion/*.cor; do
-		echo $filename
-    	export i=100; while [ $i -le 4000 ] ; do ./test_diff_2v2_dump  $1  $filename  $((i+=1000)); done
+	for filename2 in champion/*.cor; do
+			echo $filename $filename2
+    		export i=10000; while [ $i -le 20000 ] ; do ./test_diff_2v2_dump  $filename  $filename  $((i+=10000)); done
+	done
 done

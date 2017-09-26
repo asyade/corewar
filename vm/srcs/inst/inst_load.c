@@ -17,9 +17,6 @@ t_int32			inst_ldi(t_vm *vm, t_byte ci, t_process *pc)
 	(void)pc;
 	if (!(pc->reg[pc->inst[4] - 1] = mem_readint(&vm->memory, IDXPTR(pc->cc, param_val(vm, pc, 1) + param_dirval(pc, 2)))))
 		;
-/* 		pc->flags |= PF_CARRY; */
-/* 	else */
-/* 		pc->flags &= ~PF_CARRY; */
 	return (1);
 }
 

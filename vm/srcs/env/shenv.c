@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 07:09:00 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 08:21:10 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,13 @@ void			cb_envdone(t_vm *vm)
 
 	if (vm->params->verbose & PV_DMPINST)
 		dump_inst_called();
-	i = -1;
 	ch = &vm->champs[vm->winner];
+		i = -1;
+	while (++i < vm->champ_count)
+	{
+		if (vm->champs[i].flags & PC_ALIVE)
+			ch = &vm->champs[i];
+	}
 	printf("Contestant %d, \"%s\", has won !\n", ch->number, ch->header.name);
 }
 
