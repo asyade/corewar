@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:46:51 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 04:03:30 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		cpu_champ_process_pc(t_vm *vm, int ci, t_champ *ch)
 	while (pc)
 	{
 		pc->last_live++;
-		cpu_pc_process(vm, ci, pc);
+		cpu_pc_process(vm, pc->champ_index, pc);
 		pc = pc->next;
 	}
 }

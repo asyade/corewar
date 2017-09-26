@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:44:15 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 04:02:26 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef	struct			s_process
 	t_int32				inst[6];
 	t_flags				flags;
 	t_int32				cycles_to_do;
+	t_int32				champ_index;
 	struct s_process	*next;
 }						t_process;
 

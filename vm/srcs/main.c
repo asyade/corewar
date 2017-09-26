@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:57:14 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 03:15:27 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		main(t_int32 ac, t_char **av)
 	}
 	play(core);
 	core->vm.memory.mem[0] = 0xff;
-		core->vm.memUpdated(&core->vm.memory, 0, 0);
+	core->vm.memUpdated(&core->vm.memory, 0, 0);
 
 	if (core->render.envDone)
 		(core->render.envDone)(&core->vm);

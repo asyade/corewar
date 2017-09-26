@@ -34,9 +34,9 @@ int            nc_colptr(t_vptr ptr)
             pc = pc->next;
         }
     }*/
-	(void)ci;
-	(void)pc;
 	(void)ptr;
+	(void)pc;
+	(void)ci;
     return (7);
 }
 

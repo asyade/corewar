@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:55:48 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 04:02:28 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void     play_load_champs(t_vm *vm)
 		vm_load_champ(vm, &vm->champs[i], offset);
 		pc = vm_fork(vm, &vm->champs[i], offset);
 		pc->reg[0] = -vm->champs[i].number;
-		vm->champs[i].flags = PC_LOADED | PC_ALIVE/*  | PC_YOUNG */;
+		pc->champ_index = i;
+		vm->champs[i].flags |= PC_ALIVE;/*  | PC_YOUNG */;
 	}
 }
 
