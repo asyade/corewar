@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/25 20:30:51 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 02:37:51 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		vm_init(t_vm *vm)
 	int		i;
 
 	vm->cycles_to_die = CYCLE_TO_DIE;
+	vm->total_process = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS)
 	{
@@ -46,7 +47,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	npc = pc_new(champ->number);
 	npc->pc = offset;
 	pc_push(&champ->process, npc);
-	npc->id = ++champ->nbr_process;
+	npc->id = ++vm->total_process;
 	if (vm->processLoaded)
 		vm->processLoaded(champ);
 	npc->flags = 0;

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/25 22:50:37 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 02:37:38 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct			s_vm
 	t_champ				champs[MAX_PLAYERS];
 	t_byte				champ_count;
 	t_int32				cycles_to_die;
+	t_int32				total_process;
 	t_int32				cycles;
 	t_int32				lives;
 	t_int32				nbr_check;

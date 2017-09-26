@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 23:59:18 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 02:34:45 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/26 02:38:39 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_process	*pc_new(t_reg number)
 }
 
 void		pc_push(t_process **root, t_process *pc)
-
+{
 	if (!*root)
 		return ((void)(*root = pc));
 	pc->next = *root;
