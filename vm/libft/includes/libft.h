@@ -6,7 +6,11 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:35:25 by sclolus           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2017/09/28 22:17:09 by sclolus          ###   ########.fr       */
+=======
+/*   Updated: 2017/09/28 22:42:20 by acorbeau         ###   ########.fr       */
+>>>>>>> dump
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +65,10 @@ void			*ft_mem_block_push_back_elem(t_mem_block *mem_block
 									, void *elem, uint32_t size);
 t_mem_block		*ft_create_mem_block(uint64_t capacity);
 
+<<<<<<< HEAD
+=======
+void			*ft_salloc(size_t size);
+>>>>>>> dump
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
