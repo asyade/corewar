@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 20:25:17 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:08:00 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		nc_init_colors(void)
 	init_pair(5, COLOR_YELLOW, COLOR_BLACK);
 }
 
-int			nc_color_mem(int trace)
+inline int			nc_color_mem(int trace)
 {
 	if (trace <= 4 && trace > 0)
 		return (COLOR_PAIR(trace));

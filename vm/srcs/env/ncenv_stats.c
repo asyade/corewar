@@ -6,13 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 23:22:11 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:07:16 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_ncurse.h"
 
-void		nc_dump_champ_name(WINDOW *win, t_core *core)
+inline void		nc_dump_champ_name(WINDOW *win, t_core *core)
 {
 	int		i;
 	int		y;
@@ -30,7 +30,7 @@ void		nc_dump_champ_name(WINDOW *win, t_core *core)
 	}
 }
 
-void		nc_dump_champ_infos(WINDOW *win, t_core *core)
+inline void		nc_dump_champ_infos(WINDOW *win, t_core *core)
 {
 	char	buff[1024];
 	int		i;
@@ -50,7 +50,7 @@ void		nc_dump_champ_infos(WINDOW *win, t_core *core)
 	}
 }
 
-void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
+inline void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
 {
 	char	buffer[1024];
 
@@ -67,7 +67,7 @@ void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
 	wprintw(win, buffer);
 }
 
-void		nc_dump_cycle(WINDOW *win, long int cycle)
+inline void		nc_dump_cycle(WINDOW *win, long int cycle)
 {
 	char	buffer[1024];
 
@@ -79,4 +79,5 @@ void		nc_dump_cycle(WINDOW *win, long int cycle)
 	ft_sprintf(buffer, "Cycle to die %d     ", nc_env(NULL)->vm.cycles_to_die);
 	wprintw(win, buffer);
 	nc_dump_champ_infos(win, nc_env(NULL));
+	nc_memwin_refresh();
 }

@@ -6,13 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 23:18:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:07:03 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_ncurse.h"
 
-WINDOW		*nc_mem_win(void)
+inline WINDOW		*nc_mem_win(void)
 {
 	static WINDOW		*win = NULL;
 
@@ -26,7 +26,7 @@ WINDOW		*nc_mem_win(void)
 	return (win);
 }
 
-WINDOW		*nc_st_win(void)
+inline WINDOW		*nc_st_win(void)
 {
 	static WINDOW		*win = NULL;
 
@@ -40,7 +40,7 @@ WINDOW		*nc_st_win(void)
 	return (win);
 }
 
-void		nc_memwin_refresh(void)
+inline void		nc_memwin_refresh(void)
 {
 	WINDOW		*win;
 
@@ -52,7 +52,7 @@ void		nc_memwin_refresh(void)
 	wrefresh(win);
 }
 
-void		nc_end(void)
+inline void		nc_end(void)
 {
 	nodelay(stdscr, 0);
 	getch();
