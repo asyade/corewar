@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 21:08:41 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:24:53 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		pwarn(char *format, ...)
 
 	if (LOGGER_FD < 0)
 		return ;
-	sprintf(buffer, "\e[31mwarning\e[0m: ");
+	ft_sprintf(buffer, "\e[31mwarning\e[0m: ");
 	va_start(args, format);
 	vsprintf(buffer + 18, format, args);
 	va_end(args);
@@ -58,7 +58,7 @@ void		pcri(char *format, ...)
 
 	if (LOGGER_FD < 0)
 		return ;
-	sprintf(buffer, "\e[31;1;4;5;7mcritical\e[0m : ");
+	ft_sprintf(buffer, "\e[31;1;4;5;7mcritical\e[0m : ");
 	va_start(args, format);
 	vsprintf(buffer + 26, format, args);
 	va_end(args);
@@ -73,7 +73,7 @@ void		plog(char *format, ...)
 
 	if (LOGGER_FD < 0)
 		return ;
-	sprintf(buffer, "\e[32minfo\e[0m: ");
+	ft_sprintf(buffer, "\e[32minfo\e[0m: ");
 	va_start(args, format);
 	vsprintf(buffer + 15, format, args);
 	va_end(args);

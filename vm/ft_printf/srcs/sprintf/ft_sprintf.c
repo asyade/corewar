@@ -26,6 +26,7 @@ static inline int32_t	ft_print_arg(const char *format
 	int32_t			printed_chars;
 
 	ft_get_arg(format + (*i), v_arg, &arg);
+	//	(*i)++;
 	if (arg.conversion == 0)
 		return (0);
 	nbr = ft_cast(va_arg(*v_arg, void*), &arg);

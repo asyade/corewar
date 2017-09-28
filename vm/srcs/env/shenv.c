@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 21:38:28 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:43:27 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void			show_consts(t_core *c)
 {
 	int			i;
 
-	printf("Introducing contestants...\n");
+	ft_printf("Introducing contestants...\n");
 	i = -1;
 	while (++i < c->vm.champ_count)
 	{
-		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", i + 1,
 c->vm.champs[i].header.size,
 c->vm.champs[i].header.name, c->vm.champs[i].header.comment);
 	}

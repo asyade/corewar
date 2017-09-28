@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 21:42:22 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:30:05 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			cb_cycle_updated(void)
 		return ;
 	if (!(vm->params->verbose & PV_CYCLES))
 		return ;
-	printf("It is now cycle %lld\n", total);
+	ft_printf("It is now cycle %lld\n", total);
 }
 
 void			cb_pc_updated(t_process *pc)
@@ -48,7 +48,7 @@ void			cb_pc_updated(t_process *pc)
 		*ptr++ = ' ';
 	}
 	*ptr = '\0';
-	printf("ADV %ld (0x%4.4lx -> 0x%4.4lx) %s\n",
+	ft_printf("ADV %ld (0x%x -> 0x%x) %s\n",
 pc->zc - pc->cc, pc->cc, pc->zc, buffer);
 }
 
@@ -61,7 +61,7 @@ char			*carry_label(t_process *pc)
 	if (pc->inst[0] == 12 || pc->inst[0] == 15)
 	{
 		buff[0] = '\0';
-		sprintf(buff, " (%ld)", (pc->inst[0] == 15) ?
+		ft_sprintf(buff, " (%ld)", (pc->inst[0] == 15) ?
 pc->cc + pc->inst[1] : IDXPTR(pc->cc, pc->inst[1]));
 		return (buff);
 	}
@@ -88,13 +88,13 @@ void			cb_inst_loaded(t_champ *c, t_process *p)
 	(void)c;
 	if (p->inst[0] == 16)
 		return ;
-	printf("P%5d | %s%s%s\n", p->id,
+	ft_printf("P %d | %s%s%s\n", p->id,
 g_op_tab[p->inst[0] - 1].name,
 dump_parametters(&sh_env(NULL)->vm, p, inst_count(p->inst[0])),
 carry_label(p));
 	if (p->inst[0] == 11)
 	{
-		printf("       | -> store to %d + %d = %d (with pc and mod %ld)\n",
+		ft_printf("       | -> store to %d + %d = %d (with pc and mod %ld)\n",
 			param_dirval(p, 2),
 			param_dirval(p, 3),
 			param_dirval(p, 2) + param_dirval(p, 3),
@@ -102,7 +102,7 @@ carry_label(p));
 	}
 	else if (p->inst[0] == 10)
 	{
-		printf("       | -> load from %d + %d = %d (with pc and mod %ld)\n",
+		ft_printf("       | -> load from %d + %d = %d (with pc and mod %ld)\n",
 			param_dirval(p, 1), param_dirval(p, 2),
 			param_dirval(p, 1) + param_dirval(p, 2),
 			IDXPTR(p->cc, param_dirval(p, 1) + param_dirval(p, 2)));

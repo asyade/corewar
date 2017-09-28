@@ -43,7 +43,7 @@ SRC = srcs/core/core.c \
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
-FLAGS = -Wall -Wextra -Werror -Ofast # -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -Ofast -g3 -fsanitize=address
 
 LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
 
@@ -73,8 +73,8 @@ clean :
 	echo "\033[31mRemoving  \033[32m[✔] \033[0mObject files"
 
 fclean : clean
-	make -C libft/fclean
-	make -C ft_printf/fclean
+	make -C libft/ fclean
+	make -C ft_printf/ fclean
 	/bin/rm -f $(NAME)
 	echo "\033[31mRemoving  \033[32m[✔] \033[0m$(NAME)"
 

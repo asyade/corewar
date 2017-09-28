@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 09:05:18 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:31:46 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	dump_line(t_byte *ptr, t_vptr v, int n)
 {
 	char	buff[DUMP_LSIZE];
 
-	fill_line(buff + sprintf(buff, "0x%4.4x : ", (unsigned)v), ptr, n);
-	printf("%s\n", buff);
+	fill_line(buff + ft_sprintf(buff, "0x%x : ", (unsigned)v), ptr, n);
+	ft_printf("%s\n", buff);
 }
 
 void		dump(t_vm *vm)
@@ -48,5 +48,8 @@ void		dump(t_vm *vm)
 		read(0, buff, 1);
 	}
 	else
+	{
+		ft_static_put(NULL, 0, STATIC_PUT_FLUSH);
 		exit(0);
+	}
 }

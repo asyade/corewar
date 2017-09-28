@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:35:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 22:17:09 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/28 22:53:38 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_mem_block
 # define MEM_BLOCK_LIMIT 256
 # define DEFAULT_MEM_BLOCK_SIZE (10000)
 
+void			*ft_salloc(size_t size);
 void			*ft_mem_block_push_back_elem(t_mem_block *mem_block
 									, void *elem, uint32_t size);
 t_mem_block		*ft_create_mem_block(uint64_t capacity);

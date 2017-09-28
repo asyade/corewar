@@ -23,7 +23,7 @@
 ** Charsets
 */
 
-# define VALID_CHARS "%dxshl"
+# define VALID_CHARS "dxshl"
 # define CONVERSION_FLAGS "dxs"
 
 # define HEXA_MIN_CHARSET "0123456789abcdef"

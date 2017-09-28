@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 20:32:54 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:22:11 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		nc_dump_champ_infos(WINDOW *win, t_core *core)
 	i = -1;
 	while (++i < core->vm.champ_count)
 	{
-		sprintf(buff, "Lives in current periode %d     ",
+		ft_sprintf(buff, "Lives in current periode %d     ",
 					core->vm.champs[i].nbr_live);
 		wmove(win, y, 3);
 		wprintw(win, buff);
@@ -57,13 +57,13 @@ void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
 	(void)core;
 	wattron(win, COLOR_PAIR(0));
 	wmove(win, 2, 2);
-	sprintf(buffer, "%s - Interval %d ms                ",
+	ft_sprintf(buffer, "%s - Interval %d ms                ",
 		(!st) ? "** PAUSED **" : "** RUNNING **", dellay);
 	buffer[36] = '\0';
 	wprintw(win, buffer);
 	wmove(win, 4, 2);
 	buffer[0] = '\0';
-	sprintf(buffer, "Processes %d", core->vm.total_process);
+	ft_sprintf(buffer, "Processes %d", core->vm.total_process);
 	wprintw(win, buffer);
 }
 
@@ -71,12 +71,12 @@ void		nc_dump_cycle(WINDOW *win, long int cycle)
 {
 	char	buffer[1024];
 
-	sprintf(buffer, "Cycle %ld", cycle);
+	ft_sprintf(buffer, "Cycle %ld", cycle);
 	wmove(win, 5, 2);
 	wprintw(win, buffer);
 	wmove(win, 6, 2);
 	buffer[0] = '\0';
-	sprintf(buffer, "Cycle to die %d     ", nc_env(NULL)->vm.cycles_to_die);
+	ft_sprintf(buffer, "Cycle to die %d     ", nc_env(NULL)->vm.cycles_to_die);
 	wprintw(win, buffer);
 	nc_dump_champ_infos(win, nc_env(NULL));
 }

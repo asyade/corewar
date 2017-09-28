@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 21:15:17 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 23:27:37 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ PF7, PF8, PF9, PF10, PF11, PF12, PF13, PF14, PF15, PF16};
 		return (buff);
 	i = 0;
 	if (nbr_param == 0)
-		sprintf(buff, " %d", pc->inst[1]);
+		ft_sprintf(buff, " %d", pc->inst[1]);
 	while (i < nbr_param)
 	{
 		if (!print_type[pc->inst[0] - 1][i])
-			bptr += sprintf(bptr, " %s%d",
+			bptr += ft_sprintf(bptr, " %s%d",
 reg_str(pc->inst, i + 1), pc->inst[i + 2]);
 		else if (print_type[pc->inst[0] - 1][i] == 1)
-			bptr += sprintf(bptr, " %d", param_dirval(pc, i + 1));
+			bptr += ft_sprintf(bptr, " %d", param_dirval(pc, i + 1));
 		else
-			bptr += sprintf(bptr, " %d", param_idxval(vm, pc, i + 1));
+			bptr += ft_sprintf(bptr, " %d", param_idxval(vm, pc, i + 1));
 		i++;
 	}
 	return (buff);
