@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 15:07:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/20 11:38:51 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 21:15:56 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*ft_salloc(size_t size)
 
 	if (!(mem = (unsigned char*)malloc(size)))
 	{
-		ft_putendl_fd("exit: malloc() failure", 2);		
+		ft_putendl_fd("exit: malloc() failure", 2);
 		exit(1);
 	}
 	return (mem);

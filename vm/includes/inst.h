@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inst.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 09:55:55 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INST_H
 # define INST_H
 
@@ -15,32 +27,32 @@
 
 typedef t_int32	(*t_inst)(t_vm *, t_byte ci, t_process *pc);
 
-typedef char			t_arg_type;
+typedef char	t_arg_type;
 
-typedef struct			s_op
+typedef struct	s_op
 {
-	char				*name;
-	uint64_t			nbr_arg;
-	t_arg_type			*arg_type;
-	uint8_t				opcode;
-	char				pad[7];
-	uint64_t			nbr_cycles;
-	char				*describ;
-	uint32_t			octal_code;
-	uint32_t			label_size;
-	t_inst				call;
-	char				called;
-}						t_op;
+	char		*name;
+	uint64_t	nbr_arg;
+	t_arg_type	*arg_type;
+	uint8_t		opcode;
+	char		pad[7];
+	uint64_t	nbr_cycles;
+	char		*describ;
+	uint32_t	octal_code;
+	uint32_t	label_size;
+	t_inst		call;
+	char		called;
+}				t_op;
 
-extern	t_op			op_tab[OP_NBR];
+extern	t_op	g_op_tab[OP_NBR];
 
 # define OPVALIDE(op)	(op >= 1 && op <= 16)
 # define REGVALIDE(reg)	(reg >= 1 && reg <= 16)
 
 # define IDXPTR(pc, ptr) (pc + (ptr % IDX_MOD))
 
-
-t_byte			params_chk(t_byte a[3], t_byte b[3], t_byte c[3], t_byte d[3], t_int32 inst[6]);
+t_byte			params_chk(t_byte a[3], t_byte b[3],
+t_byte c[3], t_byte d[3], t_int32 inst[6]);
 
 /*
 ** if T_IND read 4 byte at IDX(val), else param_dirval
@@ -52,7 +64,6 @@ t_int32			param_idxval(t_vm *vm, t_process *pc, t_byte pid);
 **  get numeric value or register value
 */
 t_int32			param_dirval(t_process *pc, t_byte pid);
-
 
 t_byte			param_get_size(t_byte opcode, t_byte type);
 t_int32			param_get_val(t_memory *mem, t_process *pc, t_byte type);

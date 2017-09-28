@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   shenv_unused.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 09:06:15 by acorbeau         ###   ########.fr       */
+/*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/28 21:37:31 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "env_sh.h"
 #include "corewar.h"
 
-void	free_process(t_process **proc)
+void		cb_mem_updated(t_memory *m, int a, int b)
 {
-	(void)proc;
+	(void)m;
+	(void)a;
+	(void)b;
 }
 
-void	free_vm(t_vm **vm)
+void		cb_live_delta(int del)
 {
-	(void)vm;
+	(void)del;
+}
+
+void		cb_pc_loaded(t_champ *champ)
+{
+	(void)champ;
 }

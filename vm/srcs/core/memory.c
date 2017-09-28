@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:45 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/09 20:19:04 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:07:13 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
 ** Pareille que plus bas
 */
 
-void		mem_write(t_vm *vm, t_byte *buff, t_vsize size, t_vptr offset, t_byte trace)
+void		mem_write(t_vm *vm, t_byte *buff, t_memzone zone, t_byte trace)
 {
-    offset = ABSPTR(offset);
-    while (size--)
-    {
-        vm->memory.trace[offset] = trace;        
-        vm->memory.mem[offset++] = *buff++;
-        offset = MEMPTR(offset);
-    }
-    if (vm->memUpdated)
-        vm->memUpdated(&vm->memory, offset, size);
+	zone.offset = ABSPTR(zone.offset);
+	while (zone.size--)
+	{
+		vm->memory.trace[zone.offset] = trace;
+		vm->memory.mem[zone.offset++] = *buff++;
+		zone.offset = MEMPTR(zone.offset);
+	}
+	if (vm->mem_updated)
+		vm->mem_updated(&vm->memory, zone.offset, zone.size);
 }
 
 /*
@@ -48,22 +48,8 @@ void		mem_writeint(t_vm *vm, t_int32 val, t_vptr offset, t_byte trace)
 	vm->memory.trace[MEMPTR(offset + 2)] = trace;
 	vm->memory.trace[MEMPTR(offset + 1)] = trace;
 	vm->memory.trace[MEMPTR(offset + 0)] = trace;
-	if (vm->memUpdated)
-		vm->memUpdated(&vm->memory, offset, 4);
-}
-
-t_int32		mem_readn(t_memory *mem, t_vptr ptr, t_byte n)
-{
-	t_int32		ret;
-
-	ret = 0;
-	ptr = ABSPTR(ptr);
-	while (n--)
-	{
-		ret = ret << 8;
-		ret |= mem->mem[MEMPTR(ptr + n)];
-	}
-	return (ret);
+	if (vm->mem_updated)
+		vm->mem_updated(&vm->memory, offset, 4);
 }
 
 t_int32		mem_readint(t_memory *mem, int offset)

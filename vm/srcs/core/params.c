@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   params.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
+/*   Updated: 2017/09/26 09:03:32 by acorbeau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 t_int32		params_read(t_memory *mem, t_process *pc)
@@ -19,8 +31,8 @@ t_int32		params_read(t_memory *mem, t_process *pc)
 
 t_int32		params_load(t_vm *vm, t_process *pc)
 {
-	op_tab[pc->inst[0] - 1].called = 1;
-	if (op_tab[pc->inst[0] - 1].octal_code == 1)
+	g_op_tab[pc->inst[0] - 1].called = 1;
+	if (g_op_tab[pc->inst[0] - 1].octal_code == 1)
 	{
 		pc->inst[1] = mem_readbyte(&vm->memory, pc->pc++);
 		if (params_check_correct(pc))
@@ -30,9 +42,10 @@ t_int32		params_load(t_vm *vm, t_process *pc)
 		if (!params_check_register(pc))
 			return (0);
 	}
-	else if (op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
+	else if (g_op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
 		pc->inst[1] = mem_readbyte(&vm->memory, pc->pc++);
-	else if (param_get_size(pc->inst[0], op_tab[pc->inst[0] - 1].arg_type[0]) == 2)
+	else if (param_get_size(pc->inst[0],
+				g_op_tab[pc->inst[0] - 1].arg_type[0]) == 2)
 	{
 		pc->inst[1] = mem_readshort(&vm->memory, pc->pc);
 		pc->pc += 2;
