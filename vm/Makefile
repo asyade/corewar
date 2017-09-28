@@ -39,7 +39,7 @@ SRC = srcs/core/core.c \
 		srcs/logger_utils.c \
 		srcs/main.c \
 		srcs/usage.c \
-		srcs/params.c \
+		srcs/params.c 
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
@@ -73,13 +73,8 @@ clean :
 	echo "\033[31mRemoving  \033[32m[✔] \033[0mObject files"
 
 fclean : clean
-<<<<<<< HEAD
-	make -C libft/fclean
-	make -C ft_printf/fclean
-=======
 	make -C libft/ fclean
 	make -C ft_printf/ fclean
->>>>>>> dump
 	/bin/rm -f $(NAME)
 	echo "\033[31mRemoving  \033[32m[✔] \033[0m$(NAME)"
 
