@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 21:39:27 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 22:01:21 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/29 00:35:08 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static inline void		ft_jump_arg(const char *format, uint32_t *i)
 {
-	while (format[*i] && ft_strchr(VALID_CHARS, format[*i]))
+	while (!ft_strchr(CONVERSION_FLAGS, format[*i]))
 		(*i)++;
+	(*i)++;
 }
 
 static inline int32_t	ft_print_arg(const char *format
@@ -26,7 +27,6 @@ static inline int32_t	ft_print_arg(const char *format
 	int32_t			printed_chars;
 
 	ft_get_arg(format + (*i), v_arg, &arg);
-	//	(*i)++;
 	if (arg.conversion == 0)
 		return (0);
 	nbr = ft_cast(va_arg(*v_arg, void*), &arg);

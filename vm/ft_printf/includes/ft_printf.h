@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 17:13:23 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 22:02:38 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/29 00:31:14 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 ** Charsets
 */
 
-# define VALID_CHARS "dxshl"
 # define CONVERSION_FLAGS "dxs"
+# define VALID_CHARS "hl%" CONVERSION_FLAGS
 
 # define HEXA_MIN_CHARSET "0123456789abcdef"
 # define HEXA_MAX_CHARSET "0123456789ABCDEF"
