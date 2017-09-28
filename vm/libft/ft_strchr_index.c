@@ -6,13 +6,13 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 18:14:06 by sclolus           #+#    #+#             */
-/*   Updated: 2016/12/06 18:14:29 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/28 22:16:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	ft_strchr_index(char *str, char c)
+unsigned int	ft_strchr_index(const char *str, char c)
 {
 	unsigned int	i;
 

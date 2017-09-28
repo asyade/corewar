@@ -19,13 +19,13 @@ OBJ= $(SRC:.c=.o)
 HDR_PATH= ./includes
 CC= gcc
 CC_FLAGS= -Ofast -v -Wno-padded -Weverything -Wall -Werror -Wextra -g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
-LIBFT_PATH=./libft
+LIBFT_PATH=../libft
 FLAGS= -L$(LIBFT_PATH) -lft -I$(HDR_PATH) -I./$(LIBFT_PATH)/includes
 
 all: submodule $(NAME)
 
 submodule:
-	@make -C libft/
+	@make -C $(LIBFT_PATH)
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
@@ -34,9 +34,9 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-	make -C $(LIBFT_PATH) clean
+#	make -C $(LIBFT_PATH) clean
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_PATH) fclean
+#	make -C $(LIBFT_PATH) fclean
 
 re: fclean all

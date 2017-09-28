@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/17 23:08:09 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/17 23:09:55 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/28 17:46:33 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline uint32_t	ft_countnbr(uint64_t nbr)
 {
-	int				len;
+	uint32_t		len;
 
 	len = 0;
 	if (!nbr)

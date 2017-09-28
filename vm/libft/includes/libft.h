@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:35:25 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/26 02:45:01 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 22:17:09 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define NORETURN __attribute__((noreturn)) void
 
-# define ERROR_NAME_HEADER "asm: "
+# define ERROR_NAME_HEADER "libft_default_error: "
 
 typedef struct	s_list
 {
@@ -60,8 +60,6 @@ typedef struct	s_mem_block
 void			*ft_mem_block_push_back_elem(t_mem_block *mem_block
 									, void *elem, uint32_t size);
 t_mem_block		*ft_create_mem_block(uint64_t capacity);
-
-void			*ft_salloc(size_t size);
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -106,7 +104,9 @@ void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_itoa(int n);
 char			*ft_ulltoa(uint64_t nbr);
+char			*ft_static_lltoa(int64_t nbr);
 char			*ft_static_ulltoa(uint64_t nbr);
+char			*ft_static_ulltoa_base(uint64_t nbr, char *base);
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strequ(char const *s1, char const *s2);
@@ -137,8 +137,8 @@ void			*ft_lsttotab(t_list *lst, unsigned int len);
 unsigned long	ft_pow(int nbr, unsigned int exponent);
 
 void			ft_print_page(void *addr);
-uint32_t		ft_static_put(char *str, uint32_t len, uint32_t flags);
-unsigned int	ft_strchr_index(char *str, char c);
+uint32_t		ft_static_put(const char *str, uint32_t len, uint32_t flags);
+unsigned int	ft_strchr_index(const char *str, char c);
 
 unsigned int	ft_log2(unsigned long long nbr);
 uint64_t		ft_distance(uint64_t a, uint64_t b);
