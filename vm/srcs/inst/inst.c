@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:08:42 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 20:11:16 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 	pc->last_live = 0;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
 	{
+		vm->champs[ci].nbr_live++;
 		i = -1;
 		vm->champs[ci].flags &= ~PC_YOUNG;
 		while (++i < vm->champ_count)

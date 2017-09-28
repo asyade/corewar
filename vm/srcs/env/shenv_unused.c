@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   shenv_unused.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 15:07:32 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 21:15:56 by acorbeau         ###   ########.fr       */
+/*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
+/*   Updated: 2017/09/28 21:37:31 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdlib.h"
+#include "env_sh.h"
+#include "corewar.h"
 
-void	*ft_memalloc(size_t size)
+void		cb_mem_updated(t_memory *m, int a, int b)
 {
-	void	*mem;
-
-	if (!(mem = (unsigned char*)malloc(size)))
-	{
-		ft_putendl_fd("exit: malloc() failure", 2);
-		exit(1);
-	}
-	ft_bzero(mem, size);
-	return (mem);
+	(void)m;
+	(void)a;
+	(void)b;
 }
 
-void	*ft_salloc(size_t size)
+void		cb_live_delta(int del)
 {
-	void	*mem;
+	(void)del;
+}
 
-	if (!(mem = (unsigned char*)malloc(size)))
-	{
-		ft_putendl_fd("exit: malloc() failure", 2);
-		exit(1);
-	}
-	return (mem);
+void		cb_pc_loaded(t_champ *champ)
+{
+	(void)champ;
 }

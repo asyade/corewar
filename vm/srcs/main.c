@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:13:48 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 20:29:44 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ int		main(t_int32 ac, t_char **av)
 		usage();
 	else
 		run_core(core);
+	if (p->flag & P_NCURSE)
+		nc_end();
 }

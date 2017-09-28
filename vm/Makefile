@@ -26,9 +26,17 @@ SRC = srcs/core/core.c \
 		srcs/inst/inst.c \
 		srcs/core/dump.c \
 		srcs/env/ncenv.c \
+		srcs/env/ncenv_windaube.c \
+		srcs/env/ncenv_dump.c \
+		srcs/env/ncenv_stats.c \
+		srcs/env/ncenv_colors.c \
+		srcs/env/shenv_unused.c \
+		srcs/env/shenv_verbose.c \
+		srcs/env/shenv_verbose2.c \
 		srcs/env/shenv.c \
 		srcs/source_provider.c \
 		srcs/logger.c \
+		srcs/logger_utils.c \
 		srcs/main.c \
 		srcs/usage.c \
 		srcs/params.c \

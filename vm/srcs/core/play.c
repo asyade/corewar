@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:08:00 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 20:13:38 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int				play_check_process(t_vm *vm)
 
 void			play_loop(t_core *core)
 {
+	int			i;
+
+	i = -1;
+	while (++i < core->vm.champ_count)
+		core->vm.champs[i].nbr_live = 0;
 	while (core->vm.cycles--)
 	{
 		if (core->vm.cycle_updated)
