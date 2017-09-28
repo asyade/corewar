@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 21:12:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/28 22:11:49 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "inst.h"
 # include "cpu.h"
 # include "vm.h"
+# include "ft_printf.h"
 
 # define PF1 (uint8_t[]){0, 0, 0}
 # define PF2 (uint8_t[]){2, 0}

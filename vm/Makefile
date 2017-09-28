@@ -45,9 +45,9 @@ OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
 FLAGS = -Wall -Wextra -Werror -Ofast # -g -fsanitize=address
 
-LIBS = -L./libft -lft -lncurses
+LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
 
-HEADERS = -I libft/includes -I includes/
+HEADERS = -I libft/includes -I includes/ -I ft_printf/includes
 
 DEPTHS = Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/envNcurse.h includes/envSh.h includes/source.h includes/vm.h includes/inst.h includes/libft.h
 
@@ -55,6 +55,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	make -C libft/
+	make -C ft_printf/
 	$(CC) $(OBJ) -o $(NAME) $(HEADERS) $(FLAGS) $(LIBS)
 	echo "\033[33mCreating  \033[32m[✔] \033[0m$(NAME)"
 
@@ -67,11 +68,13 @@ obj/%.o : $(PATH_SRC)/%.c $(DEPTHS)
 
 clean :
 	make -C libft/ clean
+	make -C ft_printf/ clean
 	/bin/rm -rf obj/
 	echo "\033[31mRemoving  \033[32m[✔] \033[0mObject files"
 
 fclean : clean
-	make -C libft/ fclean
+	make -C libft/fclean
+	make -C ft_printf/fclean
 	/bin/rm -f $(NAME)
 	echo "\033[31mRemoving  \033[32m[✔] \033[0m$(NAME)"
 
