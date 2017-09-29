@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/29 04:08:29 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/30 01:45:36 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,7 +335,7 @@ t_dk_conf				ft_get_dk_conf_from_msg(const char *msg);
 */
 
 # define ASM_PARAM_ERROR "Invalid parameter provided to asm: "
-# define ASM_USAGE "./asm [-[oa]] [output_file] [file.s]"
+# define ASM_USAGE "./asm [-o output_file] [file.s]"
 # define INVALID_FILE_EXTENSION "Invalid file extension: "
 # define PARSING_ERROR "Parsing error at line "
 # define PROVIDED " provided to instruction: "
