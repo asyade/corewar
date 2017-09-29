@@ -3,6 +3,8 @@ SRC= srcs/main.c \
 	srcs/ft_put_asm_usage.c \
 	srcs/ft_check_file_extansion.c \
 	srcs/ft_parse.c \
+	srcs/parsing_actions/ft_parse_flags.c \
+	srcs/parsing_actions/ft_get_flags.c \
 	srcs/ft_get_instruction_count.c \
 	srcs/ft_discard_comments.c \
 	srcs/ft_get_instruction_param_type.c \

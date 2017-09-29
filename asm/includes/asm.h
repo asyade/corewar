@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 00:06:39 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/23 00:03:54 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/29 04:08:29 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "op.h"
 # include <fcntl.h>
 # include "colors.h"
+# include <errno.h>
 
 # define BIN_NAME "asm: "
 # define ASM_FILE_EXTENSION ".s"
@@ -125,8 +126,40 @@ typedef struct			s_semantic_unit
 	uint64_t	tokens_nbr;
 }						t_semantic_unit;
 
+typedef struct			s_flags8
+{
+	uint8_t	output : 1;
+	uint8_t	stripped : 1;
+	uint8_t	bits2 : 1;
+	uint8_t	bits3 : 1;
+	uint8_t	bits4 : 1;
+	uint8_t	bits5 : 1;
+	uint8_t	bits6 : 1;
+	uint8_t	bits7 : 1;
+}						t_flags8;
+
+typedef union			u_asm_flags
+{
+	t_flags8	bits;
+	uint8_t		flags;
+}						t_asm_flags;
+
+typedef struct			s_info
+{
+	t_asm_flags	flags;
+	char		*output;
+}						t_info;
+
 char					**ft_split(char *str, char *separators);
 t_semantic_unit			*ft_tokenize(char *line, t_bin_buffer *bin);
+
+/*
+** Flags
+*/
+
+t_info					ft_get_flags(int argc, char **argv);
+t_asm_flags				ft_parse_flags(char *argv);
+NORETURN				ft_flags_usage(char invalid_flag);
 
 /*
 ** **Lexing**
@@ -223,7 +256,7 @@ t_bin_buffer			*ft_realloc_bin_buffer(t_bin_buffer *bin);
 */
 
 void					ft_create_corewar_file(char *filename
-									, t_bin_buffer *bin);
+								, t_bin_buffer *bin, t_asm_flags flags);
 char					*ft_get_bin_filename(char *filename);
 
 /*
@@ -302,7 +335,7 @@ t_dk_conf				ft_get_dk_conf_from_msg(const char *msg);
 */
 
 # define ASM_PARAM_ERROR "Invalid parameter provided to asm: "
-# define ASM_USAGE "./asm [file.s]"
+# define ASM_USAGE "./asm [-[oa]] [output_file] [file.s]"
 # define INVALID_FILE_EXTENSION "Invalid file extension: "
 # define PARSING_ERROR "Parsing error at line "
 # define PROVIDED " provided to instruction: "
@@ -326,7 +359,10 @@ t_dk_conf				ft_get_dk_conf_from_msg(const char *msg);
 # define UNAMED_BIN_FILE "Unamed binary file"
 # define WARNING "Warning: "
 # define NO_COMMENT_DEFINED "No comment has been defined"
+# define INVALID_FLAGS_FORMAT "Invalid flags format: "
 # define EMPTY_TEXT "Empty text"
+# define NO_FILE_PROVIDED "No source file provided"
+# define ERR_INVALID_FLAG "Invalid flag provided: "
 
 NORETURN				ft_put_asm_usage(char *str);
 
