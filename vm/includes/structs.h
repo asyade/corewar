@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:17:41 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 03:03:43 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,13 @@
 # define PC_DIE			(1 << 8)
 # define PC_YOUNG		(1 << 9)
 
-typedef struct			s_champ_describ
-{
-	char				*path;
-	int					number;
-}						t_champ_describ;
-
-# define P_VERBOSE	(1 << 1)
-# define P_NCURSE	(1 << 2)
-# define P_SH		(1 << 3)
-# define P_DUMP		(1 << 4)
-# define P_DUMPREP	(1 << 5)
-# define P_SOUND	(1 << 6)
-# define P_SHOWAFF	(1 << 7)
+# define P_VERBOSE		(1 << 1)
+# define P_NCURSE		(1 << 2)
+# define P_SH			(1 << 3)
+# define P_DUMP			(1 << 4)
+# define P_DUMPREP		(1 << 5)
+# define P_SOUND		(1 << 6)
+# define P_SHOWAFF		(1 << 7)
 
 # define PV_ESSENTAL	(0)
 # define PV_LIVES		(1 << 0)
@@ -46,6 +40,13 @@ typedef struct			s_champ_describ
 # define PV_DEATH		(1 << 3)
 # define PV_MOVES		(1 << 4)
 # define PV_DMPINST		(1 << 5)
+
+typedef struct			s_champ_describ
+{
+	char				*path;
+	int					index;
+	int					number;
+}						t_champ_describ;
 
 typedef struct			s_memzone
 {
@@ -93,6 +94,7 @@ typedef	struct			s_champ
 	t_byte				*body;
 	t_int32				nbr_process;
 	t_byte				number;
+	t_int32				index;
 	t_flags				flags;
 	uint32_t			nbr_live;
 }						t_champ;
@@ -129,10 +131,6 @@ typedef struct			s_vm
 
 /*
 ** Callback
-*/
-
-/*
-** int	current lives
 */
 
 typedef void			(*t_lives_delta)(int);

@@ -1,34 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ncenv_colors.c                                     :+:      :+:    :+:   */
+/*   champ_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:47:28 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:57:57 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_ncurse.h"
+#include "corewar.h"
 
-void				nc_init_colors(void)
+static void	champ_swap(t_champ_describ *a, t_champ_describ *b)
 {
-	start_color();
-	init_pair(6, COLOR_WHITE, COLOR_BLACK);
-	init_pair(0, COLOR_WHITE, COLOR_BLACK);
-	init_pair(1, COLOR_CYAN, COLOR_BLACK);
-	init_pair(2, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(3, COLOR_RED, COLOR_BLACK);
-	init_pair(4, COLOR_BLUE, COLOR_BLACK);
-	init_pair(5, COLOR_YELLOW, COLOR_BLACK);
+	t_champ_describ tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
-inline int			nc_color_mem(int trace)
+void		champs_sort(t_vm *vm)
 {
-	if (trace <= 4 && trace > 0)
-		return (COLOR_PAIR(trace));
-	else if (trace == 0)
-		return (COLOR_PAIR(6));
-	return (COLOR_PAIR(5));
+	int		i;
+	int		j;
+	int		min;
+	int		min_index;
+
+	i = -1;
+
+	while (++i < vm->params->count)
+	{
+		min = vm->params->champs[i].number;
+		min_index = i;
+		j = i;
+		while (++j < vm->params->count)
+		{
+			if (vm->params->champs[j].number < min)
+			{
+				min = vm->params->champs[j].number;
+				min_index = j;
+			}
+		}
+		champ_swap(&vm->params->champs[i], &vm->params->champs[min_index]);
+	}
 }

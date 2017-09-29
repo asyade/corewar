@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 22:11:07 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:22:26 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ void			cb_pc_die(t_champ *champ, t_process *pc)
 	if (params()->verbose & PV_DEATH)
 		ft_printf("Process %d hasn't lived for %ld cycles (CTD %d)\n",
 pc->id, pc->last_live, sh_env(NULL)->vm.cycles_to_die);
-}
-
-void			cb_player_die(t_champ *champ)
-{
-	plog("%s: Die\n", champ->header.name);
 }
 
 void			cb_player_live(t_champ *c, int id)

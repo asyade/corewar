@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/23 13:56:55 by sclolus           #+#    #+#             */
-/*   Updated: 2017/09/28 23:43:27 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:22:24 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void			she_init(t_core *core)
 	core->render.player_live = &cb_player_live;
 	core->render.lives_delta = &cb_live_delta;
 	core->render.process_die = &cb_pc_die;
-	core->render.player_die = &cb_player_die;
 	core->render.process_loaded = &cb_pc_loaded;
 	core->render.pc_updated = &cb_pc_updated;
 	core->render.mem_updated = cb_mem_updated;

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:16:46 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 03:05:00 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int		check_size(char *nm, int fd, int size)
 	real = lseek(fd, 0, SEEK_END) - sizeof(t_champ_header);
 	if (real != size)
 	{
-		pcri("%s: champ size different from header size\n", nm);
+		ft_printf("error: %s: champ size different from header size\n", nm);
 		return (0);
 	}
 	if (real > CHAMP_MAX_SIZE)
 	{
-		pcri("%s: champ size too big ( %d > %d )\n", nm, real, CHAMP_MAX_SIZE);
+		ft_printf("error: %s: champ size too big ( %d > %d )\n", nm, real, CHAMP_MAX_SIZE);
 		return (0);
 	}
 	lseek(fd, -real, SEEK_CUR);
@@ -41,7 +41,7 @@ static int		read_champ_def(char *src, int i, t_champ *ch)
 		return (0);
 	if (read(fd, &ch->header, sizeof(t_champ_header)) < 0)
 	{
-		pcri("%s: file not found\n", src);
+		ft_printf("error: %s: file not found\n", src);
 	}
 	ch->header.magic = BSWAP32(ch->header.magic);
 	ch->header.size = BSWAP32(ch->header.size);
@@ -52,7 +52,7 @@ static int		read_champ_def(char *src, int i, t_champ *ch)
 		return (0);
 	if (ch->header.magic != COREWAR_MAGIC)
 	{
-		pwarn("%s: invalide magic (%x)\n", src);
+		ft_printf("error: %s: invalide magic (%x)\n", src);
 		close(fd);
 		return (0);
 	}
@@ -65,12 +65,14 @@ int				load_champs_default(t_param *p, t_core *core)
 {
 	int				i;
 
+	champs_sort(&core->vm);
 	i = -1;
 	while (++i < p->count)
 	{
 		if (!read_champ_def(p->champs[i].path,
 				p->champs[i].number, &core->vm.champs[i]))
 			return (0);
+		core->vm.champs[i].index = i + 1;
 	}
 	core->vm.champ_count = p->count;
 	return (1);

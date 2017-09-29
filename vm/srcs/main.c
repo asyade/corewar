@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 23:31:39 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:54:13 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		main(t_int32 ac, t_char **av)
 	if (!(p = read_params(ac - 1, av + 1)))
 		usage();
 	core = core_init();
-	load_champs_default(p, core);
 	core->vm.params = p;
+	load_champs_default(p, core);
 	load_env(core, p);
 	core_load_callback(core);
 	if (core->vm.champ_count <= 0)

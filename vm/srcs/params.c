@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 09:48:15 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:39:14 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void		check_params(t_param *p)
 	while (++i < p->count)
 	{
 		if (stat(p->champs[i].path, &st) != 0 || !(st.st_mode & S_IFREG))
-			pcri("%s: file not found !\n", p->champs[i].path);
+			ft_printf("error: %s: file not found !\n", p->champs[i].path);
 		if (!(ext = ft_strrchr(p->champs[i].path, '.')) ||
 				!ft_strequ(ext, ".cor"))
-			pcri("%s: invalide file !\n", p->champs[i].path);
+			ft_printf("error: %s: invalide file !\n", p->champs[i].path);
 	}
 }
 

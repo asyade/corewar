@@ -35,15 +35,15 @@ SRC = srcs/core/core.c \
 		srcs/env/shenv_verbose2.c \
 		srcs/env/shenv.c \
 		srcs/source_provider.c \
-		srcs/logger.c \
 		srcs/logger_utils.c \
+		srcs/champ_sort.c \
 		srcs/main.c \
 		srcs/usage.c \
 		srcs/params.c \
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
-FLAGS = -Wall -Wextra -Werror -Ofast #-g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -Ofast -g3 -fsanitize=address
 
 LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
 

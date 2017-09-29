@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 22:11:49 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 03:06:02 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@
 ** Settings
 */
 
-# define LOGGER_FD  ((getenv("silent") ? -1 : 1))
-# define LOGGER_FILE "cw.trace"
-# define DELLAY ((getenv("dellay")) ? atoi(getenv("dellay")) : 5000)
-
 void		usage(void);
 
 /*
@@ -57,9 +53,6 @@ void		usage(void);
 
 char		*ptstr(t_byte type);
 char		*dump_parametters(t_vm *vm, t_process *pc, uint32_t nbr_param);
-void		pwarn(char *format, ...);
-void		pcri(char *format, ...);
-void		plog(char *format, ...);
 
 /*
 ** Dump.c
@@ -73,8 +66,9 @@ void		plog(char *format, ...);
 ** Core.c
 */
 
-# define MACRO_DUTURUF {{0, 0}, {0, 0}, {0, 0}, {0, 0}}
+# define MACRO_DUTURUF {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
 
+void		champs_sort(t_vm *vm);
 int			load_champs_default(t_param *p, t_core *core);
 void		core_load_callback(t_core *core);
 t_core		*core_init();

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:08:21 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 03:02:25 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			vm_init(t_vm *vm)
 void			vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
 {
 	mem_write(vm, champ->body,
-				(t_memzone){champ->header.size, offset}, champ->number);
+				(t_memzone){champ->header.size, offset}, champ->index);
 	champ->flags = PC_LOADED;
 }
 
@@ -38,10 +38,8 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	t_process	*npc;
 
 	if (!(champ->flags & PC_LOADED))
-	{
-		pcri("%s: Can't fork, champion not initialized !");
 		return (NULL);
-	}
+
 	npc = pc_new(champ->number);
 	npc->pc = offset;
 	pc_push(&vm->process, npc);

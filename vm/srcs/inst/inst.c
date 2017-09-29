@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 20:11:16 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 01:26:05 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ t_int32		inst_aff(t_vm *vm, t_byte ci, t_process *pc)
 	(void)pc;
 	if (!(vm->params->flag & P_SHOWAFF))
 		return (1);
-	printf("Aff: %c\n", param_dirval(pc, 1) % 256);
+	ft_printf("Aff: %c\n", param_dirval(pc, 1) % 256);
 	return (1);
 }
