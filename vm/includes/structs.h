@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 03:03:43 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 07:04:03 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct			s_vm
 	t_byte				champ_count;
 	t_int32				cycles_to_die;
 	t_int32				total_process;
+	t_int32				alive_process;
 	t_int32				cycles;
 	t_int32				lives;
 	t_int32				nbr_check;

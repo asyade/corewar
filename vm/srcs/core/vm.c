@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 06:49:20 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 07:04:37 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 	if (!(champ->flags & PC_LOADED))
 		return (NULL);
+	vm->alive_process++;	
 	npc = pc_new(champ->number);
 	npc->pc = offset;
 	pc_push(&vm->process, npc);
@@ -51,6 +52,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 void			vm_kill(t_vm *vm, t_process *pc)
 {
+	vm->alive_process--;
 	pc_remove(&vm->process, pc);
 	if (vm->params->flag & P_SOUND)
 		vm_kill_sound();

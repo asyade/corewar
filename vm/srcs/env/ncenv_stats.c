@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 05:41:36 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 07:04:55 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ inline void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
 	wprintw(win, buffer);
 	wmove(win, 4, 2);
 	buffer[0] = '\0';
-	ft_sprintf(buffer, "Processes %d", core->vm.total_process);
+	ft_sprintf(buffer, "Processes %d", core->vm.alive_process);
 	wprintw(win, buffer);
 }
 
