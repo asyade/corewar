@@ -6,12 +6,16 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 03:56:18 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 23:23:30 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
+
+# define LIVE_INTERVAL  100
+# define JUMP_INTERVAL  100
+# define KILL_INTERVAL  100
 
 /*
 ** process.c

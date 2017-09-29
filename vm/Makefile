@@ -43,7 +43,7 @@ SRC = srcs/core/core.c \
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
-FLAGS = -Wall -Wextra -Werror -Ofast -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -Ofast #-g3 -fsanitize=address
 
 LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
 
