@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:28:23 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 06:24:44 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void				nc_cb_mem_updated(t_memory *mem, int a, int b)
 	int		xrel;
 	int		y;
 
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	(void)mem;
 	y = a / 64;
 	x = a - (y * 64);
 	xrel = (x * 2) + x;
 	nc_dump_limits(xrel, y, a, b);
+	nc_memwin_refresh();
 }
 
 void				nc_cb_cycle_updated(void)
@@ -39,6 +42,8 @@ void				nc_cb_cycle_updated(void)
 	static int			dumped = 0;
 	static long int		cycle = 1;
 
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	if (!dumped)
 	{
 		nc_dump(nc_mem_win(), &nc_env(NULL)->vm.memory);
@@ -78,6 +83,7 @@ void				nc_key_hook(void)
 void				nce_init(t_core *c)
 {
 	nc_env(c);
+	c->render.env_done = &cb_envdone;
 	c->render.mem_updated = &nc_cb_mem_updated;
 	c->render.cycle_updated = &nc_cb_cycle_updated;
 	initscr();

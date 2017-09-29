@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:18:27 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 05:41:36 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ inline void		nc_dump_champ_name(WINDOW *win, t_core *core)
 
 	i = -1;
 	y = 9;
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	while (++i < core->vm.champ_count)
 	{
 		wmove(win, y, 2);
@@ -36,8 +38,8 @@ inline void		nc_dump_champ_infos(WINDOW *win, t_core *core)
 	int		i;
 	int		y;
 
-	(void)win;
-	(void)core;
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	y = 10;
 	i = -1;
 	while (++i < core->vm.champ_count)
@@ -54,7 +56,8 @@ inline void		nc_dump_basic(WINDOW *win, t_core *core, int st, int dellay)
 {
 	char	buffer[1024];
 
-	(void)core;
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	wattron(win, COLOR_PAIR(0));
 	wmove(win, 2, 2);
 	ft_sprintf(buffer, "%s - Interval %d ms                ",
@@ -71,6 +74,8 @@ inline void		nc_dump_cycle(WINDOW *win, long int cycle)
 {
 	char	buffer[1024];
 
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	ft_sprintf(buffer, "Cycle %ld", cycle);
 	wmove(win, 5, 2);
 	wprintw(win, buffer);

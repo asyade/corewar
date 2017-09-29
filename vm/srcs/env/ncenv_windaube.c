@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:28:40 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 05:39:28 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ inline void		nc_memwin_refresh(void)
 {
 	WINDOW		*win;
 
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	win = nc_mem_win();
 	wborder(win, 0, 0, 0, 0, 0, 0, 0, 0);
 	wrefresh(win);

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 20:33:12 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 05:39:53 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		nc_dump(WINDOW *win, t_memory *mem)
 	ptr = 0;
 	y = 1;
 	wattron(win, COLOR_PAIR(0));
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	while (ptr < MEM_SIZE && y <= 63)
 	{
 		x = 0;
@@ -45,6 +47,8 @@ void		nc_dump_limits(int x, int y, int offset, int size)
 
 	w = nc_mem_win();
 	c = nc_env(NULL);
+	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
+		return ;
 	while (size-- > 0)
 	{
 		b = mem_readbyte(&c->vm.memory, offset);
