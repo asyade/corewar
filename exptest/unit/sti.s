@@ -1,3 +1,0 @@
-.name "test"
-.comment "oulou"
-
