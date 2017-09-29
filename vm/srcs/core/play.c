@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 21:11:19 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/30 00:01:56 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ inline int				play_check_process(t_vm *vm)
 	return (ret);
 }
 
-inline void			play_loop(t_core *core)
+inline void				play_loop(t_core *core)
 {
 	int			i;
 
@@ -73,7 +73,7 @@ inline void			play_loop(t_core *core)
 	}
 }
 
-t_byte			play(t_core *core)
+t_byte				play(t_core *core)
 {
 	int			ret;
 

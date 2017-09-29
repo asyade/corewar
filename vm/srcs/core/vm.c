@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 07:04:37 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 00:01:14 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 
 	if (!(champ->flags & PC_LOADED))
 		return (NULL);
-	vm->alive_process++;	
+	vm->alive_process++;
 	npc = pc_new(champ->number);
 	npc->pc = offset;
 	pc_push(&vm->process, npc);
