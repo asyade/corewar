@@ -1,19 +1,19 @@
 all :
 	make -C vm/
-	make -C asm/
+	make -C assembleur/
 	cp vm/corewar ./
-	cp asm/asm ./corewar_asm
+	cp assembleur/asm ./asm
 
  .PHONY : clean fclean
 
 clean :
 	make -C vm/ clean
-	make -C asm/ clean	
-	rm		./corewar_asm
+	make -C assembleur/ clean	
+	rm		./asm
 	rm		./corewar
 
 fclean : clean
 	make -C vm/ fclean
-	make -C asm/ fclean	
+	make -C assembleur/ fclean	
 
 re : fclean all
