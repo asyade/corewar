@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 06:46:48 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 23:36:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ void				nc_cb_mem_updated(t_memory *mem, int a, int b)
 
 void				nc_cb_cycle_updated(void)
 {
-	static int			dumped = 0;
 	static long int		cycle = 1;
+	static int			dumped = 0;
 
 	if (COLS < NC_COLS_MIN || LINES < NC_LINES_MIN)
 		return ;
 	if (!dumped)
-	{
 		nc_dump(nc_mem_win(), &nc_env(NULL)->vm.memory);
-		dumped = 1;
-	}
 	nc_dump_cycle(nc_st_win(), cycle++);
 	nc_key_hook();
 }

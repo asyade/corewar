@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 03:55:48 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 23:32:40 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int		main(t_int32 ac, t_char **av)
 		nc_end();
 	ft_static_put(NULL, 0, STATIC_PUT_FLUSH);
 	if (p->flag & P_SOUND)
-		vm_sound_ambient(1);
+		vm_sound_ambient(0);
 }
