@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:49 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:26:05 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 04:28:07 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_int32		inst_live(t_vm *vm, t_byte ci, t_process *pc)
 	pc->last_live = 0;
 	if ((-pc->inst[1]) == vm->champs[ci].number)
 	{
+		if (vm->params->flag & P_SOUND)
+			vm_live_sound();
 		vm->champs[ci].nbr_live++;
 		i = -1;
 		vm->champs[ci].flags &= ~PC_YOUNG;
@@ -40,6 +42,8 @@ t_int32		inst_zjmp(t_vm *vm, t_byte ci, t_process *pc)
 	(void)ci;
 	if (pc->flags & PF_CARRY)
 	{
+		if (vm->params->flag & P_SOUND)
+			vm_jump_sound();
 		pc->pc = IDXPTR(pc->cc, pc->inst[1]);
 	}
 	return (1);
@@ -47,10 +51,15 @@ t_int32		inst_zjmp(t_vm *vm, t_byte ci, t_process *pc)
 
 t_int32		inst_aff(t_vm *vm, t_byte ci, t_process *pc)
 {
+	static char	buffer[2];
+
 	(void)ci;
 	(void)pc;
 	if (!(vm->params->flag & P_SHOWAFF))
 		return (1);
-	ft_printf("Aff: %c\n", param_dirval(pc, 1) % 256);
+	ft_static_put("Aff: ", sizeof("Aff: ") - 1, 0);
+	buffer[0] = param_dirval(pc, 1) % 256;
+	buffer[1] = '\n';
+	ft_static_put(buffer, 2, 0);
 	return (1);
 }
