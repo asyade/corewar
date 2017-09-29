@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 03:05:00 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 06:50:36 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static int		check_size(char *nm, int fd, int size)
 	}
 	if (real > CHAMP_MAX_SIZE)
 	{
-		ft_printf("error: %s: champ size too big ( %d > %d )\n", nm, real, CHAMP_MAX_SIZE);
+		ft_printf("error: %s: champ size too big ( %d > %d )\n",
+nm, real, CHAMP_MAX_SIZE);
 		return (0);
 	}
 	lseek(fd, -real, SEEK_CUR);

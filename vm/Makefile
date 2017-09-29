@@ -49,11 +49,11 @@ LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
 
 HEADERS = -I libft/includes -I includes/ -I ft_printf/includes
 
-DEPTHS = Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/envNcurse.h includes/envSh.h includes/source.h includes/vm.h includes/inst.h includes/libft.h
+DEPTHS = Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/env_ncurse.h includes/env_sh.h  includes/vm.h includes/inst.h includes/libft.h
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) 
 	make -C libft/
 	make -C ft_printf/
 	$(CC) $(OBJ) -o $(NAME) $(HEADERS) $(FLAGS) $(LIBS)

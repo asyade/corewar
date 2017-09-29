@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:35:40 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 06:51:15 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ reg_str(pc->inst, i + 1), pc->inst[i + 2]);
 		else if (print_type[pc->inst[0] - 1][i] == 1)
 			bptr += ft_sprintf(bptr, " %d", param_dirval(pc, i + 1));
 		else
-			bptr += ft_sprintf(bptr, " %d", param_idxval(vm, pc, i + 1));
+			bptr += ft_sprintf(bptr, " %d",
+param_idxval(vm, pc, i + 1));
 		i++;
-		
 	}
 	return (buff);
 }

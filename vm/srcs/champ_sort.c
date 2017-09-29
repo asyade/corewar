@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 01:57:57 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 06:48:58 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		champs_sort(t_vm *vm)
 	int		min_index;
 
 	i = -1;
-
 	while (++i < vm->params->count)
 	{
 		min = vm->params->champs[i].number;
