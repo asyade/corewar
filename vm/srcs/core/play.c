@@ -6,13 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/28 23:04:03 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 21:11:19 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		play_load_champs(t_vm *vm)
+inline static void		play_load_champs(t_vm *vm)
 {
 	t_int32		i;
 	t_vptr		offset;
@@ -31,7 +31,7 @@ static void		play_load_champs(t_vm *vm)
 	}
 }
 
-int				play_check_process(t_vm *vm)
+inline int				play_check_process(t_vm *vm)
 {
 	t_process		*iter;
 	t_process		*tmp;
@@ -58,7 +58,7 @@ int				play_check_process(t_vm *vm)
 	return (ret);
 }
 
-void			play_loop(t_core *core)
+inline void			play_loop(t_core *core)
 {
 	int			i;
 

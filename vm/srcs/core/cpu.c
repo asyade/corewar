@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/17 18:29:43 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 10:06:13 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 21:11:36 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_op	g_op_tab[OP_NBR] =
 	{"aff", 1, ARG_AFF, 16, {0}, 2, "aff", 1, 0, &inst_aff, 0},
 };
 
-void		exec(t_vm *vm, t_byte ci, t_process *pc)
+inline void		exec(t_vm *vm, t_byte ci, t_process *pc)
 {
 	if (!OPVALIDE(pc->inst[0]))
 		return ;
@@ -48,7 +48,7 @@ void		exec(t_vm *vm, t_byte ci, t_process *pc)
 		(vm->pc_updated)(pc);
 }
 
-void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
+inline void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
 {
 	if (!(pc->flags & PF_WAIT))
 	{
@@ -69,7 +69,7 @@ void		cpu_pc_process(t_vm *vm, int ci, t_process *pc)
 	}
 }
 
-void		cpu_champ_process_pc(t_vm *vm)
+inline void		cpu_champ_process_pc(t_vm *vm)
 {
 	t_process	*pc;
 
@@ -82,7 +82,7 @@ void		cpu_champ_process_pc(t_vm *vm)
 	}
 }
 
-void		cpu_process_cycle(t_vm *vm)
+inline void		cpu_process_cycle(t_vm *vm)
 {
 	cpu_champ_process_pc(vm);
 	if (vm->params->flag & P_DUMP && --vm->params->dump <= 0)
