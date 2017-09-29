@@ -1,4 +1,4 @@
-CC = clang
+CC = gcc
 
 NAME = corewar
 
@@ -39,32 +39,26 @@ SRC = srcs/core/core.c \
 		srcs/champ_sort.c \
 		srcs/main.c \
 		srcs/usage.c \
-		srcs/params.c \
+		srcs/params.c
 
-OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
+OBJ= $(SRC:.c=.o)
+FLAGS= -v -Wall -Wextra -Werror -Ofast #-g3 -fsanitize=address
+LIBS= -L./libft -lft -lncurses -L./ft_printf -lftprintf
+HEADERS= -I./libft/includes -I./includes/ -I./ft_printf/includes
+DEPTHS= Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/env_ncurse.h includes/env_sh.h  includes/vm.h includes/inst.h includes/libft.h
 
-FLAGS = -Wall -Wextra -Werror -Ofast #-g3 -fsanitize=address
+all: $(NAME)
 
-LIBS = -L./libft -lft -lncurses -L./ft_printf -lftprintf
-
-HEADERS = -I libft/includes -I includes/ -I ft_printf/includes
-
-DEPTHS = Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/env_ncurse.h includes/env_sh.h  includes/vm.h includes/inst.h includes/libft.h
-
-all : $(NAME)
-
-$(NAME) : $(OBJ) 
+$(NAME): $(OBJ) 
 	make -C libft/
 	make -C ft_printf/
-	$(CC) $(OBJ) -o $(NAME) $(HEADERS) $(FLAGS) $(LIBS)
+	$(CC) $(OBJ) $(HEADERS) $(FLAGS) $(LIBS) -o $(NAME)
 	echo "\033[33mCreating  \033[32m[✔] \033[0m$(NAME)"
 
-obj/%.o : $(PATH_SRC)/%.c $(DEPTHS)
-	mkdir -p $(DIRS)
-	$(CC) -c $< -o $@ $(HEADERS) $(FLAGS)
-	echo "\033[33mCompiling \033[32m[✔] \033[0m$<"
+%.o: %.c
+	$(CC) $< -c $(HEADERS) $(FLAGS) -o $@
 
-.PHONY : clean fclean
+.PHONY: clean fclean
 
 clean :
 	make -C libft/ clean
