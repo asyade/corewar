@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:44:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 06:24:44 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/29 06:46:48 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void				nc_key_hook(void)
 	else if (c == '+')
 		dellay += NC_CYCLE_DELLAY_DEL;
 	else if (c == '-')
-		dellay += NC_CYCLE_DELLAY_DEL;
+		dellay -= NC_CYCLE_DELLAY_DEL;
 	else if (c == 'r')
 		dellay = NC_CYCLE_DELLAY;
 	nc_dump_basic(nc_st_win(), nc_env(NULL), stat, dellay);
