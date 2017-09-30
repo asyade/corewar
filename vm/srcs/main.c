@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 23:32:40 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 04:00:27 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ int		main(t_int32 ac, t_char **av)
 		vm_sound_ambient(0);
 	core = core_init();
 	core->vm.params = p;
-	load_champs_default(p, core);
+	if (!load_champs_default(p, core))
+	{
+		ft_static_put(NULL, 0, STATIC_PUT_FLUSH);
+		return (-1);
+	}
 	load_env(core, p);
 	core_load_callback(core);
 	if (core->vm.champ_count <= 0)

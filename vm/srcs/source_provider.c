@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 06:50:36 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 03:59:23 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int		read_champ_def(char *src, int i, t_champ *ch)
 	if (read(fd, &ch->header, sizeof(t_champ_header)) < 0)
 	{
 		ft_printf("error: %s: file not found\n", src);
+		return (0);
 	}
 	ch->header.magic = BSWAP32(ch->header.magic);
 	ch->header.size = BSWAP32(ch->header.size);
