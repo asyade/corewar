@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 06:02:17 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 06:14:46 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ t_int32		params_check_correct(t_process *pc)
 
 t_int32		params_check_register(t_process *pc)
 {
+	t_op	*mask;
+
+	mask = &g_op_tab[pc->inst[0] - 1];
 	if (g_op_tab[pc->inst[0] - 1].octal_code == 0)
 	{
 		if (g_op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
@@ -83,10 +86,9 @@ t_int32		params_check_register(t_process *pc)
 			return (0);
 	}
 	if (
-		(IP1(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[2])) ||
-		(IP2(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[3])) ||
-		(IP3(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[4])) ||
-		(IP4(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[5])))
+		(mask->nbr_arg >= 1 && IP1(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[2])) ||
+		(mask->nbr_arg >= 2 && IP2(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[3])) ||
+		(mask->nbr_arg >= 3 && IP3(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[4])))
 		return (0);
 	return (1);
 }
