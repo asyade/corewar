@@ -18,7 +18,7 @@ HDRS= includes/ft_printf.h
 OBJ= $(SRC:.c=.o)
 HDR_PATH= ./includes
 CC= gcc
-CC_FLAGS= -Ofast -Wno-padded -Weverything -Wall -Werror -Wextra #-g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
+CC_FLAGS= -Wno-padded -Weverything -Wall -Werror -Wextra #-g3 -fsanitize=address -fsanitize-blacklist=my_ignores.txt
 LIBFT_PATH=../libft
 FLAGS= -L$(LIBFT_PATH) -lft -I$(HDR_PATH) -I./$(LIBFT_PATH)/includes
 
