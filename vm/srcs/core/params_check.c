@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 06:14:46 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 06:22:42 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ t_int32		params_correct(t_process *pc)
 		pc->pc += param_get_size(pc->inst[0], IP2(pc->inst[1]));
 	if (i >= 3)
 		pc->pc += param_get_size(pc->inst[0], IP3(pc->inst[1]));
-	if (i >= 4)
-		pc->pc += param_get_size(pc->inst[0], IP4(pc->inst[1]));
 	return (0);
 }
 
@@ -64,20 +62,23 @@ t_int32		params_check_correct(t_process *pc)
 	t_op	*mask;
 
 	mask = &g_op_tab[pc->inst[0] - 1];
-	if (mask->nbr_arg >= 1 && !params_match(IP1(pc->inst[1]), mask->arg_type[0]))
+	if (mask->nbr_arg >= 1 &&
+!params_match(IP1(pc->inst[1]), mask->arg_type[0]))
 		return (params_correct(pc));
-	if (mask->nbr_arg >= 2 && !params_match(IP2(pc->inst[1]), mask->arg_type[1]))
+	if (mask->nbr_arg >= 2 &&
+!params_match(IP2(pc->inst[1]), mask->arg_type[1]))
 		return (params_correct(pc));
-	if (mask->nbr_arg >= 3 && !params_match(IP3(pc->inst[1]), mask->arg_type[2]))
+	if (mask->nbr_arg >= 3 &&
+!params_match(IP3(pc->inst[1]), mask->arg_type[2]))
 		return (params_correct(pc));
 	return (1);
 }
 
 t_int32		params_check_register(t_process *pc)
 {
-	t_op	*mask;
+	int		n;
 
-	mask = &g_op_tab[pc->inst[0] - 1];
+	n = g_op_tab[pc->inst[0] - 1].nbr_arg;
 	if (g_op_tab[pc->inst[0] - 1].octal_code == 0)
 	{
 		if (g_op_tab[pc->inst[0] - 1].arg_type[0] == T_REG)
@@ -86,9 +87,9 @@ t_int32		params_check_register(t_process *pc)
 			return (0);
 	}
 	if (
-		(mask->nbr_arg >= 1 && IP1(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[2])) ||
-		(mask->nbr_arg >= 2 && IP2(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[3])) ||
-		(mask->nbr_arg >= 3 && IP3(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[4])))
+		(n >= 1 && IP1(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[2])) ||
+		(n >= 2 && IP2(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[3])) ||
+		(n >= 3 && IP3(pc->inst[1]) == T_REG && !REGVALIDE(pc->inst[4])))
 		return (0);
 	return (1);
 }

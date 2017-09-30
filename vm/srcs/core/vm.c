@@ -6,13 +6,13 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 21:20:33 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 03:16:05 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/09/30 06:19:59 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void			vm_init(t_vm *vm)
+void					vm_init(t_vm *vm)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ void			vm_init(t_vm *vm)
 	}
 }
 
-void			vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
+void					vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset)
 {
 	mem_write(vm, champ->body,
 				(t_memzone){champ->header.size, offset}, champ->index);
@@ -50,7 +50,7 @@ inline t_process		*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset)
 	return (npc);
 }
 
-inline void			vm_kill(t_vm *vm, t_process *pc, t_process *prev)
+inline void				vm_kill(t_vm *vm, t_process *pc, t_process *prev)
 {
 	t_process	*next;
 

@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 04:06:03 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 06:21:52 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,9 @@ int					play_check_process(t_vm *vm)
 		}
 		else
 		{
-			if (vm->process_die)
-				vm->process_die(&vm->champs[0], tmp);
+			(vm->process_die) ? vm->process_die(&vm->champs[0], tmp) : NULL;
 			vm_kill(vm, tmp, prev);
-			if (prev)
-				tmp = prev->next;
-			else
-				tmp = vm->process;
+			tmp = (prev) ? prev->next : vm->process;
 		}
 	}
 	return (ret);
