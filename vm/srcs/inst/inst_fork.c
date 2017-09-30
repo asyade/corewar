@@ -33,6 +33,6 @@ t_int32			inst_fork(t_vm *vm, t_byte ci, t_process *pc)
 
 t_int32			inst_lfork(t_vm *vm, t_byte ci, t_process *pc)
 {
-	do_fork(vm, pc, pc->cc + pc->inst[1], ci);
+	do_fork(vm, pc, ABSPTR(MEMPTR(pc->cc + pc->inst[1])), ci);
 	return (1);
 }
