@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 23:23:30 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 02:59:08 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		vm_sound_ambient(int stop);
 void		vm_init(t_vm *vm);
 void		vm_load_champ(t_vm *vm, t_champ *champ, t_vptr offset);
 t_process	*vm_fork(t_vm *vm, t_champ *champ, t_vptr offset);
-void		vm_kill(t_vm *vm, t_process *pc);
+void		vm_kill(t_vm *vm, t_process *pc, t_process *prev);
 void		dump(t_vm *vm);
 
 #endif

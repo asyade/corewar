@@ -49,7 +49,7 @@ DEPTHS= Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft
 
 all: $(NAME)
 
-$(NAME): $(OBJ) 
+$(NAME): $(OBJ)
 	make -C libft/
 	make -C ft_printf/
 	$(CC) $(OBJ) $(HEADERS) $(FLAGS) $(LIBS) -o $(NAME)
@@ -63,7 +63,7 @@ $(NAME): $(OBJ)
 clean :
 	make -C libft/ clean
 	make -C ft_printf/ clean
-	/bin/rm -rf obj/
+	/bin/rm -f $(OBJ)
 	echo "\033[31mRemoving  \033[32m[✔] \033[0mObject files"
 
 fclean : clean

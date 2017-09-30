@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:35:54 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 00:01:56 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 03:11:49 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,31 @@ inline static void		play_load_champs(t_vm *vm)
 
 inline int				play_check_process(t_vm *vm)
 {
-	t_process		*iter;
 	t_process		*tmp;
+	t_process		*prev;
 	int				ret;
 
-	iter = vm->process;
+	tmp = vm->process;
 	ret = 0;
-	while (iter)
+	prev = NULL;
+	while (tmp)
 	{
-		tmp = iter;
-		iter = iter->next;
 		if (tmp->flags & PF_LIVEUP)
 		{
 			tmp->flags &= ~PF_LIVEUP;
 			ret = tmp->champ_index + 1;
+			prev = tmp;
+			tmp = tmp->next;
 		}
 		else
 		{
 			if (vm->process_die)
 				vm->process_die(&vm->champs[0], tmp);
-			vm_kill(vm, tmp);
+			vm_kill(vm, tmp, prev);
+			if (prev)
+				tmp = prev->next;
+			else
+				tmp = vm->process;
 		}
 	}
 	return (ret);
