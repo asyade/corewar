@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/14 20:29:59 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/29 07:04:55 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 04:06:29 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ inline void		nc_dump_champ_name(WINDOW *win, t_core *core)
 	}
 }
 
-inline void		nc_dump_champ_infos(WINDOW *win, t_core *core)
+void			nc_dump_champ_infos(WINDOW *win, t_core *core)
 {
 	char	buff[1024];
 	int		i;
