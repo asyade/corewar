@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/26 08:53:45 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 06:02:17 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,11 @@ t_int32		params_check_correct(t_process *pc)
 	t_op	*mask;
 
 	mask = &g_op_tab[pc->inst[0] - 1];
-	if (!params_match(IP1(pc->inst[1]), mask->arg_type[0]))
+	if (mask->nbr_arg >= 1 && !params_match(IP1(pc->inst[1]), mask->arg_type[0]))
 		return (params_correct(pc));
-	if (!params_match(IP2(pc->inst[1]), mask->arg_type[1]))
+	if (mask->nbr_arg >= 2 && !params_match(IP2(pc->inst[1]), mask->arg_type[1]))
 		return (params_correct(pc));
-	if (!params_match(IP3(pc->inst[1]), mask->arg_type[2]))
-		return (params_correct(pc));
-	if (!params_match(IP4(pc->inst[1]), mask->arg_type[3]))
+	if (mask->nbr_arg >= 3 && !params_match(IP3(pc->inst[1]), mask->arg_type[2]))
 		return (params_correct(pc));
 	return (1);
 }

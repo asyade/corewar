@@ -42,7 +42,7 @@ SRC = srcs/core/core.c \
 		srcs/params.c
 
 OBJ= $(SRC:.c=.o)
-FLAGS= -Wall -Wextra -Werror -Ofast #-g3 -fsanitize=address
+FLAGS= -Wall -Wextra -Werror -g3#-g3 -fsanitize=address
 LIBS= -L./libft -lft -lncurses -L./ft_printf -lftprintf
 HEADERS= -I./libft/includes -I./includes/ -I./ft_printf/includes
 DEPTHS= Makefile includes/cpu.h includes/structs.h includes/def.h includes/libft.h includes/env_ncurse.h includes/env_sh.h  includes/vm.h includes/inst.h includes/libft.h

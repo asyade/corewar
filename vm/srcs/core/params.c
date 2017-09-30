@@ -6,7 +6,7 @@
 /*   By: acorbeau <acorbeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/15 00:10:21 by acorbeau          #+#    #+#             */
-/*   Updated: 2017/09/30 05:42:04 by acorbeau         ###   ########.fr       */
+/*   Updated: 2017/09/30 05:50:42 by acorbeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_int32		params_read(t_memory *mem, t_process *pc)
 		pc->inst[3] = param_get_val(mem, pc, i);
 	if (i && (i = IP3(pc->inst[1])))
 		pc->inst[4] = param_get_val(mem, pc, i);
-	if (i && (i = IP4(pc->inst[1])))
-		pc->inst[5] = param_get_val(mem, pc, i);
 	return (1);
 }
 
